@@ -1,0 +1,236 @@
+<msl>
+  <location>
+    <site>00000</site>
+    <itemName>0000000000</itemName>
+    <lon>137.4416334989196</lon>
+    <rot>0.014572, -0.034982, 0.831579, 0.554112</rot>
+    <endSol>00000</endSol>
+    <dateAdded>2015-09-30T19:28:30Z</dateAdded>
+    <startSol>00000</startSol>
+    <arrivalTime>2012-08-05T13:49:59Z</arrivalTime>
+    <mapPixelH>82253.03164549096</mapPixelH>
+    <contributor>Team MSLICE</contributor>
+    <drive>00000</drive>
+    <mapPixelV>123500.99039381815</mapPixelV>
+    <z>0.0</z>
+    <lat>-4.5894669521344875</lat>
+    <y>0.0</y>
+    <x>0.0</x>
+  </location>
+  <location>
+    <site>00001</site>
+    <itemName>0000100000</itemName>
+    <lon>137.4416334989196</lon>
+    <rot>0.014572, -0.034982, 0.831579, 0.554112</rot>
+    <endSol>00000</endSol>
+    <dateAdded>2015-09-30T19:28:30Z</dateAdded>
+    <startSol>00000</startSol>
+    <arrivalTime>2012-08-05T13:49:59Z</arrivalTime>
+    <mapPixelH>82253.03164549096</mapPixelH>
+    <contributor>Team MSLICE</contributor>
+    <drive>00000</drive>
+    <mapPixelV>123500.99039381815</mapPixelV>
+    <z>0.0</z>
+    <lat>-4.5894669521344875</lat>
+    <y>0.0</y>
+    <x>0.0</x>
+  </location>
+  <location>
+    <site>00001</site>
+    <itemName>0000100008</itemName>
+    <lon>137.44163349082447</lon>
+    <rot>0.014572, -0.034982, 0.831579, 0.554112</rot>
+    <endSol>00001</endSol>
+    <dateAdded>2015-09-30T19:28:30Z</dateAdded>
+    <startSol>00000</startSol>
+    <arrivalTime>2012-08-05T13:49:59Z</arrivalTime>
+    <mapPixelH>82253.029726148</mapPixelH>
+    <contributor>Team MSLICE</contributor>
+    <drive>00008</drive>
+    <mapPixelV>123500.98830507424</mapPixelV>
+    <z>0.0</z>
+    <lat>-4.589466943324896</lat>
+    <y>-4.798357404069975E-4</y>
+    <x>5.221859792072792E-4</x>
+  </location>
+  <location>
+    <site>00002</site>
+    <itemName>0000200000</itemName>
+    <lon>137.44163348272937</lon>
+    <rot>0.014202, -0.035222, 0.825710, 0.562815</rot>
+    <endSol>00004</endSol>
+    <dateAdded>2015-09-30T19:28:30Z</dateAdded>
+    <startSol>00001</startSol>
+    <arrivalTime>2012-08-06T14:29:34Z</arrivalTime>
+    <mapPixelH>82253.02780680505</mapPixelH>
+    <contributor>Team MSLICE</contributor>
+    <drive>00000</drive>
+    <mapPixelV>123500.98621633032</mapPixelV>
+    <z>0.0</z>
+    <lat>-4.589466934515306</lat>
+    <y>-9.596714771760162E-4</y>
+    <x>0.0010443719584145583</x>
+  </location>
+  <location>
+    <site>00003</site>
+    <itemName>0000300000</itemName>
+    <lon>137.44163348691478</lon>
+    <rot>0.014202, -0.035222, 0.825710, 0.562815</rot>
+    <endSol>00011</endSol>
+    <dateAdded>2015-09-30T19:28:30Z</dateAdded>
+    <startSol>00004</startSol>
+    <arrivalTime>2012-08-09T16:28:19Z</arrivalTime>
+    <mapPixelH>82253.02879916041</mapPixelH>
+    <contributor>Team MSLICE</contributor>
+    <drive>00000</drive>
+    <mapPixelV>123500.99852128823</mapPixelV>
+    <z>0.0</z>
+    <lat>-4.589466986413312</lat>
+    <y>-7.115826374501921E-4</y>
+    <x>-0.0020318675196904223</x>
+  </location>
+  <location>
+    <site>00003</site>
+    <itemName>0000300004</itemName>
+    <lon>137.44163354604075</lon>
+    <rot>0.014202, -0.035222, 0.825710, 0.562815</rot>
+    <endSol>00014</endSol>
+    <dateAdded>2015-09-30T19:28:30Z</dateAdded>
+    <startSol>00011</startSol>
+    <arrivalTime>2012-08-16T21:05:26Z</arrivalTime>
+    <mapPixelH>82253.04281786375</mapPixelH>
+    <contributor>Team MSLICE</contributor>
+    <drive>00004</drive>
+    <mapPixelV>123501.00221043956</mapPixelV>
+    <z>0.0</z>
+    <lat>-4.589467001972861</lat>
+    <y>0.0027930931973969564</y>
+    <x>-0.00295415535219945</x>
+  </location>
+  <location>
+    <site>00003</site>
+    <itemName>0000300008</itemName>
+    <lon>137.44163354604075</lon>
+    <rot>0.014848, -0.034955, 0.825983, 0.562414</rot>
+    <endSol>00014</endSol>
+    <dateAdded>2015-09-30T19:28:30Z</dateAdded>
+    <startSol>00014</startSol>
+    <arrivalTime>2012-08-19T23:04:12Z</arrivalTime>
+    <mapPixelH>82253.04281786375</mapPixelH>
+    <contributor>Team MSLICE</contributor>
+    <drive>00008</drive>
+    <mapPixelV>123501.00221043956</mapPixelV>
+    <z>0.0</z>
+    <lat>-4.589467001972861</lat>
+    <y>0.0027930931973969564</y>
+    <x>-0.00295415535219945</x>
+  </location>
+  <location>
+    <site>00003</site>
+    <itemName>0000300016</itemName>
+    <lon>137.44163354604075</lon>
+    <rot>0.015934, -0.035113, 0.825135, 0.563619</rot>
+    <endSol>00014</endSol>
+    <dateAdded>2015-09-30T19:28:30Z</dateAdded>
+    <startSol>00014</startSol>
+    <arrivalTime>2012-08-19T23:04:12Z</arrivalTime>
+    <mapPixelH>82253.04281786375</mapPixelH>
+    <contributor>Team MSLICE</contributor>
+    <drive>00016</drive>
+    <mapPixelV>123501.00221043956</mapPixelV>
+    <z>0.0</z>
+    <lat>-4.589467001972861</lat>
+    <y>0.0027930931973969564</y>
+    <x>-0.00295415535219945</x>
+  </location>
+  <location>
+    <site>00003</site>
+    <itemName>0000300024</itemName>
+    <lon>137.44163354604075</lon>
+    <rot>0.016206, -0.034417, 0.825355, 0.563331</rot>
+    <endSol>00014</endSol>
+    <dateAdded>2015-09-30T19:28:30Z</dateAdded>
+    <startSol>00014</startSol>
+    <arrivalTime>2012-08-19T23:04:12Z</arrivalTime>
+    <mapPixelH>82253.04281786375</mapPixelH>
+    <contributor>Team MSLICE</contributor>
+    <drive>00024</drive>
+    <mapPixelV>123501.00221043956</mapPixelV>
+    <z>0.0</z>
+    <lat>-4.589467001972861</lat>
+    <y>0.0027930931973969564</y>
+    <x>-0.00295415535219945</x>
+  </location>
+  <location>
+    <site>00003</site>
+    <itemName>0000300028</itemName>
+    <lon>137.44163354604075</lon>
+    <rot>0.016666, -0.035057, 0.825209, 0.563492</rot>
+    <endSol>00014</endSol>
+    <dateAdded>2015-09-30T19:28:30Z</dateAdded>
+    <startSol>00014</startSol>
+    <arrivalTime>2012-08-19T23:04:12Z</arrivalTime>
+    <mapPixelH>82253.04281786375</mapPixelH>
+    <contributor>Team MSLICE</contributor>
+    <drive>00028</drive>
+    <mapPixelV>123501.00221043956</mapPixelV>
+    <z>0.0</z>
+    <lat>-4.589467001972861</lat>
+    <y>0.0027930931973969564</y>
+    <x>-0.00295415535219945</x>
+  </location>
+  <location>
+    <site>00003</site>
+    <itemName>0000300036</itemName>
+    <lon>137.44163354604075</lon>
+    <rot>0.016305, -0.033792, 0.825947, 0.562498</rot>
+    <endSol>00014</endSol>
+    <dateAdded>2015-09-30T19:28:30Z</dateAdded>
+    <startSol>00014</startSol>
+    <arrivalTime>2012-08-19T23:04:12Z</arrivalTime>
+    <mapPixelH>82253.04281786375</mapPixelH>
+    <contributor>Team MSLICE</contributor>
+    <drive>00036</drive>
+    <mapPixelV>123501.00221043956</mapPixelV>
+    <z>0.0</z>
+    <lat>-4.589467001972861</lat>
+    <y>0.0027930931973969564</y>
+    <x>-0.00295415535219945</x>
+  </location>
+  <location>
+    <site>00003</site>
+    <itemName>0000300040</itemName>
+    <lon>137.44163354604075</lon>
+    <rot>0.016056, -0.033640, 0.825994, 0.562446</rot>
+    <endSol>00014</endSol>
+    <dateAdded>2015-09-30T19:28:30Z</dateAdded>
+    <startSol>00014</startSol>
+    <arrivalTime>2012-08-19T23:04:12Z</arrivalTime>
+    <mapPixelH>82253.04281786375</mapPixelH>
+    <contributor>Team MSLICE</contributor>
+    <drive>00040</drive>
+    <mapPixelV>123501.00221043956</mapPixelV>
+    <z>0.0</z>
+    <lat>-4.589467001972861</lat>
+    <y>0.0027930931973969564</y>
+    <x>-0.00295415535219945</x>
+  </location>
+  <location>
+    <site>00003</site>
+    <itemName>0000300044</itemName>
+    <lon>137.44163354604075</lon>
+    <rot>0.015947, -0.033791, 0.825826, 0.562686</rot>
+    <endSol>00015</endSol>
+    <dateAdded>2015-09-30T19:28:30Z</dateAdded>
+    <startSol>00014</startSol>
+    <arrivalTime>2012-08-19T23:04:12Z</arrivalTime>
+    <mapPixelH>82253.04281786375</mapPixelH>
+    <contributor>Team MSLICE</contributor>
+    <drive>00044</drive>
+    <mapPixelV>123501.00221043956</mapPixelV>
+    <z>0.0</z>
+    <lat>-4.589467001972861</lat>
+    <y>0.0027930931973969564</y>
+    <x>-0.00295415535219945</x>
+  </location>
+</msl>

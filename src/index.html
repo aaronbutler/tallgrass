@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en" data-framework="knockoutjs">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Knockout Mars Map</title>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
+	<script src="js/infobubble.js"></script>
+	<script src="http://maps.googleapis.com/maps/api/js"></script>
+	<script src="js/MarsUtils.js"></script>
+	<script src="js/util.js"></script>
+	<script>
+		var log = new Log(2);
+	</script>
+	
+	<style>
+		html, body {
+			height: 100%;
+		}
+		
+		#mapPanel {
+			height: 100%;
+		}
+		
+		#map {
+			height: 75%;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<h1>The Tall Grass of Mars</h1>
+		<div class="subHeader">What happened when I set out to make an interesting Mars/Google Maps app and settled for placing the Curiosity rover in Papua and using defunct APIs in my mashup</div>
+	</header>
+	
+	<div id="searchPanel">	
+		<div id="searchInstructions">Search for Quadrants, or for Sols using sol:sol#</div>
+		<input id="searchQuery" data-bind="value: searchQuery, valueUpdate: 'afterkeydown', event: {keypress: searchEnter}" placeholder="Search"></input>
+	</div>
+	
+	<div id="markerList" data-bind="foreach: landmarkers">
+		<div class="markerTitles" data-bind="visible: showme, text: title"></div>
+	</div>
+	<!--<div id="markerList" data-bind="foreach: landmarkers">
+		<div class="showMe" data-bind="visible: showme"><div class="foundMarker" data-bind="click: clicker"><div class="markerTitle" data-bind="text: title"></div></div></div>
+	</div>-->
+	
+	<div id="mapPanel" class="mapPanel" >
+		<div id="map"></div>
+	</div>
+	
+	<footer>
+		<div>Credits</div>
+		<div>Copyright</div>
+		<div>Information about martian data</div>
+	</footer>
+	
+	<!--invisible container for the data in the infobubble picture tab-->
+	<div id="pictureTab" style="display: none;">
+		<!--<div id="bubblePictureContent" style="width: 250px;">
+			<div data-bind="text:solthText"></div>
+			<div data-bind="text: picText"></div>
+			<button data-bind="visible: !(picZero()), click: prevPic"><</button>
+			<img class="containerPic" data-bind="attr: { src:currentPicSrc }" />
+			<button  data-bind="visible: !(picLast()), click: nextPic">></button>
+			
+		</div>-->
+	</div>
+	
+	<!--invisible container for the data in the infobubble weather tab-->
+	<div id="weatherTab" style="display: none;">
+		<!--<div id="bubbleWeatherContent" style="width: 250px;">
+			<ul id="weatherData" data-bind="with: weatherData">
+				<li data-bind="text: season"></li>
+				<li data-bind="text: atmo_opacity"></li>
+				<li data-bind="text: max_temp_fahrenheit"></li>
+				<li data-bind="text: min_temp_fahrenheit"></li>
+				<li data-bind="text: pressure"></li>
+				<li data-bind="text: pressure_string"></li>
+			</ul>
+		</div>-->
+	</div>
+	<script src="js/tallgrass.js"></script>	
+</body>
