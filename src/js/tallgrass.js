@@ -7,23 +7,23 @@ function MarsViewModel() {
 	var self = this;
 	
 	/***********************************/
-	/****FUNCTIONS****/
+	/****Behaviors****/
 	/***********************************/
 	
 	self.buildLandmarks = function() {
 		var ONAME =  'MarsViewModel';
 		var FNAME = 'buildLandmarks';
 		log.log(3,ONAME,FNAME,'building landmarks',self);
-		var landmarks = self.landmarks();
+		var landmarks = self.mapModel().landmarks();
 		for(var i=0,l=landmarks.length;i<l;i++) {
-			self.landmarkers().push(addLandmark(self.map, landmarks[i]));
+			self.mapModel().landmarkers().push(addLandmark(self.map, landmarks[i]));
 		}	
 	}
 	
 	self.makePath = function() {
 
-		self.line(buildPath(self.map, self.points));
-		self.line().icons = null;
+		self.mapModel().line(buildPath(self.map, self.mapModel().points));
+		self.mapModel().line().icons = null;
 	};
 	
 	self.searchEnter = function(d,e) {
@@ -46,24 +46,24 @@ function MarsViewModel() {
 	};
 	
 	self.executeSearch = function() {	
-		var q = $.trim(self.searchQuery());
+		var q = $.trim(self.appModel().searchQuery());
 		q=q.toLowerCase();
 		q=escapeHtml(q);
 		if(q.startsWith('sol:')) {
 			q=$.trim(q.slice(4));
-			self.solNumber(q);
+			self.appModel().solNumber(q);
 			self.changeSol();
 		}
 		else {
-			for(var i=0,l=self.landmarkers().length;i<l;i++) {
-				var title=self.landmarkers()[i].title.toLowerCase();
+			for(var i=0,l=self.mapModel().landmarkers().length;i<l;i++) {
+				var title=self.mapModel().landmarkers()[i].title.toLowerCase();
 				if(title.indexOf(q) >=0) {
-					self.landmarkers()[i].showme(true);
-					self.landmarkers()[i].setVisible(true);
+					self.mapModel().landmarkers()[i].showme(true);
+					self.mapModel().landmarkers()[i].setVisible(true);
 				}
 				else {
-					self.landmarkers()[i].showme(false);
-					self.landmarkers()[i].setVisible(false);
+					self.mapModel().landmarkers()[i].showme(false);
+					self.mapModel().landmarkers()[i].setVisible(false);
 				}
 			}
 		}
@@ -71,20 +71,21 @@ function MarsViewModel() {
 	
 	self.asdf = function() {
 			log.log(3,'viewmodel.changeSol','asdf','attempted callback function',self);
-		}
+		};
+		
 	self.changeSol = function() {
 		
 		self.coincidenceCallbackRegistry.register('solInfoBubble',['pictures','weather'],self.buildSolBubble);
 
-		if(self.subLine() != undefined) {self.subLine().setMap(null);}
-		var solArray = this.sols().sols;
+		if(self.mapModel().subLine() != undefined) {self.mapModel().subLine().setMap(null);}
+		var solArray = self.appModel().sols().sols;
 
-		self.subPoints(makePointsArray({sols: solArray.slice(0,self.solNumber())}));
-		self.subLine(buildPath(self.map, self.subPoints));
-		animateCircle(self.subLine, asdf);
+		self.mapModel().subPoints(makePointsArray({sols: solArray.slice(0,self.appModel().solNumber())}));
+		self.mapModel().subLine(buildPath(self.map, self.mapModel().subPoints));
+		animateCircle(self.mapModel().subLine, self.asdf);
 		
-		var picLink = 'http://msl-raws.s3.amazonaws.com/images/images_sol'+self.solNumber()+'.json';
-		var _this = self;
+		var picLink = 'http://msl-raws.s3.amazonaws.com/images/images_sol'+self.appModel().solNumber()+'.json';
+		//var _this = self;
 				
 		$.ajax({
 			  // The 'type' property sets the HTTP method.
@@ -103,30 +104,22 @@ function MarsViewModel() {
 			  contentType: 'text/plain',
 			  
 			  success: function(result) {
-
-				var d = solPicArray(result);
-				var text = d.pics;
-				var objs = d.picObjs;
-
-				if(text.length > 0) {
-					_this.currentPicArray(text);
-					_this.currentPicId(0);
-
-					_this.currentPicData(text);
-					_this.currentPicObjs(objs);
+				var pa = solPicArray(result);
+				log.log(3,'pa','solPicArray','what came back from solPicArray',pa);
+				self.solModel().currentPicId(null);
+				self.solModel().currentPicArray(null);
+				
+				if(pa.length > 0) {
+					self.solModel().currentPicId(0);
+					self.solModel().currentPicArray(pa);
+					
 				}
 				else {
-					_this.currentPicArray([]);
-					_this.currentPicId(null);
+					self.solModel().currentPicId(null);
+					self.solModel().currentPicArray(null);
+					
 				}
-				
-
-				
-				
-				var lastLocL = _this.subPoints().length;
-				var windowLoc = _this.subPoints()[lastLocL-1];
-				//self.currentBubblePosition(windowLoc);
-				self.coincidenceCallbackRegistry.memberReady('solInfoBubble','pictures');
+				log.log(3,'solModel().currentPicArray()','changeSol-pictures','after populating currentpicarray',self.solModel().currentPicArray());
 			  },
 			  
 			  error: function(e) {
@@ -135,14 +128,14 @@ function MarsViewModel() {
 			  }
 		});
 		
-		var weatherLink = 'http://marsweather.ingenology.com/v1/archive/?format=jsonp&sol='+this.solNumber();
+		var weatherLink = 'http://marsweather.ingenology.com/v1/archive/?format=jsonp&sol='+self.appModel().solNumber();
 		$.ajax({
 			type: 'GET',
 			dataType: 'jsonp',
 			url: weatherLink,
 			success: function(result) {	
-				_this.weatherData(result.results[0]);
-				self.coincidenceCallbackRegistry.memberReady('solInfoBubble','weather');
+				self.solModel().weatherData(result.results[0]);
+				//self.coincidenceCallbackRegistry.memberReady('solInfoBubble','weather');
 				
 			},
 			
@@ -151,7 +144,17 @@ function MarsViewModel() {
 				alert("Sorry, couldn't reach the weather");
 			  }
 		});
-	}
+	};
+	
+	self.prevPic = function() {
+		self.solModel().currentPicId(self.solModel().currentPicId()-1);
+	};
+	
+	self.nextPic = function() {
+	console.log('going to next pic maybe...');
+		self.solModel().currentPicId(self.solModel().currentPicId()+1);
+	};
+			
 	
 	
 	/******************************************************************************/
@@ -167,34 +170,78 @@ function MarsViewModel() {
 	/***********************************/
 	/****MODELS****/
 	/***********************************/
+	self.appModel = ko.observable(new Object());
+	self.mapModel = ko.observable(new Object());
+	self.solModel = ko.observable(new Object());
+	
 	var d = new Date();
 	d.setFullYear(2012, 7, 6);
-	self.solendar = ko.observable(new Solendar(0,d));
+	//self.solendar = ko.observable(new Solendar(0,d));
+	self.appModel().solendar = ko.observable(new Solendar(0,d));
+	self.appModel().searchQuery = ko.observable();
+	self.appModel().solNumber = ko.observable();
+	self.appModel().sols = ko.observable();
 	
-	self.searchQuery = ko.observable();
 	
-	self.solNumber = ko.observable();
-	
-	self.sols = ko.observable();
-	self.points = ko.observableArray();
-	self.line = ko.observable();
-	self.subPoints = ko.observableArray();
-	self.subLine = ko.observable();
-	
-	self.landmarkers = ko.observableArray();
-	self.landmarks = ko.observableArray(initLandmarks(self.coincidenceCallbackRegistry, 'landmarks'));
+	self.mapModel().points = ko.observableArray();
+	self.mapModel().line = ko.observable();
+	self.mapModel().subPoints = ko.observableArray();
+	self.mapModel().subLine = ko.observable();
+	self.mapModel().landmarkers = ko.observableArray();
+	self.mapModel().landmarks = ko.observableArray(initLandmarks(self.coincidenceCallbackRegistry, 'landmarks'));
 	self.coincidenceCallbackRegistry.memberReady('landmarks', 'initLandmarks');//have to wait until the observable is actually made to call memberready
 	log.log(3,'MarsViewModel','models section','trying to make landmarks',self);
 	
+	
+	self.solModel().currentPicArray = ko.observableArray();
+	self.solModel().currentPicId = ko.observable();
+	self.solModel().weatherData = ko.observable();	
+	
+	self.solModel().solthText = ko.computed(function() {
+		var _s = self.appModel().solendar();
+		var solth = self.appModel().solNumber();
+		var d = _s.SolToDate(solth);
+		return 'On the '+_s.Solth(solth) + ' sol ('+ d.toLocaleDateString()+'):';
+	},this);
+	
+	self.solModel().picText = ko.computed(function() {
+		if(self.solModel().currentPicId() == undefined || self.solModel().currentPicId() == null || self.solModel().currentPicArray() == undefined) {return '';}
+		var id = self.solModel().currentPicId();
+		var t = 'Picture '+ (self.solModel().currentPicId()+1) + ' of '+ (self.solModel().currentPicArray().length) +
+			', camera '+self.solModel().currentPicArray()[id]['cam']; 
+		return t;
+	});
+	
+	self.solModel().picZero = ko.computed(function() {
+		if (self.solModel().currentPicId() == undefined || self.solModel().currentPicId()==null){return true;}
+		return self.solModel().currentPicId() == 0;
+	});
+	self.solModel().picLast = ko.computed(function() {
+		if(self.solModel().currentPicId() == undefined||self.solModel().currentPicId() == null||self.solModel().currentPicArray() == null) {return true;}
+		return self.solModel().currentPicId() + 1 == self.solModel().currentPicArray().length;
+	});
+	
+	self.solModel().currentPicSrc = ko.computed(function() {
+		var _s = self.solModel().currentPicArray();
+		var _id = self.solModel().currentPicId();
+		var src;
+		if(_s != undefined && _id != undefined) {
+			src = _s[_id]['url'];
+		}
+		else {
+			src='';
+		}
+		return src;
+	},this);
 	
 	var worker = new Worker('js/locationWorker.js');
 	worker.postMessage({});
 	worker.onmessage = function(e) {
 		log.log(1,'worker','onmessage','what came back from the worker',e.data);
-		self.sols(e.data);
+		self.appModel().sols(e.data);
 		worker.terminate();
 
-		self.points(makePointsArray(self.sols()));
+		self.mapModel().points(makePointsArray(self.appModel().sols()));
 		self.coincidenceCallbackRegistry.memberReady('path','locationWorker');
 
 	};
@@ -342,3 +389,28 @@ function animateCircle(line, asdf) {
 	  if(count/2 == 100) {window.clearInterval(id);asdf();}
   }, 20);
 };
+
+function solPicArray(text) {
+	var obj = text;
+	//var pics = [];
+	var picObjs = [];
+	var instruments = ['ccam_images','fcam_images','rcam_images','ncam_images','mastcam_left_images','mastcam_right_images','mahli_images','mardi_images'];
+
+	for(var i=0,l=instruments.length;i<l;i++) {
+		var cam = instruments[i]
+		var instData = obj[instruments[i]];
+		for(var m=0,n=instData.length;m<n;m++) {
+			var instPics = instData[m]['images'];
+			if(instPics != undefined) {					
+				for (var j=0,k=instPics.length;j<k;j++) {
+					var url = instPics[j]['url'];
+					var picObj = {url: url, cam: cam};
+					//pics.push(instPics[j]['url']);
+					picObjs.push(picObj);
+				}
+			}
+		}
+	}
+
+	return picObjs;
+}

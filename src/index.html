@@ -19,7 +19,9 @@
 		html, body {
 			height: 100%;
 		}
-		
+		#mapSection {
+			height: 100%;
+		}
 		#mapPanel {
 			height: 100%;
 		}
@@ -35,22 +37,43 @@
 		<div class="subHeader">What happened when I set out to make an interesting Mars/Google Maps app and settled for placing the Curiosity rover in Papua and using defunct APIs in my mashup</div>
 	</header>
 	
-	<div id="searchPanel">	
+	<div id="searchPanel" data-bind="with:appModel">	
 		<div id="searchInstructions">Search for Quadrants, or for Sols using sol:sol#</div>
-		<input id="searchQuery" data-bind="value: searchQuery, valueUpdate: 'afterkeydown', event: {keypress: searchEnter}" placeholder="Search"></input>
+		<input id="searchQuery" data-bind="value: searchQuery, valueUpdate: 'afterkeydown', event: {keypress: $root.searchEnter}" placeholder="Search"></input>
 	</div>
 	
-	<div id="markerList" data-bind="foreach: landmarkers">
-		<div class="markerTitles" data-bind="visible: showme, text: title"></div>
+	<div id="mapSection" data-bind="with:mapModel">
+		<div id="markerList" data-bind="foreach: landmarkers">
+			<div class="markerTitles" data-bind="visible: showme, text: title, click: clicker"></div>
+		</div>
+		<!--<div id="markerList" data-bind="foreach: landmarkers">
+			<div class="showMe" data-bind="visible: showme"><div class="foundMarker" data-bind="click: clicker"><div class="markerTitle" data-bind="text: title"></div></div></div>
+		</div>-->
+		
+		<div id="mapPanel" class="mapPanel" >
+			<div id="map"></div>
+		</div>
 	</div>
-	<!--<div id="markerList" data-bind="foreach: landmarkers">
-		<div class="showMe" data-bind="visible: showme"><div class="foundMarker" data-bind="click: clicker"><div class="markerTitle" data-bind="text: title"></div></div></div>
-	</div>-->
 	
-	<div id="mapPanel" class="mapPanel" >
-		<div id="map"></div>
+	<div id="solPanel" class="solPanel" data-bind="with:solModel">
+		<div class="solPanelHeader" data-bind="text:solthText"></div>
+		<div id="picBlock" class="picBloc">
+			<div data-bind="text: picText"></div>
+			<button data-bind="visible: !(picZero()), click: $root.prevPic"><</button>
+			<img class="containerPic" data-bind="attr: { src:currentPicSrc }" />
+			<button  data-bind="visible: !(picLast()), click: $root.nextPic">></button>		
+		</div>
+		<div id="weatherBlock" class="weatherBlock">
+			<ul id="weatherData" data-bind="with: weatherData">
+				<li data-bind="text: season"></li>
+				<li data-bind="text: atmo_opacity"></li>
+				<li data-bind="text: max_temp_fahrenheit"></li>
+				<li data-bind="text: min_temp_fahrenheit"></li>
+				<li data-bind="text: pressure"></li>
+				<li data-bind="text: pressure_string"></li>
+			</ul>
+		</div>
 	</div>
-	
 	<footer>
 		<div>Credits</div>
 		<div>Copyright</div>
