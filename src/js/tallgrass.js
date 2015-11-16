@@ -9,6 +9,50 @@ function MarsViewModel() {
 	/***********************************/
 	/****Behaviors****/
 	/***********************************/
+	//self.goToMap = function() { location.hash = 'map' };
+	//self.goToSol = function(sol) { location.hash = 'sol/' + sol};
+
+	/*self.goToMap= function() {
+		$('#mapSection').removeClass('hide');
+		$('#solPanel').addClass('hide');
+	};
+	
+	self.goToSol = function(sol) {
+		$('#solPanel').removeClass('hide');
+		$('#mapSection').addClass('hide');
+		if(self.appModel().solNumber() != sol) {
+			self.appModel().solNumber(sol);
+		}
+	};*/
+	self.goToMap = function() { location.hash = 'map/' };
+	self.goToSol = function(sol) { location.hash = 'sol/' + sol };
+	
+	// Client-side routes    
+    Sammy(function() {
+        this.get('#map', function() {
+            $('.mapScreen').removeClass('hide');
+			$('#solPanel').addClass('hide');
+			self.appModel().searchQuery('');
+			self.executeSearch();
+			console.log('Sammy got map');
+		});
+
+        this.get('#sol/:sol', function() {
+			var sol = this.params.sol;
+            //self.chosenFolderId(this.params.folder);
+			$('#solPanel').removeClass('hide');
+			$('.mapScreen').addClass('hide');
+			console.log('Sammy got sol - '+sol);
+			if(self.appModel().solNumber() != sol) {
+				self.appModel().solNumber(sol);
+			}
+			self.changeSol();
+            //$.get("/mail", { mailId: this.params.mailId }, self.chosenMailData);
+        });
+		this.get('', function() { this.app.runRoute('get', '#map') });
+    }).run();
+	
+	
 	
 	self.buildLandmarks = function() {
 		var ONAME =  'MarsViewModel';
@@ -69,9 +113,14 @@ function MarsViewModel() {
 		}
 	};
 	
-	self.asdf = function() {
+	/*self.asdf = function() {
 			log.log(3,'viewmodel.changeSol','asdf','attempted callback function',self);
-		};
+		};*/
+		
+	self.solCallback = function() {
+		self.goToSol(self.appModel().solNumber());
+		//this.get('', function() { this.app.runRoute('get', '#sol/'+self.appModel().solNumber()) });
+	}
 		
 	self.changeSol = function() {
 		
@@ -82,7 +131,7 @@ function MarsViewModel() {
 
 		self.mapModel().subPoints(makePointsArray({sols: solArray.slice(0,self.appModel().solNumber())}));
 		self.mapModel().subLine(buildPath(self.map, self.mapModel().subPoints));
-		animateCircle(self.mapModel().subLine, self.asdf);
+		animateCircle(self.mapModel().subLine, self.solCallback);
 		
 		var picLink = 'http://msl-raws.s3.amazonaws.com/images/images_sol'+self.appModel().solNumber()+'.json';
 		//var _this = self;
@@ -176,7 +225,6 @@ function MarsViewModel() {
 	
 	var d = new Date();
 	d.setFullYear(2012, 7, 6);
-	//self.solendar = ko.observable(new Solendar(0,d));
 	self.appModel().solendar = ko.observable(new Solendar(0,d));
 	self.appModel().searchQuery = ko.observable();
 	self.appModel().solNumber = ko.observable();
@@ -245,6 +293,7 @@ function MarsViewModel() {
 		self.coincidenceCallbackRegistry.memberReady('path','locationWorker');
 
 	};
+	//self.goToMap();
 	
 };
 
@@ -267,7 +316,8 @@ function buildMap(registry, rNames) {
 	
 	var quadLayer = new google.maps.KmlLayer({
 		//url: 'http://aaronbutler.github.io/kmls/quadrants.kml',
-		url: 'http://aaronbutler.github.io/marsmap/kml/quadrants.kml',
+		//url: 'http://aaronbutler.github.io/marsmap/kml/quadrants.kml',
+		url: 'http://aaronbutler.github.io/tallgrass/src/data/quadrants.kml',
 		preserveViewport:true,
 		map: map
 	});
@@ -319,9 +369,9 @@ function addLandmark(map, landmark) {
 		}
 	});
 	var contentString = '<h2>'+landmark.name+'</h2><p>'+landmark.description+'</p>';
-	
-	var infowindow = new InfoBubble({minWidth: '400px', maxWidth: '400px'});
-	infowindow.addTab('TAB',contentString);
+	var infowindow = new google.maps.InfoWindow({content: contentString});
+	//var infowindow = new InfoBubble({minWidth: '400px', maxWidth: '400px'});
+	//infowindow.addTab('TAB',contentString);
 	marker.infowindow = infowindow;
 	marker.map = map;
 	google.maps.event.addListener(infowindow, 'closeclick', function() {
@@ -375,9 +425,9 @@ var buildPath = function(map, points) {
 
 // Use the DOM setInterval() function to change the offset of the symbol
 // at fixed intervals.
-function animateCircle(line, asdf) {
+function animateCircle(line, callback) {
 	var _l = line instanceof Function ? line() : line;
-	var a = asdf;
+	//var a = asdf;
 	var count = 0;
 	var id = window.setInterval(function() {
 		//if(_l.getPath())
@@ -386,7 +436,7 @@ function animateCircle(line, asdf) {
 	  var icons = _l.get('icons');
 	  icons[0].offset = (count / 2) + '%';
 	  _l.set('icons', icons);
-	  if(count/2 == 100) {window.clearInterval(id);asdf();}
+	  if(count/2 == 100) {window.clearInterval(id);callback();}
   }, 20);
 };
 
