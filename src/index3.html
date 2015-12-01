@@ -138,18 +138,18 @@
 	
 	<section id="MapSearchSection">
 		<div id="searchPanel" class="searchPanel mapScreen">
-			<input id="searchQuery" class="searchQuery" data-bind="textInput: searchQuery, event: {keypress: $root.search}" placeholder="Search"></input>
+			<input id="searchQuery" class="searchQuery" data-bind="textInput: searchQuery, event: {input: $root.search, keypress: $root.onEnter}" placeholder="Search"></input>
 			<div id="searchInstructions" class="searchInstructions">Search for Quadrants, or for Sols using :sol#</div>
 		</div>
 		<div id="markerSection" class="markerSection mapScreen">
 			<div id="markerList" class="markerList" data-bind="foreach: landmarks">
-				<div class="markerTitles" data-bind="visible: showme, text:name"></div>
+				<div class="markerTitles" data-bind="visible: showme, text:name, click: $root.clickLandmark"></div>
 			</div>
 		</div>
 	
 		<div id="map" class="map"></div>
 	</section>
-	<div class="cover">
+	<div class="uncover">
 		<a class="closer"></a>
 	</div>
 	<script>
@@ -199,17 +199,22 @@
 					return Task.done() === true;
 				});
 			});*/
-			self.search = function(d,e) {
+			self.search = function(enter) {
 			//self.searchQuery.subscribe(function(newValue){
-				console.dir(d.searchQuery());
-				console.dir(e);
-				var keyCode = e.which?e.which:e.keyCode;
+				//console.dir(d.searchQuery());
+				//console.dir(e);
+				//var keyCode = e.which?e.which:e.keyCode;
+				//console.dir(keyCode);
+				//console.log(bonus);
+				console.log(enter===true);
 				var q = $.trim(self.searchQuery());
 				q=q.toLowerCase();
 				q=escapeHtml(q);
-				if(keyCode != 13 && q.startsWith(':')) {
+				//console.log(q);
+				/*if(keyCode != 13 && q.startsWith(':')) {
+					
 					return true;
-				}
+				}*/
 				if(q===null || q===undefined || q==='') {
 					showAllLandmarks(self.landmarks());
 					return true;
@@ -218,12 +223,32 @@
 				if(q.startsWith(':')) {
 					q=$.trim(q.slice(1));
 					self.solNumber(q);
+					//console.dir(self.solNumber());
+					if(enter===true) {
+						console.log('about to search sol');
+					}
+					return true;
 					//solSearch(self.solNumber());
 				}
 				else {
 					filterLandmarks(self.landmarks(), q);
 					return true;
 				}
+			};
+			
+			self.onEnter = function(d,e) {
+				//console.dir(e);
+				var keyCode = e.which?e.which:e.keyCode;
+				//console.dir(keyCode);
+				if(keyCode === 13) {
+					e.target.blur();
+					self.search(true);
+				}
+				return true;
+			};
+			
+			self.clickLandmark = function(d,e) {
+				d.mapMarker.clicker();
 			};
 			
 			//Initializers///////////////////////////
@@ -373,6 +398,7 @@
 					this.infowindow.open(this.map, this);
 				}
 			});
+			
 			var contentString = '<h2>'+landmark.name+'</h2><p>'+landmark.description+'</p>';
 			var infowindow = new google.maps.InfoWindow({content: contentString});
 			//var infowindow = new InfoBubble({minWidth: '400px', maxWidth: '400px'});
