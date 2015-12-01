@@ -138,12 +138,12 @@
 	
 	<section id="MapSearchSection">
 		<div id="searchPanel" class="searchPanel mapScreen">
-			<input id="searchQuery" class="searchQuery" placeholder="Search"></input>
-			<div id="searchInstructions" class="searchInstructions">Search for Quadrants, or for Sols using sol:sol#</div>
+			<input id="searchQuery" class="searchQuery" data-bind="textInput: searchQuery, event: {keypress: $root.search}" placeholder="Search"></input>
+			<div id="searchInstructions" class="searchInstructions">Search for Quadrants, or for Sols using :sol#</div>
 		</div>
-		<div id="markerSection" class="markerSection mapScreen" data-bind="with: mapModel">
+		<div id="markerSection" class="markerSection mapScreen">
 			<div id="markerList" class="markerList" data-bind="foreach: landmarks">
-				<div class="markerTitles" data-bind="text:title"></div>
+				<div class="markerTitles" data-bind="visible: showme, text:name"></div>
 			</div>
 		</div>
 	
@@ -163,96 +163,94 @@
 			});
 		});
 		
-		/*var AppModel = function(obj) {
-			solendar: Solendar,
-			sols: [],
-			searchQuery: ko.observable(),
-			solNumber: ko.observable(),
-			init: function(){
-			//var z=mq.matches?11:13;
-				this.solendar=obj.solendar:obj.solendar?function() {
-					var d = new Date();
-					d.setFullYear(2012,7,6);
-					return new Solendar(0,d);
-				};
-				
-				this.sols = obj.sols:obj.sols?function() {
-					
-				}
-			}
-			
-		};
-		
-		var MapModel = function(obj) {
-		
-		};
-		
-		var SolModel = function(obj) {
-		
-		};*/
-
 		function MarsViewModel() {
 			var self = this;
-			
-			//Models////////////////////////////////
-			self.appModel = ko.observable(new Object());
-			self.mapModel = ko.observable(new Object());
-			self.solModel = ko.observable(new Object());
 			
 			//appModel
 			var d = new Date();
 			d.setFullYear(2012, 7, 6);
-			self.appModel().solendar = new Solendar(0,d);
-			self.appModel().sols = [];
+			self.solendar = new Solendar(0,d);
+			self.sols = [];
 			
-			self.appModel().searchQuery = ko.observable();
-			self.appModel().solNumber = ko.observable();
+			self.searchQuery = ko.observable();
+			self.solNumber = ko.observable();
 			
 			
 			//mapModel
-			self.mapModel().map = '';
-			self.mapModel().points = [];
-			self.mapModel().line = '';
-			self.mapModel().subPoints = [];
-			self.mapModel().subLine = '';
+			self.map = '';
+			self.points = [];
+			self.line = '';
+			self.subPoints = [];
+			self.subLine = '';
 			//self.mapModel.landmarks = [];
 			
 			//self.mapModel.activeLandmarks = ko.observableArray();
-			self.mapModel().landmarks = ko.observableArray();
+			self.landmarks = ko.observableArray();
 			
 			//solModel
-			self.solModel().currentPicArray = ko.observableArray();
-			self.solModel().currentPicData = ko.observable();
-			self.solModel().currentWeatherData = ko.observable();
+			self.currentPicArray = ko.observableArray();
+			self.currentPicData = ko.observable();
+			self.currentWeatherData = ko.observable();
 			
 			//Behaviors//////////////////////////////
 			
+			/*this.tasksFiltered = ko.computed(function() {
+				return ko.utils.arrayFilter(this.tasks(), function(Task) {
+					return Task.done() === true;
+				});
+			});*/
+			self.search = function(d,e) {
+			//self.searchQuery.subscribe(function(newValue){
+				console.dir(d.searchQuery());
+				console.dir(e);
+				var keyCode = e.which?e.which:e.keyCode;
+				var q = $.trim(self.searchQuery());
+				q=q.toLowerCase();
+				q=escapeHtml(q);
+				if(keyCode != 13 && q.startsWith(':')) {
+					return true;
+				}
+				if(q===null || q===undefined || q==='') {
+					showAllLandmarks(self.landmarks());
+					return true;
+				}
+				
+				if(q.startsWith(':')) {
+					q=$.trim(q.slice(1));
+					self.solNumber(q);
+					//solSearch(self.solNumber());
+				}
+				else {
+					filterLandmarks(self.landmarks(), q);
+					return true;
+				}
+			};
 			
 			//Initializers///////////////////////////
 			var locationPromise = getLocations();
 			var mapPromise = buildMap();
 			Promise.all([locationPromise, mapPromise]).then(function(arrayOfResults){
-				self.appModel().sols = arrayOfResults[0];
-				self.mapModel().map = arrayOfResults[1];
+				self.sols = arrayOfResults[0];
+				self.map = arrayOfResults[1];
 				
-				self.mapModel().points = makePointsArray(self.appModel.sols);
-				self.mapModel().line = buildPath(self.mapModel.map, self.mapModel.points);
+				self.points = makePointsArray(self.sols);
+				self.line = buildPath(self.map, self.points);
 				$('#map').removeClass('hide');
 				//resolve('Woo hoo!');
 			});
 			
-			self.mapModel().landmarks(initLandmarks());
+			self.landmarks(initLandmarks());
 			mapPromise.then(function(response){
 				var ONAME = 'MarsViewModel';
 				var FNAME = 'anomymous mapPromise.then';
 				log.log(3,ONAME,FNAME,'directly calling then seperate from Promise.all',this);
-				self.mapModel().landmarks().forEach(function(landmark,i){
+				self.landmarks().forEach(function(landmark,i){
 					//self.mapModel.activeLandmarks.push(addLandmark(response,landmark));
 					landmark.mapMarker = addLandmark(response,landmark);
 				});
 			});
 		};
-	
+		
 		function getLocations() {
 			
 			var ONAME =  'Global';
@@ -352,11 +350,11 @@
 			
 			landmarks.push(new Landmark('Hanover Quadrant','http://mars.jpl.nasa.gov/msl/multimedia/images/?ImageID=6354','This map shows in red the route driven by NASAs Curiosity Mars rover from the "Bradbury Landing" location where it touched down in August 2012 (blue star at upper right) through the 663rd Martian day, or sol, of the rovers work on Mars (June 18, 2014). The white line shows the planned route ahead to reach "Murray Buttes" (at white star), the chosen access point to destinations on Mount Sharp. The rover will complete a mission goal of working for a full Martian year on Sol 669 (June 24, 2014). A Martian year is 687 Earth days. Gridlines indicate quadrants charted before the rovers landing for purposes of geological mapping of the landing region within Mars Gale Crater. The Sol 663 location is within the Hanover quadrant. Next on the rovers route is the Shoshone quadrant.',137.395,-4.63 ));
 			
-			landmarks.push(new Landmark('Shoshone Quadrant','http://astrogeology.usgs.gov/news/astrogeology/sol-671-update-on-curiosity-from-usgs-scientist-ryan-anderson-long-drive',' After a 107 m drive on sol 670, we are now in Shoshone quad, and just 160 m from the edge of the landing ellipse! The sol 671 plan is a lot like the sol 670 plan, with a 3 hour drive as the main activity. These long drives often use visual odometry, where the rover takes pictures along the way to monitor how the drive is going and avoid obstacles. This is a great capability, allowing us to drive farther than we could otherwise, but a side effect is that it produces a lot of data. The result: less data available for science observations.All of which is to say that today was another data-constrained sol. Thereâ€™s always a way to squeeze some science in though! Todayâ€™s plan has a color stereo image of a rock dubbed Lost Burro, a ChemCam passive observation of the sky, and a NavCam movie of the sky looking for clouds. (Passive means that we donâ€™t fire the laser, we just passively collect the spectrum of the target.) We also managed to squeeze a ChemCam measurement of our titanium calibration target and a MAHLI end-of-drive stowed image between the orbiter communication passes. And of course, we always do routine environmental monitoring with RAD, REMS, and DAN. Plus, after each drive we take clast survey images of the ground with Mastcam. Not bad for a data-constrained sol! ',137.395,-4.655));
+			landmarks.push(new Landmark('Shoshone Quadrant','http://astrogeology.usgs.gov/news/astrogeology/sol-671-update-on-curiosity-from-usgs-scientist-ryan-anderson-long-drive',' After a 107 m drive on sol 670, we are now in Shoshone quad, and just 160 m from the edge of the landing ellipse! The sol 671 plan is a lot like the sol 670 plan, with a 3 hour drive as the main activity. These long drives often use visual odometry, where the rover takes pictures along the way to monitor how the drive is going and avoid obstacles. This is a great capability, allowing us to drive farther than we could otherwise, but a side effect is that it produces a lot of data. The result: less data available for science observations.All of which is to say that today was another data-constrained sol. There’s always a way to squeeze some science in though! Today’s plan has a color stereo image of a rock dubbed Lost Burro, a ChemCam passive observation of the sky, and a NavCam movie of the sky looking for clouds. (Passive means that we don’t fire the laser, we just passively collect the spectrum of the target.) We also managed to squeeze a ChemCam measurement of our titanium calibration target and a MAHLI end-of-drive stowed image between the orbiter communication passes. And of course, we always do routine environmental monitoring with RAD, REMS, and DAN. Plus, after each drive we take clast survey images of the ground with Mastcam. Not bad for a data-constrained sol! ',137.395,-4.655));
 			
-			landmarks.push(new Landmark('Arlee Quadrant','http://missoulian.com/news/local/nasa-comes-to-arlee-the-martian-one/article_382792c8-19fd-5320-b1ad-2769c8b5fa53.html','The Mars rover Curiosity was rolling through Arlee on Friday. Not that Arlee. The one on Mars.â€œBecause western Montana is interesting geologically, it ranked up there to get on the names list,â€ said Brian Nixon, who operates the Roverâ€™s cameras for Malin Space Science Systems in San Diego. â€œThose are the formal names we use among team members to reference certain features. "A little while ago, the rover was going up something we called Logan Pass. That turned out to be too difficult to drive up, so I suggested the next gap over, which we called Marias Pass. If youâ€™re going through Glacier (National Park) and you canâ€™t make it up, you go south and go through the year-round pass.â€',137.37,-4.655));
+			landmarks.push(new Landmark('Arlee Quadrant','http://missoulian.com/news/local/nasa-comes-to-arlee-the-martian-one/article_382792c8-19fd-5320-b1ad-2769c8b5fa53.html','The Mars rover Curiosity was rolling through Arlee on Friday. Not that Arlee. The one on Mars.“Because western Montana is interesting geologically, it ranked up there to get on the names list,” said Brian Nixon, who operates the Rover’s cameras for Malin Space Science Systems in San Diego. “Those are the formal names we use among team members to reference certain features. "A little while ago, the rover was going up something we called Logan Pass. That turned out to be too difficult to drive up, so I suggested the next gap over, which we called Marias Pass. If you’re going through Glacier (National Park) and you can’t make it up, you go south and go through the year-round pass.”',137.37,-4.655));
 			
-			landmarks.push(new Landmark('Windhoek Quadrant','http://www.az.com.na/lokales/windhoek-quadrat-auf-dem-mars.425665','Der jahrelange Leiter der Wissenschaftlergruppe, die mit dem Fahrzeug Curiosity den Mars erforscht, weilte wieder einmal in Namibia und findet die Naukluft ebenso interessant wie den Roten Planeten. Bald soll sich das sechsrÃ¤drige Forschungslabor in ein Quadrat mit namibischem Namen begeben. Dr. John Grotzinger hielt in Windhoek einen Vortrag und ist EmpfÃ¤nger der Henno-Martin-Medaille.',137.37,-4.68));
+			landmarks.push(new Landmark('Windhoek Quadrant','http://www.az.com.na/lokales/windhoek-quadrat-auf-dem-mars.425665','Der jahrelange Leiter der Wissenschaftlergruppe, die mit dem Fahrzeug Curiosity den Mars erforscht, weilte wieder einmal in Namibia und findet die Naukluft ebenso interessant wie den Roten Planeten. Bald soll sich das sechsrädrige Forschungslabor in ein Quadrat mit namibischem Namen begeben. Dr. John Grotzinger hielt in Windhoek einen Vortrag und ist Empfänger der Henno-Martin-Medaille.',137.37,-4.68));
 			
 			landmarks.push(new Landmark('Bar Harbour Quadrant','Captain Jean-Luc Picard','Five card stud, nothing wild, and the sky is the limit.',137.345,-4.68));
 			
@@ -394,6 +392,29 @@
 			marker.setMap(map);
 
 			return marker;
+		};
+		
+		function filterLandmarks(landmarks, q) {
+			landmarks.forEach(function(landmark){
+				var name=landmark.name.toLowerCase();
+				if(name.indexOf(q) >=0) {
+					landmark.showme(true);
+					landmark.mapMarker.setVisible(true);
+				}
+				else {
+					landmark.showme(false);
+					landmark.mapMarker.setVisible(false);
+				}
+			});
+		};
+		
+		function showAllLandmarks(landmarks) {
+			landmarks.forEach(function(landmark){
+				
+					landmark.showme(true);
+					landmark.mapMarker.setVisible(true);
+				
+			});
 		};
 	</script>
 </body>
