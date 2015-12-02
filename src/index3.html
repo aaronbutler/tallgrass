@@ -163,6 +163,16 @@
 			<img class="containerPic" data-bind="attr: { src:currentPicSrc }" />
 			<button  data-bind="visible: !(picLast()), click: $root.nextPic">></button>-->
 		</div>
+		<div id="weatherBlock" class="weatherBlock">
+			<ul id="weatherData" data-bind="with: currentWeatherData">
+				<li data-bind="text: season"></li>
+				<li data-bind="text: atmo_opacity"></li>
+				<li data-bind="text: max_temp_fahrenheit"></li>
+				<li data-bind="text: min_temp_fahrenheit"></li>
+				<li data-bind="text: pressure"></li>
+				<li data-bind="text: pressure_string"></li>
+			</ul>
+		</div>
 	</section>
 	
 	<script>
@@ -387,13 +397,13 @@
 		
 		//fullyAnimateCircle(self.sols.slice(0,self.solNumber()),self.map);
 		function fullyAnimateCircle(sols, map) {
-			var x = 'howdy circle';
+			//var x = 'howdy circle';
 			//makePointsArray
 			var pointArray = makePointsArray({sols: sols});
 			//buildPath
 			var line = buildPath(map,pointArray);
 			return new Promise(function(resolve, reject) {
-				console.log(x);
+				//console.log(x);
 				//animateCircle
 				var _l = line instanceof Function ? line() : line;
 					//var a = asdf;
@@ -465,7 +475,27 @@
 		//var weatherPromise= populateWeatherData(self.solNumber(),self.currentWeatherData);
 		function populateWeatherData(solNumber, weatherData) {
 			return new Promise(function(resolve, reject) {
-				resolve(true);
+			
+				var weatherLink = 'http://marsweather.ingenology.com/v1/archive/?format=jsonp&sol='+solNumber;
+				$.ajax({
+					type: 'GET',
+					dataType: 'jsonp',
+					url: weatherLink,
+					success: function(result) {	
+						weatherData(result.results[0]);
+						resolve(true)
+						//self.coincidenceCallbackRegistry.memberReady('solInfoBubble','weather');
+						
+					},
+					
+					error: function(e) {
+						console.dir(e);
+						reject(false);
+						//alert("Sorry, couldn't reach the weather");
+					  }
+				});
+			
+				//resolve(true);
 			});
 		};
 		
