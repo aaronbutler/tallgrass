@@ -149,9 +149,22 @@
 	
 		<div id="map" class="map"></div>
 	</section>
-	<div class="uncover">
+	<section id="SolSection" class="cover hide">
 		<a class="closer"></a>
-	</div>
+		<div class="solSectionHeader" data-bind="text:solthText"></div>
+		<div id="picBlock" class="picBloc" data-bind="with: currentPicArray()[currentPicID()]">
+			<div data-bind="text:cam"></div>
+			<div data-bind="text:url"></div>
+			<button data-bind="visible: !($root.currentPicID()===0), click: $root.prevPic"><</button>
+			<img class="containerPic" data-bind="attr: { src:url }" />
+			<button  data-bind="visible: !($root.currentPicID() === $root.currentPicArray().length-1), click: $root.nextPic">></button>
+			<!--<div data-bind="text: picText"></div>
+			<button data-bind="visible: !(picZero()), click: $root.prevPic"><</button>
+			<img class="containerPic" data-bind="attr: { src:currentPicSrc }" />
+			<button  data-bind="visible: !(picLast()), click: $root.nextPic">></button>-->
+		</div>
+	</section>
+	
 	<script>
 	
 		$(document).ready(function () {
@@ -181,7 +194,7 @@
 			self.points = [];
 			self.line = '';
 			self.subPoints = [];
-			self.subLine = '';
+			self.subLine = null;
 			//self.mapModel.landmarks = [];
 			
 			//self.mapModel.activeLandmarks = ko.observableArray();
@@ -189,8 +202,15 @@
 			
 			//solModel
 			self.currentPicArray = ko.observableArray();
-			self.currentPicData = ko.observable();
+			self.currentPicID = ko.observable();
 			self.currentWeatherData = ko.observable();
+			
+			self.solthText = ko.computed(function() {
+				var _s = self.solendar;
+				var solth = self.solNumber();
+				var d = _s.SolToDate(solth);
+				return 'On the '+_s.Solth(solth) + ' sol ('+ d.toLocaleDateString()+'):';
+			},this);
 			
 			//Behaviors//////////////////////////////
 			
@@ -200,21 +220,10 @@
 				});
 			});*/
 			self.search = function(enter) {
-			//self.searchQuery.subscribe(function(newValue){
-				//console.dir(d.searchQuery());
-				//console.dir(e);
-				//var keyCode = e.which?e.which:e.keyCode;
-				//console.dir(keyCode);
-				//console.log(bonus);
-				console.log(enter===true);
 				var q = $.trim(self.searchQuery());
 				q=q.toLowerCase();
 				q=escapeHtml(q);
-				//console.log(q);
-				/*if(keyCode != 13 && q.startsWith(':')) {
-					
-					return true;
-				}*/
+
 				if(q===null || q===undefined || q==='') {
 					showAllLandmarks(self.landmarks());
 					return true;
@@ -226,6 +235,16 @@
 					//console.dir(self.solNumber());
 					if(enter===true) {
 						console.log('about to search sol');
+						//if(self.mapModel().subLine() != undefined) {self.mapModel().subLine().setMap(null);}
+						if(self.subLine != undefined) {self.subLine.setMap(null);}
+						var circlePromise = fullyAnimateCircle(self.sols.sols.slice(0,self.solNumber()),self.map);
+						var picPromise = populatePicData(self.solNumber(),self.currentPicArray);
+						var weatherPromise= populateWeatherData(self.solNumber(),self.currentWeatherData);
+						Promise.all([circlePromise, picPromise, weatherPromise]).then(function(arrayOfResults){
+							console.log('solPromises kept');
+							self.subLine = arrayOfResults[0];
+							self.currentPicID(0);
+						});
 					}
 					return true;
 					//solSearch(self.solNumber());
@@ -237,9 +256,7 @@
 			};
 			
 			self.onEnter = function(d,e) {
-				//console.dir(e);
 				var keyCode = e.which?e.which:e.keyCode;
-				//console.dir(keyCode);
 				if(keyCode === 13) {
 					e.target.blur();
 					self.search(true);
@@ -251,6 +268,14 @@
 				d.mapMarker.clicker();
 			};
 			
+			self.prevPic = function(d,e) {
+				self.currentPicID(self.currentPicID()-1);
+			};
+			
+			self.nextPic = function(d,e) {
+				self.currentPicID(self.currentPicID()+1);
+			};
+			
 			//Initializers///////////////////////////
 			var locationPromise = getLocations();
 			var mapPromise = buildMap();
@@ -260,6 +285,7 @@
 				
 				self.points = makePointsArray(self.sols);
 				self.line = buildPath(self.map, self.points);
+				self.line.icons = null;
 				$('#map').removeClass('hide');
 				//resolve('Woo hoo!');
 			});
@@ -359,6 +385,90 @@
 			return line;
 		};
 		
+		//fullyAnimateCircle(self.sols.slice(0,self.solNumber()),self.map);
+		function fullyAnimateCircle(sols, map) {
+			var x = 'howdy circle';
+			//makePointsArray
+			var pointArray = makePointsArray({sols: sols});
+			//buildPath
+			var line = buildPath(map,pointArray);
+			return new Promise(function(resolve, reject) {
+				console.log(x);
+				//animateCircle
+				var _l = line instanceof Function ? line() : line;
+					//var a = asdf;
+					var count = 0;
+					var id = window.setInterval(function() {
+						//if(_l.getPath())
+					  count = (count + 1) % 201;//it should end
+
+					  var icons = _l.get('icons');
+					  icons[0].offset = (count / 2) + '%';
+					  _l.set('icons', icons);
+					  if(count/2 == 100) {window.clearInterval(id);resolve(_l);}
+				  }, 20);
+				});
+				
+				//resolve(true);
+			
+		};
+		
+		//var picPromise = populatePicData(self.solNumber(),self.currentPicArray, self.currentPicData);
+		function populatePicData(solNumber, picArray) {
+			return new Promise(function(resolve, reject) {
+				var picLink = 'http://msl-raws.s3.amazonaws.com/images/images_sol'+solNumber+'.json';
+				
+				$.ajax({
+					  // The 'type' property sets the HTTP method.
+					  // A value of 'PUT' or 'DELETE' will trigger a preflight request.
+					  type: 'GET',
+
+					  // The URL to make the request to.
+					  url: picLink,
+
+					  // The 'contentType' property sets the 'Content-Type' header.
+					  // The JQuery default for this property is
+					  // 'application/x-www-form-urlencoded; charset=UTF-8', which does not trigger
+					  // a preflight. If you set this value to anything other than
+					  // application/x-www-form-urlencoded, multipart/form-data, or text/plain,
+					  // you will trigger a preflight request.
+					  contentType: 'text/plain',
+					  
+					  success: function(result) {
+						var pa = solPicArray(result);
+						log.log(3,'pa','solPicArray','what came back from solPicArray',pa);
+						
+						if(pa.length > 0) {
+							//self.solModel().currentPicId(0);
+							picArray(pa);
+							
+						}
+						else {
+							//self.solModel().currentPicId(null);
+							picArray(null);
+							
+						}
+						log.log(3,'solModel().currentPicArray()','changeSol-pictures','after populating currentpicarray');
+						resolve(true);
+					  },
+					  
+					  error: function(e) {
+						console.dir(e);
+						reject(false);
+						//alert("Sorry, couldn't reach the pictures");
+					  }
+				});
+				
+				//resolve(true);
+			});
+		};
+		//var weatherPromise= populateWeatherData(self.solNumber(),self.currentWeatherData);
+		function populateWeatherData(solNumber, weatherData) {
+			return new Promise(function(resolve, reject) {
+				resolve(true);
+			});
+		};
+		
 		function initLandmarks() {
 			var ONAME = 'global';
 			var FNAME = 'initLandmarks';
@@ -441,6 +551,31 @@
 					landmark.mapMarker.setVisible(true);
 				
 			});
+		};
+		
+		function solPicArray(text) {
+			var obj = text;
+			//var pics = [];
+			var picObjs = [];
+			var instruments = ['ccam_images','fcam_images','rcam_images','ncam_images','mastcam_left_images','mastcam_right_images','mahli_images','mardi_images'];
+
+			for(var i=0,l=instruments.length;i<l;i++) {
+				var cam = instruments[i]
+				var instData = obj[instruments[i]];
+				for(var m=0,n=instData.length;m<n;m++) {
+					var instPics = instData[m]['images'];
+					if(instPics != undefined) {					
+						for (var j=0,k=instPics.length;j<k;j++) {
+							var url = instPics[j]['url'];
+							var picObj = {url: url, cam: cam};
+							//pics.push(instPics[j]['url']);
+							picObjs.push(picObj);
+						}
+					}
+				}
+			}
+
+			return picObjs;
 		};
 	</script>
 </body>
