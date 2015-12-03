@@ -6,6 +6,7 @@
 	<title>Promise Map</title>
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="js/sammy.js"></script>
 	<script src="http://maps.googleapis.com/maps/api/js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
 	<script src="js/MarsUtils.js"></script>
@@ -28,7 +29,7 @@
 		}
 		
 		#MapSearchSection {
-			height: 90%;
+			max-height: 90%;
 		}
 		
 		.searchPanel {
@@ -38,18 +39,30 @@
 		}
 		
 		.searchQuery {
-			width: 20%;
+			width: 100%;
 		}
 		
 		.searchInstructions {
-			width: 77%;
+			width: 100%;
 		}
 		
-		.markerSection  {
+		#MapSearchSection  {
+			-webkit-transition-duration: 600ms;
+			transition-duration: 600ms;
+			opacity: 0.8;
+			background-color: white;
 			position: absolute;
-			width: 22%;
+			width: 42%;
+			z-index: 1000;
 			//margin-top: 10%;
 		}
+		
+		#MapSearchSection.hide {
+			//opacity: 1.0;
+			transform: translateX(-110%);
+			-webkit-transform: translateX(-110%);
+		}
+		
 		.markerList{
 			width: 100%;
 			border-style:solid;
@@ -62,14 +75,14 @@
 		}
 		
 		.markerTitles {
-			font: bold 1.4em arial, sans-serif;
+			font: bold 1.0em arial, sans-serif;
 			color: blue;
 		}
 		
 		.map {
-			width: 75%;
+			width: 95%;
 			height: 80%;
-			margin-left: 22%;
+			//margin-left: 22%;
 			-webkit-transition-duration: 6000ms;
 			transition-duration: 6000ms;
 		}
@@ -105,7 +118,7 @@
 			opacity: 0;
 		}
 		
-		a.closer{
+		div.closer{
 			float:right;
 			margin-top:5px;
 			margin-right:5px;
@@ -126,7 +139,12 @@
 			content: "X";
 		}
 		
-
+		#hamburger div {
+			//width: 240px;
+			//fill: #000;
+			display: block;
+			font-size: 2em;
+		}
 	</style>
 </head>
 <body>
@@ -135,6 +153,15 @@
 		<h1>The Tall Grass of Mars</h1>
 		<div>What happened when I set out to make an interesting Mars/Google Maps app and settled for placing the Curiosity rover in Papua and using defunct APIs in my mashup.</div>
 	</header>
+	
+	<div id="header">
+		<div id="hamburger" class="top-top-item">
+			<div>&#128270;</div>
+			<!--<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+				<path d="M2 6h20v3H2zm0 5h20v3H2zm0 5h20v3H2z"/>
+			</svg>-->
+		</div>
+	</div>
 	
 	<section id="MapSearchSection">
 		<div id="searchPanel" class="searchPanel mapScreen">
@@ -147,10 +174,11 @@
 			</div>
 		</div>
 	
-		<div id="map" class="map"></div>
+		
 	</section>
+	<div id="map" class="map"></div>
 	<section id="SolSection" class="cover hide">
-		<a class="closer"></a>
+		<div class="closer"></div>
 		<div class="solSectionHeader" data-bind="text:solthText"></div>
 		<div id="picBlock" class="picBloc" data-bind="with: currentPicArray()[currentPicID()]">
 			<div data-bind="text:cam"></div>
@@ -175,15 +203,31 @@
 		</div>
 	</section>
 	
+	<section id="InfoSection">
+		<h2>Curiosity</h2>
+		<div>Here is some general information about the Curiosity rover</div>
+		<ul>
+			<li>links</li>
+		</ul>
+		<h2>Sols</h2>
+		<div>The basic idea behind Sols is that Mars spins at a slightly different rate than Earth, which means a Martian day does not correspond with an Earth day. To make that distinction clear, a Mars day is called a Sol. But to make it less clear, we typically start the clock each time a spacecraft lands on Mars, and the clock sometimes starts on 0, sometimes on 1. The Curiosity rover landed on Mars on August 6, 2012, and its clock started with Sol 0 - therefore the 0th Sol of Curiosity is 8/6/2012</div>
+		<a>Timekeeping on Mars</a>
+		<h2>Credits</h2>
+		<div>I got a lot of data and information from sources that are awkward to quote, so here are links to interesting sites and, where possible, the kind of content I got from them</div>
+		
+	</section>
+	
 	<script>
 	
 		$(document).ready(function () {
 			viewModel = new MarsViewModel();
 			ko.applyBindings(viewModel);
-			
-			$('.closer').click(function(){
-				$('.cover').addClass('hide');
+			$('#hamburger').click(function(){
+				$('#MapSearchSection').toggleClass('hide');
 			});
+			/*$('.closer').click(function(){
+				$('.cover').addClass('hide');
+			});*/
 		});
 		
 		function MarsViewModel() {
@@ -229,10 +273,65 @@
 					return Task.done() === true;
 				});
 			});*/
+			
+			self.goToMap = function() { location.hash = 'mmap/' };
+			self.goToSol = function(sol) { location.hash = 'sol/' + sol };
+			
+			// Client-side routes    
+			Sammy(function() {
+			//console.log('inside Sammy');
+				this.get('#mmap', function() {
+					//$('.mapScreen').removeClass('hide');
+					$('#SolSection').addClass('hide');
+					self.searchQuery('');
+					//self.executeSearch();
+					console.log('Sammy got map');
+				});
+
+				this.get('#sol/:sol', function() {
+					var sol = this.params.sol;
+					//self.chosenFolderId(this.params.folder);
+					
+					//$('#SolSection').removeClass('hide');
+					//$('.mapScreen').addClass('hide');
+					console.log('Sammy got sol - '+sol);
+					if(self.solNumber() != sol) {
+						self.solNumber(sol);
+						
+					}
+					self.searchQuery(':'+sol);
+					//self.search(true);
+					var q = cleanse(sol);
+					self.searchSol(q);
+					//self.changeSol();
+					//$.get("/mail", { mailId: this.params.mailId }, self.chosenMailData);
+				});
+				this.get('', function() { this.app.runRoute('get', '#mmap') });
+			}).run();
+			
+			$('.closer').click(function(){
+				//$('.cover').addClass('hide');
+				self.goToMap();
+			});
+			
+			self.searchSol = function(solnum) {
+				if(self.subLine != undefined) {self.subLine.setMap(null);}
+				var circlePromise = fullyAnimateCircle(self.sols.sols.slice(0,self.solNumber()),self.map);
+				var picPromise = populatePicData(self.solNumber(),self.currentPicArray);
+				var weatherPromise= populateWeatherData(self.solNumber(),self.currentWeatherData);
+				Promise.all([circlePromise, picPromise, weatherPromise]).then(function(arrayOfResults){
+					console.log('solPromises kept');
+					self.subLine = arrayOfResults[0];
+					self.currentPicID(0);
+					$('#SolSection').removeClass('hide');
+				});
+			};
+			
 			self.search = function(enter) {
-				var q = $.trim(self.searchQuery());
+				/*var q = $.trim(self.searchQuery());
 				q=q.toLowerCase();
-				q=escapeHtml(q);
+				q=escapeHtml(q);*/
+				var q = cleanse(self.searchQuery());
 
 				if(q===null || q===undefined || q==='') {
 					showAllLandmarks(self.landmarks());
@@ -243,6 +342,9 @@
 					q=$.trim(q.slice(1));
 					self.solNumber(q);
 					//console.dir(self.solNumber());
+					//self.searchSol(q);
+					if(enter===true){self.goToSol(q);}
+					/*
 					if(enter===true) {
 						console.log('about to search sol');
 						//if(self.mapModel().subLine() != undefined) {self.mapModel().subLine().setMap(null);}
@@ -254,8 +356,9 @@
 							console.log('solPromises kept');
 							self.subLine = arrayOfResults[0];
 							self.currentPicID(0);
+							$('#SolSection').removeClass('hide');
 						});
-					}
+					}*/
 					return true;
 					//solSearch(self.solNumber());
 				}
@@ -267,6 +370,9 @@
 			
 			self.onEnter = function(d,e) {
 				var keyCode = e.which?e.which:e.keyCode;
+				/*if(keyCode === 13 && searchQuery().startsWith(':') {
+					self.go
+				}*/
 				if(keyCode === 13) {
 					e.target.blur();
 					self.search(true);
@@ -312,6 +418,12 @@
 			});
 		};
 		
+		function cleanse(query) {
+			var q = $.trim(query);
+			q=q.toLowerCase();
+			q=escapeHtml(q);
+			return q;
+		}
 		function getLocations() {
 			
 			var ONAME =  'Global';
@@ -416,7 +528,7 @@
 					  icons[0].offset = (count / 2) + '%';
 					  _l.set('icons', icons);
 					  if(count/2 == 100) {window.clearInterval(id);resolve(_l);}
-				  }, 20);
+					}, 20);
 				});
 				
 				//resolve(true);

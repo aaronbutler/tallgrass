@@ -29,6 +29,8 @@ Log.prototype.log = function(level, objname, methodname, message, object) {
 };
 
 /**
+*@function
+*@name escapeHtml
 *Escapes characters which are reserved in html
 *@author stolen from http://stackoverflow.com/questions/24816/escaping-html-strings-with-jquery
 *@param string the string whose characters should be made html-safe

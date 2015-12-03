@@ -8,6 +8,7 @@ I had many ambitious goals for this project, but ended up settling for a reasona
 1. Use WebWorkers constructively.
 1. Use the Promise API constructively.
 1. Make a visually  reasonable single-page app.
+1. Use jsdoc style to document code.
 1. Follow what has become my programming induction theorem - if I can do something for 2 use cases, I can probably do it for n and n+1 use cases.
 
 The goals I failed to meet include:
