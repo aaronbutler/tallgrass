@@ -21,11 +21,17 @@
 		}		
 		
 		body {
+			font-family: 'Roboto', sans-serif;
 			//overflow-y: hidden;
 		}
 		
 		header {
-			height: 10%;
+			max-height: 22%;
+			padding: 0 0.2em 0.2em 0;
+		}
+		
+		.subtitle {
+			font-size: 0.7em;
 		}
 		
 		#MapSearchSection {
@@ -40,6 +46,7 @@
 		
 		.searchQuery {
 			width: 100%;
+			height: 4.5em;
 		}
 		
 		.searchInstructions {
@@ -75,7 +82,8 @@
 		}
 		
 		.markerTitles {
-			font: bold 1.0em arial, sans-serif;
+			font: bold 0.8em arial, sans-serif;
+			padding: 0.3em;
 			color: blue;
 		}
 		
@@ -144,29 +152,33 @@
 			//fill: #000;
 			display: block;
 			font-size: 2em;
+			float: right;
+			margin-right: 5px;
 		}
 	</style>
 </head>
 <body>
 
 	<header>
-		<h1>The Tall Grass of Mars</h1>
-		<div>What happened when I set out to make an interesting Mars/Google Maps app and settled for placing the Curiosity rover in Papua and using defunct APIs in my mashup.</div>
+		<div id="header">
+			<div id="hamburger" class="top-top-item">
+				<div>&#128270;</div>
+				<!--<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+					<path d="M2 6h20v3H2zm0 5h20v3H2zm0 5h20v3H2z"/>
+				</svg>-->
+			</div>
+		</div>
+		<h2>The Tall Grass of Mars</h2>
+		
+		<div class="subtitle">What happened when I set out to make an interesting Mars/Google Maps app and settled for placing the Curiosity rover in Papua and using defunct APIs in my mashup.</div>
 	</header>
 	
-	<div id="header">
-		<div id="hamburger" class="top-top-item">
-			<div>&#128270;</div>
-			<!--<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-				<path d="M2 6h20v3H2zm0 5h20v3H2zm0 5h20v3H2z"/>
-			</svg>-->
-		</div>
-	</div>
 	
-	<section id="MapSearchSection">
+	
+	<section id="MapSearchSection" class="hide">
 		<div id="searchPanel" class="searchPanel mapScreen">
-			<input id="searchQuery" class="searchQuery" data-bind="textInput: searchQuery, event: {input: $root.search, keypress: $root.onEnter}" placeholder="Search"></input>
-			<div id="searchInstructions" class="searchInstructions">Search for Quadrants, or for Sols using :sol#</div>
+			<textarea autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" id="searchQuery" class="searchQuery" data-bind="textInput: searchQuery, event: {input: $root.search, keypress: $root.onEnter}" placeholder="Search for quadrants, or for Sols using :sol#"></textarea>
+			<!--<div id="searchInstructions" class="searchInstructions">Search for Quadrants, or for Sols using :sol#</div>-->
 		</div>
 		<div id="markerSection" class="markerSection mapScreen">
 			<div id="markerList" class="markerList" data-bind="foreach: landmarks">
@@ -225,6 +237,7 @@
 			$('#hamburger').click(function(){
 				$('#MapSearchSection').toggleClass('hide');
 			});
+			$('.markerTitles').click(function(){$('#MapSearchSection').toggleClass('hide');});
 			/*$('.closer').click(function(){
 				$('.cover').addClass('hide');
 			});*/
@@ -447,7 +460,7 @@
 			return new Promise(function(resolve,reject){
 			
 				var mq = window.matchMedia( "(max-width: 768px)" );
-				var z=mq.matches?11:13;
+				var z=mq.matches?12:13;
 				var latLng = new google.maps.LatLng(-4.63,137.395)
 				var mapOptions = { center: latLng,
 					zoom: z,
