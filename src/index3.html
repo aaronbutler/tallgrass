@@ -26,8 +26,8 @@
 		}
 		
 		header {
-			max-height: 22%;
-			padding: 0 0.2em 0.2em 0;
+			max-height: 18%;
+			padding: 0 0.2em 0.1em 0;
 		}
 		
 		.subtitle {
@@ -70,6 +70,28 @@
 			-webkit-transform: translateX(-110%);
 		}
 		
+		#InfoSection {
+			-webkit-transition-duration: 6000ms;
+			transition-duration: 6000ms;
+			position: absolute;
+			//margin-top: 10%;
+			top: 10%;
+			width: 87%;
+			left: 50%;
+			height: 100%;
+			margin: 0 0 0 -43.5%;
+			background-color: green;
+			box-shadow: -15px -15px 53px #888888;
+			opacity: 1;
+			z-index: 1001;
+		}
+		
+		#InfoSection.hide {
+			opacity: 0.5;
+			transform: translateY(100%);
+			-webkit-transform: translateY(100%);
+		}
+		
 		.markerList{
 			width: 100%;
 			border-style:solid;
@@ -89,10 +111,14 @@
 		
 		.map {
 			width: 95%;
-			height: 80%;
+			height: 70%;
 			//margin-left: 22%;
 			-webkit-transition-duration: 6000ms;
 			transition-duration: 6000ms;
+		}
+		footer {
+			height: 12%;
+			font-size: 0.7em;
 		}
 		
 		.cover {
@@ -147,6 +173,21 @@
 			content: "X";
 		}
 		
+		.blockHolder {
+			//height: 20%;
+			display: flex;
+			flex-wrap: wrap;
+		}
+		
+		.picBlock, .weatherBlock {
+			width: 45%;
+			padding: 2%;
+		}
+		
+		.picBlock img {
+			width: 75%;
+		}
+		
 		#hamburger div {
 			//width: 240px;
 			//fill: #000;
@@ -154,6 +195,29 @@
 			font-size: 2em;
 			float: right;
 			margin-right: 5px;
+		}
+		
+		.nodisplay {
+			display: none;
+		}
+		
+		#pictureButton, #weatherButton {
+			display: none;
+		}
+		
+		@media only screen and (max-width: 799px) {
+		
+			#pictureButton, #weatherButton {
+				display: inline;
+			}
+			
+			.picBlock, .weatherBlock {
+				width: 90%;
+			}
+			
+			.weatherBlock {
+				//display: none;
+			}
 		}
 	</style>
 </head>
@@ -192,30 +256,35 @@
 	<section id="SolSection" class="cover hide">
 		<div class="closer"></div>
 		<div class="solSectionHeader" data-bind="text:solthText"></div>
-		<div id="picBlock" class="picBloc" data-bind="with: currentPicArray()[currentPicID()]">
-			<div data-bind="text:cam"></div>
-			<div data-bind="text:url"></div>
-			<button data-bind="visible: !($root.currentPicID()===0), click: $root.prevPic"><</button>
-			<img class="containerPic" data-bind="attr: { src:url }" />
-			<button  data-bind="visible: !($root.currentPicID() === $root.currentPicArray().length-1), click: $root.nextPic">></button>
-			<!--<div data-bind="text: picText"></div>
-			<button data-bind="visible: !(picZero()), click: $root.prevPic"><</button>
-			<img class="containerPic" data-bind="attr: { src:currentPicSrc }" />
-			<button  data-bind="visible: !(picLast()), click: $root.nextPic">></button>-->
-		</div>
-		<div id="weatherBlock" class="weatherBlock">
-			<ul id="weatherData" data-bind="with: currentWeatherData">
-				<li data-bind="text: season"></li>
-				<li data-bind="text: atmo_opacity"></li>
-				<li data-bind="text: max_temp_fahrenheit"></li>
-				<li data-bind="text: min_temp_fahrenheit"></li>
-				<li data-bind="text: pressure"></li>
-				<li data-bind="text: pressure_string"></li>
-			</ul>
+		<button id="pictureButton">Pictures</button>
+		<button id="weatherButton">Weather</button>
+		<div class="blockHolder">
+			<div id="picBlock" class="picBlock" data-bind="with: currentPicArray()[currentPicID()]">
+				<div data-bind="text:cam"></div>
+				<div data-bind="text:url"></div>
+				<button data-bind="visible: !($root.currentPicID()===0), click: $root.prevPic"><</button>
+				<img class="containerPic" data-bind="attr: { src:url }" />
+				<button  data-bind="visible: !($root.currentPicID() === $root.currentPicArray().length-1), click: $root.nextPic">></button>
+				<!--<div data-bind="text: picText"></div>
+				<button data-bind="visible: !(picZero()), click: $root.prevPic"><</button>
+				<img class="containerPic" data-bind="attr: { src:currentPicSrc }" />
+				<button  data-bind="visible: !(picLast()), click: $root.nextPic">></button>-->
+			</div>
+			<div id="weatherBlock" class="weatherBlock">
+				<ul id="weatherData" data-bind="with: currentWeatherData">
+					<li data-bind="text: season"></li>
+					<li data-bind="text: atmo_opacity"></li>
+					<li data-bind="text: max_temp_fahrenheit"></li>
+					<li data-bind="text: min_temp_fahrenheit"></li>
+					<li data-bind="text: pressure"></li>
+					<li data-bind="text: pressure_string"></li>
+				</ul>
+			</div>
 		</div>
 	</section>
 	
-	<section id="InfoSection">
+	<section id="InfoSection" class="hide">
+		<div class="closer infoCloser"></div>
 		<h2>Curiosity</h2>
 		<div>Here is some general information about the Curiosity rover</div>
 		<ul>
@@ -228,6 +297,9 @@
 		<div>I got a lot of data and information from sources that are awkward to quote, so here are links to interesting sites and, where possible, the kind of content I got from them</div>
 		
 	</section>
+	<footer>
+		<div id="infoLink">Here is some general informmation about the Curiosity rover</div>
+	</footer>
 	
 	<script>
 	
@@ -238,6 +310,23 @@
 				$('#MapSearchSection').toggleClass('hide');
 			});
 			$('.markerTitles').click(function(){$('#MapSearchSection').toggleClass('hide');});
+			
+			$('#pictureButton').click(function(){
+				console.log('clicked picture button');
+				$('.picBlock').removeClass('nodisplay');
+				$('.weatherBlock').addClass('nodisplay');
+			});
+			$('#weatherButton').click(function(){
+				console.log('clicked weather button');
+				$('.picBlock').addClass('nodisplay');
+				$('.weatherBlock').removeClass('nodisplay');
+			});
+			$('.infoCloser').click(function(){
+				$('#InfoSection').addClass('hide');
+			});
+			$('#infoLink').click(function(){
+				$('#InfoSection').removeClass('hide');
+			});
 			/*$('.closer').click(function(){
 				$('.cover').addClass('hide');
 			});*/
@@ -291,36 +380,7 @@
 			self.goToSol = function(sol) { location.hash = 'sol/' + sol };
 			
 			// Client-side routes    
-			Sammy(function() {
-			//console.log('inside Sammy');
-				this.get('#mmap', function() {
-					//$('.mapScreen').removeClass('hide');
-					$('#SolSection').addClass('hide');
-					self.searchQuery('');
-					//self.executeSearch();
-					console.log('Sammy got map');
-				});
-
-				this.get('#sol/:sol', function() {
-					var sol = this.params.sol;
-					//self.chosenFolderId(this.params.folder);
-					
-					//$('#SolSection').removeClass('hide');
-					//$('.mapScreen').addClass('hide');
-					console.log('Sammy got sol - '+sol);
-					if(self.solNumber() != sol) {
-						self.solNumber(sol);
-						
-					}
-					self.searchQuery(':'+sol);
-					//self.search(true);
-					var q = cleanse(sol);
-					self.searchSol(q);
-					//self.changeSol();
-					//$.get("/mail", { mailId: this.params.mailId }, self.chosenMailData);
-				});
-				this.get('', function() { this.app.runRoute('get', '#mmap') });
-			}).run();
+			
 			
 			$('.closer').click(function(){
 				//$('.cover').addClass('hide');
@@ -328,15 +388,26 @@
 			});
 			
 			self.searchSol = function(solnum) {
+				console.log('searching sol');
 				if(self.subLine != undefined) {self.subLine.setMap(null);}
-				var circlePromise = fullyAnimateCircle(self.sols.sols.slice(0,self.solNumber()),self.map);
-				var picPromise = populatePicData(self.solNumber(),self.currentPicArray);
-				var weatherPromise= populateWeatherData(self.solNumber(),self.currentWeatherData);
-				Promise.all([circlePromise, picPromise, weatherPromise]).then(function(arrayOfResults){
-					console.log('solPromises kept');
-					self.subLine = arrayOfResults[0];
-					self.currentPicID(0);
-					$('#SolSection').removeClass('hide');
+				//var circlePromise = fullyAnimateCircle(self.sols.sols.slice(0,self.solNumber()),self.map);
+				//var picPromise = populatePicData(self.solNumber(),self.currentPicArray);
+				//var weatherPromise= populateWeatherData(self.solNumber(),self.currentWeatherData);
+				console.dir(self.mapSetup);
+				self.mapSetup.then(function(response) {
+					//Promise.all([circlePromise, picPromise, weatherPromise]).then(function(arrayOfResults){
+					Promise.all([fullyAnimateCircle(self.sols.sols.slice(0,self.solNumber()),self.map), 
+					  populatePicData(self.solNumber(),self.currentPicArray), 
+					  populateWeatherData(self.solNumber(),self.currentWeatherData)]).then(function(arrayOfResults){
+					
+						console.log('solPromises kept');
+						self.subLine = arrayOfResults[0];
+						self.currentPicID(0);
+						$('#SolSection').removeClass('hide');
+						//$('.picBlock').removeClass('nodisplay');
+						//$('.weatherBlock').addClass('nodisplay');
+					
+					});
 				});
 			};
 			
@@ -407,20 +478,23 @@
 			
 			//Initializers///////////////////////////
 			var locationPromise = getLocations();
-			var mapPromise = buildMap();
-			Promise.all([locationPromise, mapPromise]).then(function(arrayOfResults){
-				self.sols = arrayOfResults[0];
-				self.map = arrayOfResults[1];
-				
-				self.points = makePointsArray(self.sols);
-				self.line = buildPath(self.map, self.points);
-				self.line.icons = null;
-				$('#map').removeClass('hide');
-				//resolve('Woo hoo!');
+			self.mapPromise = buildMap();
+			self.mapSetup = Promise.all([locationPromise, self.mapPromise]).then(function(arrayOfResults){
+				return new Promise(function(resolve,reject){
+					self.sols = arrayOfResults[0];
+					self.map = arrayOfResults[1];
+					
+					self.points = makePointsArray(self.sols);
+					self.line = buildPath(self.map, self.points);
+					self.line.icons = null;
+					$('#map').removeClass('hide');
+					//resolve('Woo hoo!');
+					resolve(true);
+				});
 			});
 			
 			self.landmarks(initLandmarks());
-			mapPromise.then(function(response){
+			self.mapPromise.then(function(response){
 				var ONAME = 'MarsViewModel';
 				var FNAME = 'anomymous mapPromise.then';
 				log.log(3,ONAME,FNAME,'directly calling then seperate from Promise.all',this);
@@ -429,6 +503,40 @@
 					landmark.mapMarker = addLandmark(response,landmark);
 				});
 			});
+			
+			//client-side routes
+			Sammy(function() {
+			//console.log('inside Sammy');
+				this.get('#mmap', function() {
+					//$('.mapScreen').removeClass('hide');
+					$('#SolSection').addClass('hide');
+					self.searchQuery('');
+					//self.executeSearch();
+					console.log('Sammy got map');
+				});
+
+				this.get('#sol/:sol', function() {
+					var sol = this.params.sol;
+					//self.chosenFolderId(this.params.folder);
+					
+					//$('#SolSection').removeClass('hide');
+					//$('.mapScreen').addClass('hide');
+					console.log('Sammy got sol - '+sol);
+					if(self.solNumber() != sol) {
+						self.solNumber(sol);
+						
+					}
+					self.searchQuery(':'+sol);
+					//self.search(true);
+					var q = cleanse(sol);
+					$('#MapSearchSection').addClass('hide');
+					self.searchSol(q);
+					//self.changeSol();
+					//$.get("/mail", { mailId: this.params.mailId }, self.chosenMailData);
+				});
+				this.get('', function() { this.app.runRoute('get', '#mmap') });
+			}).run();
+			
 		};
 		
 		function cleanse(query) {
