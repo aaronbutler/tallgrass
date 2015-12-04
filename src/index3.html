@@ -75,15 +75,17 @@
 			transition-duration: 6000ms;
 			position: absolute;
 			//margin-top: 10%;
-			top: 10%;
-			width: 87%;
+			top: 0%;
+			width: 100%;
 			left: 50%;
 			height: 100%;
-			margin: 0 0 0 -43.5%;
+			margin: 0 0 0 -50%;
 			background-color: green;
 			box-shadow: -15px -15px 53px #888888;
 			opacity: 1;
 			z-index: 1001;
+			overflow-y: scroll;
+			font-size: 0.8em;
 		}
 		
 		#InfoSection.hide {
@@ -131,10 +133,10 @@
 			transition-duration: 6000ms;
 			position: absolute;
 			//margin-top: 10%;
-			top: 10%;
-			width: 87%;
+			top: 0%;
+			//width: 87%;
 			left: 50%;
-			margin: 0 0 0 -43.5%;
+			margin: 0 0 0 -50%;
 			background-color: red;
 			box-shadow: -15px -15px 53px #888888;
 			opacity: 1;
@@ -148,11 +150,11 @@
 		}
 		
 		.cover::before {
-			height: 10%;
+			//height: 10%;
 			opacity: 0;
 		}
 		
-		div.closer{
+		.closer{
 			float:right;
 			margin-top:5px;
 			margin-right:5px;
@@ -165,7 +167,8 @@
 			font-weight: bold;
 			display: inline-block;
 			line-height: 0px;
-			padding: 11px 3px;       
+			padding: 11px 3px;
+			z-index: 500;			
 		}
 
 		
@@ -187,6 +190,47 @@
 		.picBlock img {
 			width: 75%;
 		}
+		
+		[type=radio] {
+			display: none;   
+		}
+		
+		.labelPicker {
+			display: none;
+		}
+		
+		.blockContent {
+			background-color: PaleGreen;
+			z-index: 3;
+			box-shadow: -15px -15px 23px #888888;
+			margin: 25px 5px 0 5px;
+		}
+		.infoHeader {
+			text-align: center;
+			font-size: 2em;
+			margin: 5px;
+		}
+		
+		.infoCard {
+			width: 85%;
+			background-color: Pink;
+			z-index: 3;
+			box-shadow: -15px -15px 23px #888888;
+			//margin: 5px;
+			position: absolute;
+			top: 12%;
+			//width: 87%;
+			left: 50%;
+			margin: 0 0 0 -42.5%;
+			//padding: 3%;
+		}
+		
+		
+		
+		
+		
+		
+		
 		
 		#hamburger div {
 			//width: 240px;
@@ -217,6 +261,31 @@
 			
 			.weatherBlock {
 				//display: none;
+			}
+			
+			.blockContent {
+				display: none;
+			}
+			
+			.labelPicker {
+				font-size: 1em;
+				padding: 0.3em;
+				display: inline-block;
+				cursor: pointer;
+				border: 1px solid black;
+			}
+			
+			.blockPicker:checked + label {
+				color: gray;
+				cursor: auto;
+			}
+			
+			.picPick:checked ~ .picBlock {
+				display: block;
+			}
+			
+			.weatherPick:checked ~ .weatherBlock {
+				display: block;
 			}
 		}
 	</style>
@@ -254,14 +323,19 @@
 	</section>
 	<div id="map" class="map"></div>
 	<section id="SolSection" class="cover hide">
-		<div class="closer"></div>
-		<div class="solSectionHeader" data-bind="text:solthText"></div>
-		<button id="pictureButton">Pictures</button>
-		<button id="weatherButton">Weather</button>
+		<div class="closer solCloser"></div>
+		<h3 class="solSectionHeader" data-bind="text:solthText"></h3>
+		<!--<button id="pictureButton">Pictures</button>
+		<button id="weatherButton">Weather</button>-->
 		<div class="blockHolder">
-			<div id="picBlock" class="picBlock" data-bind="with: currentPicArray()[currentPicID()]">
+			<input class="blockPicker picPick" type="radio" id="tab-1" name="tab-group-1" checked>
+			<label class="labelPicker" for="tab-1">Pictures</label>
+			
+			<input class="blockPicker weatherPick" type="radio" id="tab-2" name="tab-group-1">
+			<label class="labelPicker" for="tab-2">Weather</label>
+			<div id="picBlock" class="blockContent picBlock" data-bind="with: currentPicArray()[currentPicID()]">
+				<div data-bind="text:$root.picText"></div>
 				<div data-bind="text:cam"></div>
-				<div data-bind="text:url"></div>
 				<button data-bind="visible: !($root.currentPicID()===0), click: $root.prevPic"><</button>
 				<img class="containerPic" data-bind="attr: { src:url }" />
 				<button  data-bind="visible: !($root.currentPicID() === $root.currentPicArray().length-1), click: $root.nextPic">></button>
@@ -270,7 +344,7 @@
 				<img class="containerPic" data-bind="attr: { src:currentPicSrc }" />
 				<button  data-bind="visible: !(picLast()), click: $root.nextPic">></button>-->
 			</div>
-			<div id="weatherBlock" class="weatherBlock">
+			<div id="weatherBlock" class="blockContent weatherBlock">
 				<ul id="weatherData" data-bind="with: currentWeatherData">
 					<li data-bind="text: season"></li>
 					<li data-bind="text: atmo_opacity"></li>
@@ -285,16 +359,18 @@
 	
 	<section id="InfoSection" class="hide">
 		<div class="closer infoCloser"></div>
-		<h2>Curiosity</h2>
-		<div>Here is some general information about the Curiosity rover</div>
-		<ul>
-			<li>links</li>
-		</ul>
-		<h2>Sols</h2>
-		<div>The basic idea behind Sols is that Mars spins at a slightly different rate than Earth, which means a Martian day does not correspond with an Earth day. To make that distinction clear, a Mars day is called a Sol. But to make it less clear, we typically start the clock each time a spacecraft lands on Mars, and the clock sometimes starts on 0, sometimes on 1. The Curiosity rover landed on Mars on August 6, 2012, and its clock started with Sol 0 - therefore the 0th Sol of Curiosity is 8/6/2012</div>
-		<a>Timekeeping on Mars</a>
-		<h2>Credits</h2>
-		<div>I got a lot of data and information from sources that are awkward to quote, so here are links to interesting sites and, where possible, the kind of content I got from them</div>
+		<div class="infoHeader">Curiosity</div>
+		<div class="infoCard">
+			<h4>Here is some general information about the Curiosity rover</h4>
+			<ul>
+				<li>links</li>
+			</ul>
+			<h2>Sols</h2>
+			<div>The basic idea behind Sols is that Mars spins at a slightly different rate than Earth, which means a Martian day does not correspond with an Earth day. To make that distinction clear, a Mars day is called a Sol. But to make it less clear, we typically start the clock each time a spacecraft lands on Mars, and the clock sometimes starts on 0, sometimes on 1. The Curiosity rover landed on Mars on August 6, 2012, and its clock started with Sol 0 - therefore the 0th Sol of Curiosity is 8/6/2012</div>
+			<a>Timekeeping on Mars</a>
+			<h2>Credits</h2>
+			<div>I got a lot of data and information from sources that are awkward to quote, so here are links to interesting sites and, where possible, the kind of content I got from them</div>
+		</div>
 		
 	</section>
 	<footer>
@@ -310,7 +386,7 @@
 				$('#MapSearchSection').toggleClass('hide');
 			});
 			$('.markerTitles').click(function(){$('#MapSearchSection').toggleClass('hide');});
-			
+			/*
 			$('#pictureButton').click(function(){
 				console.log('clicked picture button');
 				$('.picBlock').removeClass('nodisplay');
@@ -320,13 +396,8 @@
 				console.log('clicked weather button');
 				$('.picBlock').addClass('nodisplay');
 				$('.weatherBlock').removeClass('nodisplay');
-			});
-			$('.infoCloser').click(function(){
-				$('#InfoSection').addClass('hide');
-			});
-			$('#infoLink').click(function(){
-				$('#InfoSection').removeClass('hide');
-			});
+			});*/
+			
 			/*$('.closer').click(function(){
 				$('.cover').addClass('hide');
 			});*/
@@ -368,6 +439,13 @@
 				return 'On the '+_s.Solth(solth) + ' sol ('+ d.toLocaleDateString()+'):';
 			},this);
 			
+			self.picText = ko.computed(function() {
+				var _s = self.solendar;
+				var solth = self.solNumber();
+				var d = _s.SolToDate(solth);
+				return 'Picture '+(self.currentPicID() + 1) + ' of '+ self.currentPicArray().length;
+			},this);
+			
 			//Behaviors//////////////////////////////
 			
 			/*this.tasksFiltered = ko.computed(function() {
@@ -377,14 +455,23 @@
 			});*/
 			
 			self.goToMap = function() { location.hash = 'mmap/' };
+			self.goToInfo = function() { location.hash = 'info/' };
 			self.goToSol = function(sol) { location.hash = 'sol/' + sol };
 			
-			// Client-side routes    
+			//client-side routes
+			  
 			
 			
-			$('.closer').click(function(){
+			$('.solCloser').click(function(){
 				//$('.cover').addClass('hide');
 				self.goToMap();
+			});
+			
+			$('.infoCloser').click(function(){
+				self.goToMap();
+			});
+			$('#infoLink').click(function(){
+				self.goToInfo();
 			});
 			
 			self.searchSol = function(solnum) {
@@ -507,12 +594,22 @@
 			//client-side routes
 			Sammy(function() {
 			//console.log('inside Sammy');
-				this.get('#mmap', function() {
+				this.get('#mmap/', function() {
 					//$('.mapScreen').removeClass('hide');
 					$('#SolSection').addClass('hide');
+					$('#InfoSection').addClass('hide');
 					self.searchQuery('');
 					//self.executeSearch();
 					console.log('Sammy got map');
+				});
+				
+				this.get('#info/', function() {
+					//$('.mapScreen').removeClass('hide');
+					//$('#SolSection').addClass('hide');
+					$('#InfoSection').removeClass('hide');
+					//self.searchQuery('');
+					//self.executeSearch();
+					console.log('Sammy got info');
 				});
 
 				this.get('#sol/:sol', function() {
@@ -535,7 +632,7 @@
 					//$.get("/mail", { mailId: this.params.mailId }, self.chosenMailData);
 				});
 				this.get('', function() { this.app.runRoute('get', '#mmap') });
-			}).run();
+			}).run(); 
 			
 		};
 		
@@ -772,7 +869,7 @@
 				}
 			});
 			
-			var contentString = '<h2>'+landmark.name+'</h2><p>'+landmark.description+'</p>';
+			var contentString = '<h2>'+landmark.name+'</h2><p>'+landmark.description+'</p><h3>From: '+landmark.credits+'</h3>';
 			var infowindow = new google.maps.InfoWindow({content: contentString});
 			//var infowindow = new InfoBubble({minWidth: '400px', maxWidth: '400px'});
 			//infowindow.addTab('TAB',contentString);
