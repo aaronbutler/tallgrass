@@ -209,6 +209,7 @@
 			text-align: center;
 			font-size: 2em;
 			margin: 5px;
+			color: Pink;
 		}
 		
 		.infoCard {
@@ -362,12 +363,16 @@
 		<div class="infoHeader">Curiosity</div>
 		<div class="infoCard">
 			<h4>Here is some general information about the Curiosity rover</h4>
+			<p data-bind="text:wikiCuriosityRover"></p>
+			<a href="https://en.wikipedia.org/wiki/Curiosity_%28rover%29" target="_blank">Courtesy of Wikipedia</a>
 			<ul>
 				<li>links</li>
 			</ul>
 			<h2>Sols</h2>
 			<div>The basic idea behind Sols is that Mars spins at a slightly different rate than Earth, which means a Martian day does not correspond with an Earth day. To make that distinction clear, a Mars day is called a Sol. But to make it less clear, we typically start the clock each time a spacecraft lands on Mars, and the clock sometimes starts on 0, sometimes on 1. The Curiosity rover landed on Mars on August 6, 2012, and its clock started with Sol 0 - therefore the 0th Sol of Curiosity is 8/6/2012</div>
-			<a>Timekeeping on Mars</a>
+			<div data-bind="with:wikiTimeMars">
+			<a data-bind="attr: { href:link }" target="_blank"><div data-bind="text:blurb"></div></a>
+			</div>
 			<h2>Credits</h2>
 			<div>I got a lot of data and information from sources that are awkward to quote, so here are links to interesting sites and, where possible, the kind of content I got from them</div>
 		</div>
@@ -445,6 +450,10 @@
 				var d = _s.SolToDate(solth);
 				return 'Picture '+(self.currentPicID() + 1) + ' of '+ self.currentPicArray().length;
 			},this);
+			
+			//infoModel
+			self.wikiTimeMars = ko.observable();
+			self.wikiCuriosityRover = ko.observable();
 			
 			//Behaviors//////////////////////////////
 			
@@ -590,6 +599,9 @@
 					landmark.mapMarker = addLandmark(response,landmark);
 				});
 			});
+			
+			populateMarsTimeData(self.wikiTimeMars);
+			populateCuriosityData(self.wikiCuriosityRover);
 			
 			//client-side routes
 			Sammy(function() {
@@ -937,6 +949,69 @@
 
 			return picObjs;
 		};
+		
+		function populateMarsTimeData(wikiMarsTime) {
+			
+			
+				var wikiApiLink = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=Timekeeping_on_Mars&format=json';
+				$.ajax({
+					type: 'GET',
+					dataType: 'jsonp',
+					url: wikiApiLink,
+					success: function(result) {	
+						console.dir(result);
+						//self.coincidenceCallbackRegistry.memberReady('solInfoBubble','weather');
+						var link = result[3][0];
+						var blurb = result[2][0];
+						wikiMarsTime({link: link, blurb: blurb})
+					},
+					
+					error: function(e) {
+						console.dir(e);
+						
+						//alert("Sorry, couldn't reach the weather");
+					  }
+				});
+			
+				//resolve(true);
+			
+		};
+		
+		function populateCuriosityData(wikiCuriosity) {
+			
+			
+				var wikiApiLink = 'https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=Curiosity_%28rover%29';
+				$.ajax({
+					type: 'GET',
+					dataType: 'jsonp',
+					url: wikiApiLink,
+					success: function(result) {	
+						//console.dir(result);
+						var pages = result.query.pages;
+						var pageid = Object.keys(pages)[0];
+						var extract = pages[pageid].extract;
+						extract = extract.replace(/\^/g, '');
+						//console.dir(pageid);
+						//console.dir(pages[pageid].extract);
+						wikiCuriosity(extract);
+						//self.coincidenceCallbackRegistry.memberReady('solInfoBubble','weather');
+						//var link = result[3][0];
+						//var blurb = result[2][0];
+						//wikiMarsTime({link: link, blurb: blurb})
+					},
+					
+					error: function(e) {
+						console.dir(e);
+						
+						//alert("Sorry, couldn't reach the weather");
+					  }
+				});
+			
+				//resolve(true);
+			
+		};
+		
+		//https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=Curiosity_%28rover%29
 	</script>
 </body>
 </html>
