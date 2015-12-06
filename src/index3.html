@@ -446,16 +446,19 @@
 			<h4>Here is some general information about the Curiosity rover</h4>
 			<p data-bind="text:wikiCuriosityRover"></p>
 			<a href="https://en.wikipedia.org/wiki/Curiosity_%28rover%29" target="_blank">Courtesy of Wikipedia</a>
-			<ul>
-				<li>links</li>
-			</ul>
+
 			<h2>Sols</h2>
 			<div>The basic idea behind Sols is that Mars spins at a slightly different rate than Earth, which means a Martian day does not correspond with an Earth day. To make that distinction clear, a Mars day is called a Sol. But to make it less clear, we typically start the clock each time a spacecraft lands on Mars, and the clock sometimes starts on 0, sometimes on 1. The Curiosity rover landed on Mars on August 6, 2012, and its clock started with Sol 0 - therefore the 0th Sol of Curiosity is 8/6/2012</div>
 			<div data-bind="with:wikiTimeMars">
 			<a data-bind="attr: { href:link }" target="_blank"><div data-bind="text:blurb"></div></a>
 			</div>
 			<h2>Credits</h2>
-			<div>I got a lot of data and information from sources that are awkward to quote, so here are links to interesting sites and, where possible, the kind of content I got from them</div>
+			<ul>
+				<li><a href = "http://marsweather.ingenology.com/" target="_blank">MAAS - Weather API</a></li>
+				<li><a href = "http://www.unmannedspaceflight.com/index.php?s=98edeb8c3d505a1f718f193458daf293&showtopic=7442" target="blank">unmannedspaceflight - maps and quadrant KML</a></li>
+				<li><a href = "http://mars.nasa.gov/msl/" target="_blank">Nasa</a></li>
+				<li><a href = "http://mars.jpl.nasa.gov/msl-raw-images/locations.xml" target="_blank">JPL location data (~5mb)</a></li>
+			</ul>
 		</div>
 		
 	</section>
