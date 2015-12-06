@@ -40,15 +40,14 @@
 		.title {
 			order: 1;
 			width: 15%;
-			//display: block;
-			//flex:1 0 0;
+
 		}
 		.subtitle {
 			order: 2;
 			width: 65%;
-			//display: block;
+
 			font-size: 1em;
-			//flex: 2 2 0;
+
 		}
 		
 		.searchIcon {
@@ -61,8 +60,7 @@
 			border-radius: 30px;
 			background: #605F61;
 			margin: 0.5em;
-			//width: 20%;
-			//width: 20%;
+
 		}
 		
 		.infoIcon {
@@ -104,7 +102,7 @@
 			position: absolute;
 			width: 42%;
 			z-index: 1000;
-			//margin-top: 10%;
+
 		}
 		
 		#MapSearchSection.hide {
@@ -117,7 +115,7 @@
 			-webkit-transition-duration: 6000ms;
 			transition-duration: 6000ms;
 			position: absolute;
-			//margin-top: 10%;
+
 			top: 0%;
 			width: 100%;
 			left: 50%;
@@ -157,16 +155,11 @@
 		.map {
 			width: 95%;
 			height: 88%;
-			//margin-left: 22%;
+
 			-webkit-transition-duration: 6000ms;
 			transition-duration: 6000ms;
 		}
-		/*footer {
-			height: 12%;
-			font-size: 0.7em;
-			display: flex;
-			flex-wrap: wrap;
-		}*/
+
 		
 		.cover {
 			width: 98%;
@@ -177,9 +170,9 @@
 			-webkit-transition-duration: 6000ms;
 			transition-duration: 6000ms;
 			position: absolute;
-			//margin-top: 10%;
+
 			top: 0%;
-			//width: 87%;
+
 			left: 50%;
 			margin: 0 0 0 -49%;
 			background-color: red;
@@ -195,7 +188,7 @@
 		}
 		
 		.cover::before {
-			//height: 10%;
+
 			opacity: 0;
 		}
 		
@@ -213,7 +206,7 @@
 			display: inline-block;
 			line-height: 0px;
 			padding: 11px 3px;
-			//z-index: 500;			
+
 		}
 
 		
@@ -221,41 +214,6 @@
 			content: "X";
 		}
 		
-		/*.info{
-			//float:right;
-			//margin-top:10px;
-			//margin-right:5px;
-			cursor:pointer;
-			color: #fff;
-			border: 1px solid #AEAEAE;
-			border-radius: 30px;
-			background: #605F61;
-			font-size: 31px;
-			font-weight: bold;
-			//display: inline-block;
-			width: 15%;
-			text-align: center;
-			margin: 0.3em;
-			padding: 0.3em;
-			//line-height: 0px;
-			//padding: 11px 3px;
-			
-			//z-index: 500;			
-		}
-
-		.infoLink {
-			//margin: 0.3em
-			//padding: 0.3em;
-			//content: "?";
-		}
-		.info:before {
-			//content: "?";
-			//text-align: justify;
-		}
-		
-		.infoLinkText {
-			width: 50%;
-		}*/
 		.solText {
 			color: PaleGreen;
 		}
@@ -306,30 +264,17 @@
 			background-color: Pink;
 			z-index: 3;
 			box-shadow: -15px -15px 23px #888888;
-			//margin: 5px;
+
 			position: absolute;
 			top: 12%;
-			//width: 87%;
+
 			left: 50%;
 			margin: 0 0 0 -42.5%;
-			//padding: 3%;
+
 		}
 		
-		
-		
-		
-		
-		
-		
-		
-		#hamburger div {
-			//width: 240px;
-			//fill: #000;
-			display: block;
-			font-size: 2em;
-			float: left;
-			margin-right: 5px;
-		}
+
+
 
 		@media only screen and (min-width: 767px) and (max-width: 799px) {
 			header {
@@ -346,14 +291,14 @@
 			}
 			
 			.searchIcon {
-			//width: 5%;
+
 				font-size: 0.9em;
 				margin: 0.2em;
 				order: 2;
 			}
 			
 			.infoIcon {
-			//width: 5%;
+
 				font-size: 0.9em;
 				margin: 0.2em;
 				order: 4;
@@ -383,22 +328,20 @@
 			}
 			
 			.searchIcon {
-			//width: 5%;
+
 				font-size: 0.9em;
 				margin: 0.2em;
 				order: 2;
 			}
 			
 			.infoIcon {
-			//width: 5%;
+
 				font-size: 0.9em;
 				margin: 0.2em;
 				order: 4;
 			}
 			
-			#hamburger div {
-				float: right;
-			}
+
 		
 			#pictureButton, #weatherButton {
 				display: inline;
@@ -408,9 +351,7 @@
 				width: 90%;
 			}
 			
-			.weatherBlock {
-				//display: none;
-			}
+
 			
 			.blockContent {
 				display: none;
@@ -455,7 +396,7 @@
 	<section id="MapSearchSection" class="hide">
 		<div id="searchPanel" class="searchPanel mapScreen">
 			<textarea autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" id="searchQuery" class="searchQuery" data-bind="textInput: searchQuery, event: {input: $root.search, keypress: $root.onEnter}" placeholder="Search for quadrants, or for Sols using :sol#"></textarea>
-			<!--<div id="searchInstructions" class="searchInstructions">Search for Quadrants, or for Sols using :sol#</div>-->
+
 		</div>
 		<div id="markerSection" class="markerSection mapScreen">
 			<div id="markerList" class="markerList" data-bind="foreach: landmarks">
@@ -469,8 +410,7 @@
 	<section id="SolSection" class="cover hide">
 		<div class="closer solCloser"></div>
 		<h3 class="solSectionHeader solText" data-bind="text:solthText"></h3>
-		<!--<button id="pictureButton">Pictures</button>
-		<button id="weatherButton">Weather</button>-->
+
 		<div class="blockHolder">
 			<input class="blockPicker picPick" type="radio" id="tab-1" name="tab-group-1" checked>
 			<label class="labelPicker solText" for="tab-1">Pictures</label>
@@ -484,10 +424,7 @@
 				<button data-bind="visible: !($root.currentPicID()===0), click: $root.prevPic"><</button>
 				<img class="containerPic" data-bind="attr: { src:url }" />
 				<button  data-bind="visible: !($root.currentPicID() === $root.currentPicArray().length-1), click: $root.nextPic">></button>
-				<!--<div data-bind="text: picText"></div>
-				<button data-bind="visible: !(picZero()), click: $root.prevPic"><</button>
-				<img class="containerPic" data-bind="attr: { src:currentPicSrc }" />
-				<button  data-bind="visible: !(picLast()), click: $root.nextPic">></button>-->
+
 			</div>
 			<div id="weatherBlock" class="blockContent weatherBlock">
 				<h6>Weather data from Curiosity's REM sensors</h6>
@@ -522,34 +459,15 @@
 		</div>
 		
 	</section>
-	<!--<footer>
-		<div class="info infoLink">?</div><div id="infoLink infoLinkText">Here is some general information about the Curiosity rover</div>
-	</footer>-->
+
 	
 	<script>
 	
 		$(document).ready(function () {
 			viewModel = new MarsViewModel();
 			ko.applyBindings(viewModel);
-			$('.searchIcon').click(function(){
-				$('#MapSearchSection').toggleClass('hide');
-			});
-			$('.markerTitles').click(function(){$('#MapSearchSection').toggleClass('hide');});
-			/*
-			$('#pictureButton').click(function(){
-				console.log('clicked picture button');
-				$('.picBlock').removeClass('nodisplay');
-				$('.weatherBlock').addClass('nodisplay');
-			});
-			$('#weatherButton').click(function(){
-				console.log('clicked weather button');
-				$('.picBlock').addClass('nodisplay');
-				$('.weatherBlock').removeClass('nodisplay');
-			});*/
 			
-			/*$('.closer').click(function(){
-				$('.cover').addClass('hide');
-			});*/
+			$('.markerTitles').click(function(){$('#MapSearchSection').toggleClass('hide');});
 		});
 		
 		function MarsViewModel() {
@@ -571,9 +489,7 @@
 			self.line = '';
 			self.subPoints = [];
 			self.subLine = null;
-			//self.mapModel.landmarks = [];
-			
-			//self.mapModel.activeLandmarks = ko.observableArray();
+
 			self.landmarks = ko.observableArray();
 			
 			//solModel
@@ -601,60 +517,34 @@
 			
 			//Behaviors//////////////////////////////
 			
-			/*this.tasksFiltered = ko.computed(function() {
-				return ko.utils.arrayFilter(this.tasks(), function(Task) {
-					return Task.done() === true;
-				});
-			});*/
-			
 			self.goToMap = function() { location.hash = 'mmap/' };
 			self.goToInfo = function() { location.hash = 'info/' };
 			self.goToSol = function(sol) { location.hash = 'sol/' + sol };
 			
-			//client-side routes
-			  
-			
-			
-			$('.solCloser').click(function(){
-				//$('.cover').addClass('hide');
-				self.goToMap();
-			});
-			
-			$('.infoCloser').click(function(){
-				self.goToMap();
-			});
-			$('.infoIcon').click(function(){
-				self.goToInfo();
-			});
-			
 			self.searchSol = function(solnum) {
-				console.log('searching sol');
+				var ONAME = 'MarsViewModel';
+				var FNAME = 'searchSol';
+
+				log.log(3,ONAME,FNAME,'searching sol');
 				if(self.subLine != undefined) {self.subLine.setMap(null);}
-				//var circlePromise = fullyAnimateCircle(self.sols.sols.slice(0,self.solNumber()),self.map);
-				//var picPromise = populatePicData(self.solNumber(),self.currentPicArray);
-				//var weatherPromise= populateWeatherData(self.solNumber(),self.currentWeatherData);
-				console.dir(self.mapSetup);
+
 				self.mapSetup.then(function(response) {
-					//Promise.all([circlePromise, picPromise, weatherPromise]).then(function(arrayOfResults){
 					Promise.all([fullyAnimateCircle(self.sols.sols.slice(0,self.solNumber()),self.map), 
 					  populatePicData(self.solNumber(),self.currentPicArray), 
 					  populateWeatherData(self.solNumber(),self.currentWeatherData)]).then(function(arrayOfResults){
 					
-						console.log('solPromises kept');
+						log.log(3,ONAME,FNAME,'solPromises kept');
 						self.subLine = arrayOfResults[0];
 						self.currentPicID(0);
 						$('#SolSection').removeClass('hide');
-						//$('.picBlock').removeClass('nodisplay');
-						//$('.weatherBlock').addClass('nodisplay');
+
 					
 					});
 				});
 			};
 			
 			self.search = function(enter) {
-				/*var q = $.trim(self.searchQuery());
-				q=q.toLowerCase();
-				q=escapeHtml(q);*/
+
 				var q = cleanse(self.searchQuery());
 
 				if(q===null || q===undefined || q==='') {
@@ -665,26 +555,11 @@
 				if(q.startsWith(':')) {
 					q=$.trim(q.slice(1));
 					self.solNumber(q);
-					//console.dir(self.solNumber());
-					//self.searchSol(q);
+
 					if(enter===true){self.goToSol(q);}
-					/*
-					if(enter===true) {
-						console.log('about to search sol');
-						//if(self.mapModel().subLine() != undefined) {self.mapModel().subLine().setMap(null);}
-						if(self.subLine != undefined) {self.subLine.setMap(null);}
-						var circlePromise = fullyAnimateCircle(self.sols.sols.slice(0,self.solNumber()),self.map);
-						var picPromise = populatePicData(self.solNumber(),self.currentPicArray);
-						var weatherPromise= populateWeatherData(self.solNumber(),self.currentWeatherData);
-						Promise.all([circlePromise, picPromise, weatherPromise]).then(function(arrayOfResults){
-							console.log('solPromises kept');
-							self.subLine = arrayOfResults[0];
-							self.currentPicID(0);
-							$('#SolSection').removeClass('hide');
-						});
-					}*/
+
 					return true;
-					//solSearch(self.solNumber());
+
 				}
 				else {
 					filterLandmarks(self.landmarks(), q);
@@ -694,9 +569,7 @@
 			
 			self.onEnter = function(d,e) {
 				var keyCode = e.which?e.which:e.keyCode;
-				/*if(keyCode === 13 && searchQuery().startsWith(':') {
-					self.go
-				}*/
+
 				if(keyCode === 13) {
 					e.target.blur();
 					self.search(true);
@@ -728,7 +601,7 @@
 					self.line = buildPath(self.map, self.points);
 					self.line.icons = null;
 					$('#map').removeClass('hide');
-					//resolve('Woo hoo!');
+
 					resolve(true);
 				});
 			});
@@ -739,7 +612,6 @@
 				var FNAME = 'anomymous mapPromise.then';
 				log.log(3,ONAME,FNAME,'directly calling then seperate from Promise.all',this);
 				self.landmarks().forEach(function(landmark,i){
-					//self.mapModel.activeLandmarks.push(addLandmark(response,landmark));
 					landmark.mapMarker = addLandmark(response,landmark);
 				});
 			});
@@ -748,47 +620,55 @@
 			populateCuriosityData(self.wikiCuriosityRover);
 			
 			//client-side routes
+			
+			$('.solCloser').click(function(){
+				self.goToMap();
+			});
+			
+			$('.infoCloser').click(function(){
+				self.goToMap();
+			});
+			$('.infoIcon').click(function(){
+				self.goToInfo();
+			});
+			
+			$('.searchIcon').click(function(){
+				$('#MapSearchSection').toggleClass('hide');
+			});
+			
 			Sammy(function() {
-			//console.log('inside Sammy');
+
 				this.get('#mmap/', function() {
-					//$('.mapScreen').removeClass('hide');
+
 					$('#SolSection').addClass('hide');
 					$('#InfoSection').addClass('hide');
 					self.searchQuery('');
-					//self.executeSearch();
-					console.log('Sammy got map');
+
 				});
 				
 				this.get('#info/', function() {
-					//$('.mapScreen').removeClass('hide');
-					//$('#SolSection').addClass('hide');
+
 					$('#InfoSection').removeClass('hide');
-					//self.searchQuery('');
-					//self.executeSearch();
-					console.log('Sammy got info');
+
 				});
 
 				this.get('#sol/:sol', function() {
 					var sol = this.params.sol;
-					//self.chosenFolderId(this.params.folder);
-					
-					//$('#SolSection').removeClass('hide');
-					//$('.mapScreen').addClass('hide');
-					console.log('Sammy got sol - '+sol);
+
 					if(self.solNumber() != sol) {
 						self.solNumber(sol);
 						
 					}
 					self.searchQuery(':'+sol);
-					//self.search(true);
+
 					var q = cleanse(sol);
 					$('#MapSearchSection').addClass('hide');
 					self.searchSol(q);
-					//self.changeSol();
-					//$.get("/mail", { mailId: this.params.mailId }, self.chosenMailData);
+
 				});
 				this.get('', function() { this.app.runRoute('get', '#mmap') });
 			}).run(); 
+			
 			
 		};
 		
@@ -821,7 +701,7 @@
 			return new Promise(function(resolve,reject){
 			
 				var mq = window.matchMedia( "(max-width: 768px)" );
-				var z=mq.matches?12:13;
+				var z=mq.matches?11:13;
 				var latLng = new google.maps.LatLng(-4.63,137.395)
 				var mapOptions = { center: latLng,
 					zoom: z,
@@ -883,19 +763,17 @@
 		
 		//fullyAnimateCircle(self.sols.slice(0,self.solNumber()),self.map);
 		function fullyAnimateCircle(sols, map) {
-			//var x = 'howdy circle';
-			//makePointsArray
+
 			var pointArray = makePointsArray({sols: sols});
-			//buildPath
+
 			var line = buildPath(map,pointArray);
 			return new Promise(function(resolve, reject) {
-				//console.log(x);
-				//animateCircle
+
 				var _l = line instanceof Function ? line() : line;
-					//var a = asdf;
+
 					var count = 0;
 					var id = window.setInterval(function() {
-						//if(_l.getPath())
+
 					  count = (count + 1) % 201;//it should end
 
 					  var icons = _l.get('icons');
@@ -904,30 +782,24 @@
 					  if(count/2 == 100) {window.clearInterval(id);resolve(_l);}
 					}, 20);
 				});
-				
-				//resolve(true);
+
 			
 		};
 		
-		//var picPromise = populatePicData(self.solNumber(),self.currentPicArray, self.currentPicData);
+
 		function populatePicData(solNumber, picArray) {
+			var ONAME = 'picture promise';
+			var FNAME = 'populatePicData';			
 			return new Promise(function(resolve, reject) {
 				var picLink = 'http://msl-raws.s3.amazonaws.com/images/images_sol'+solNumber+'.json';
 				
 				$.ajax({
-					  // The 'type' property sets the HTTP method.
-					  // A value of 'PUT' or 'DELETE' will trigger a preflight request.
+
 					  type: 'GET',
 
-					  // The URL to make the request to.
 					  url: picLink,
 
-					  // The 'contentType' property sets the 'Content-Type' header.
-					  // The JQuery default for this property is
-					  // 'application/x-www-form-urlencoded; charset=UTF-8', which does not trigger
-					  // a preflight. If you set this value to anything other than
-					  // application/x-www-form-urlencoded, multipart/form-data, or text/plain,
-					  // you will trigger a preflight request.
+
 					  contentType: 'text/plain',
 					  
 					  success: function(result) {
@@ -935,35 +807,34 @@
 						log.log(3,'pa','solPicArray','what came back from solPicArray',pa);
 						
 						if(pa.length > 0) {
-							//self.solModel().currentPicId(0);
+
 							picArray(pa);
 							
 						}
 						else {
-							//self.solModel().currentPicId(null);
+
 							picArray(null);
 							
 						}
-						log.log(3,'solModel().currentPicArray()','changeSol-pictures','after populating currentpicarray');
+						log.log(3,ONAME,FNAME,'after populating currentpicarray');
 						resolve(true);
 					  },
 					  
 					  error: function(e) {
-						console.dir(e);
+						log.log(3,ONAME,FNAME,'failed to populate picture data',e);
 						reject(false);
-						//alert("Sorry, couldn't reach the pictures");
+
 					  }
 				});
-				
-				//resolve(true);
+
 			});
 		};
-		//var weatherPromise= populateWeatherData(self.solNumber(),self.currentWeatherData);
+
 		function populateWeatherData(solNumber, weatherData) {
 			return new Promise(function(resolve, reject) {
 				var ONAME = 'Weather promise';
 				var FNAME = 'populateWeatherData';
-				//log.log(1,ONAME,FNAME,'Entering initLandmarks');
+
 			
 				var weatherLink = 'http://marsweather.ingenology.com/v1/archive/?format=jsonp&sol='+solNumber;
 				$.ajax({
@@ -975,18 +846,17 @@
 						log.log(3,ONAME,FNAME,'Weather data: ',data);
 						weatherData(data);
 						resolve(true)
-						//self.coincidenceCallbackRegistry.memberReady('solInfoBubble','weather');
+
 						
 					},
 					
 					error: function(e) {
-						console.dir(e);
+						log.log(3,ONAME,FNAME,'failed to populate weather data',e);
 						reject(false);
-						//alert("Sorry, couldn't reach the weather");
+
 					  }
 				});
-			
-				//resolve(true);
+
 			});
 		};
 		
@@ -1032,8 +902,7 @@
 			
 			var contentString = '<h2>'+landmark.name+'</h2><p>'+landmark.description+'</p><h3>From: '+landmark.credits+'</h3>';
 			var infowindow = new google.maps.InfoWindow({content: contentString});
-			//var infowindow = new InfoBubble({minWidth: '400px', maxWidth: '400px'});
-			//infowindow.addTab('TAB',contentString);
+
 			marker.infowindow = infowindow;
 			marker.map = map;
 			google.maps.event.addListener(infowindow, 'closeclick', function() {
@@ -1076,7 +945,7 @@
 		
 		function solPicArray(text) {
 			var obj = text;
-			//var pics = [];
+
 			var picObjs = [];
 			var instruments = ['ccam_images','fcam_images','rcam_images','ncam_images','mastcam_left_images','mastcam_right_images','mahli_images','mardi_images'];
 
@@ -1089,7 +958,7 @@
 						for (var j=0,k=instPics.length;j<k;j++) {
 							var url = instPics[j]['url'];
 							var picObj = {url: url, cam: cam};
-							//pics.push(instPics[j]['url']);
+
 							picObjs.push(picObj);
 						}
 					}
@@ -1100,67 +969,61 @@
 		};
 		
 		function populateMarsTimeData(wikiMarsTime) {
+			var ONAME = 'global';
+			var FNAME = 'populateMarsTimeData';
 			
-			
-				var wikiApiLink = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=Timekeeping_on_Mars&format=json';
-				$.ajax({
-					type: 'GET',
-					dataType: 'jsonp',
-					url: wikiApiLink,
-					success: function(result) {	
-						console.dir(result);
-						//self.coincidenceCallbackRegistry.memberReady('solInfoBubble','weather');
-						var link = result[3][0];
-						var blurb = result[2][0];
-						wikiMarsTime({link: link, blurb: blurb})
-					},
-					
-					error: function(e) {
-						console.dir(e);
-						
-						//alert("Sorry, couldn't reach the weather");
-					  }
-				});
-			
-				//resolve(true);
+			var wikiApiLink = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=Timekeeping_on_Mars&format=json';
+			$.ajax({
+				type: 'GET',
+				dataType: 'jsonp',
+				url: wikiApiLink,
+				success: function(result) {	
+					log.log(3,ONAME,FNAME,'got Mars  time data',result);
+
+					var link = result[3][0];
+					var blurb = result[2][0];
+					wikiMarsTime({link: link, blurb: blurb})
+				},
+				
+				error: function(e) {
+					log.log(3,ONAME,FNAME,'failed to populate mars time data',e);
+
+				  }
+			});
+
 			
 		};
 		
 		function populateCuriosityData(wikiCuriosity) {
+			var ONAME = 'global';
+			var FNAME = 'populateCuriosityData';
 			
-			
-				var wikiApiLink = 'https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=Curiosity_%28rover%29';
-				$.ajax({
-					type: 'GET',
-					dataType: 'jsonp',
-					url: wikiApiLink,
-					success: function(result) {	
-						//console.dir(result);
-						var pages = result.query.pages;
-						var pageid = Object.keys(pages)[0];
-						var extract = pages[pageid].extract;
-						extract = extract.replace(/\^/g, '');
-						//console.dir(pageid);
-						//console.dir(pages[pageid].extract);
-						wikiCuriosity(extract);
-						//self.coincidenceCallbackRegistry.memberReady('solInfoBubble','weather');
-						//var link = result[3][0];
-						//var blurb = result[2][0];
-						//wikiMarsTime({link: link, blurb: blurb})
-					},
+			var wikiApiLink = 'https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=Curiosity_%28rover%29';
+			$.ajax({
+				type: 'GET',
+				dataType: 'jsonp',
+				url: wikiApiLink,
+				success: function(result) {	
+
+					var pages = result.query.pages;
+					var pageid = Object.keys(pages)[0];
+					var extract = pages[pageid].extract;
+					extract = extract.replace(/\^/g, '');
+
+					wikiCuriosity(extract);
+
+				},
+				
+				error: function(e) {
+					log.log(3,ONAME,FNAME,'failed to populate curiosity data',e);
 					
-					error: function(e) {
-						console.dir(e);
-						
-						//alert("Sorry, couldn't reach the weather");
-					  }
-				});
-			
-				//resolve(true);
+
+				  }
+			});
+
 			
 		};
-		
-		//https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=Curiosity_%28rover%29
+
 	</script>
 </body>
 </html>
