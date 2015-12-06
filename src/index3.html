@@ -22,16 +22,59 @@
 		
 		body {
 			font-family: 'Roboto', sans-serif;
-			//overflow-y: hidden;
+			overflow-y: hidden;
 		}
 		
 		header {
-			max-height: 18%;
+			height: 10%;
 			padding: 0 0.2em 0.1em 0;
+			display: flex;
+			flex-wrap: wrap;
+			-ms-flex-align: center;
+			-webkit-align-items: center;
+			-webkit-box-align: center;
+
+			align-items: center;
 		}
 		
+		.title {
+			order: 1;
+			width: 15%;
+			//display: block;
+			//flex:1 0 0;
+		}
 		.subtitle {
-			font-size: 0.7em;
+			order: 2;
+			width: 65%;
+			//display: block;
+			font-size: 1em;
+			//flex: 2 2 0;
+		}
+		
+		.searchIcon {
+			order: 3;
+			font-size: 2em;
+			padding: 0.3em;
+			cursor:pointer;
+			color: #fff;
+			border: 1px solid #AEAEAE;
+			border-radius: 30px;
+			background: #605F61;
+			margin: 0.5em;
+			//width: 20%;
+			//width: 20%;
+		}
+		
+		.infoIcon {
+			order: 4;
+			font-size: 2em;
+			padding: 0.3em;
+			cursor:pointer;
+			color: #fff;
+			border: 1px solid #AEAEAE;
+			border-radius: 30px;
+			background: #605F61;
+			margin: 0.5em;
 		}
 		
 		#MapSearchSection {
@@ -90,8 +133,8 @@
 		
 		#InfoSection.hide {
 			opacity: 0.5;
-			transform: translateY(100%);
-			-webkit-transform: translateY(100%);
+			transform: translateY(110%);
+			-webkit-transform: translateY(110%);
 		}
 		
 		.markerList{
@@ -113,18 +156,20 @@
 		
 		.map {
 			width: 95%;
-			height: 70%;
+			height: 88%;
 			//margin-left: 22%;
 			-webkit-transition-duration: 6000ms;
 			transition-duration: 6000ms;
 		}
-		footer {
+		/*footer {
 			height: 12%;
 			font-size: 0.7em;
-		}
+			display: flex;
+			flex-wrap: wrap;
+		}*/
 		
 		.cover {
-			width: 100%;
+			width: 98%;
 			height: 100%;
 		}
 		
@@ -136,7 +181,7 @@
 			top: 0%;
 			//width: 87%;
 			left: 50%;
-			margin: 0 0 0 -50%;
+			margin: 0 0 0 -49%;
 			background-color: red;
 			box-shadow: -15px -15px 53px #888888;
 			opacity: 1;
@@ -145,8 +190,8 @@
 		
 		.cover.hide {
 			opacity: 0.5;
-			transform: translateY(100%);
-			-webkit-transform: translateY(100%);
+			transform: translateY(110%);
+			-webkit-transform: translateY(110%);
 		}
 		
 		.cover::before {
@@ -168,13 +213,57 @@
 			display: inline-block;
 			line-height: 0px;
 			padding: 11px 3px;
-			z-index: 500;			
+			//z-index: 500;			
 		}
 
 		
 		.closer:before {
 			content: "X";
 		}
+		
+		/*.info{
+			//float:right;
+			//margin-top:10px;
+			//margin-right:5px;
+			cursor:pointer;
+			color: #fff;
+			border: 1px solid #AEAEAE;
+			border-radius: 30px;
+			background: #605F61;
+			font-size: 31px;
+			font-weight: bold;
+			//display: inline-block;
+			width: 15%;
+			text-align: center;
+			margin: 0.3em;
+			padding: 0.3em;
+			//line-height: 0px;
+			//padding: 11px 3px;
+			
+			//z-index: 500;			
+		}
+
+		.infoLink {
+			//margin: 0.3em
+			//padding: 0.3em;
+			//content: "?";
+		}
+		.info:before {
+			//content: "?";
+			//text-align: justify;
+		}
+		
+		.infoLinkText {
+			width: 50%;
+		}*/
+		.solText {
+			color: PaleGreen;
+		}
+		
+		.solSectionHeader {
+			text-align: center;
+		}
+		
 		
 		.blockHolder {
 			//height: 20%;
@@ -238,19 +327,46 @@
 			//fill: #000;
 			display: block;
 			font-size: 2em;
-			float: right;
+			float: left;
 			margin-right: 5px;
 		}
-		
-		.nodisplay {
-			display: none;
-		}
-		
-		#pictureButton, #weatherButton {
-			display: none;
-		}
+
 		
 		@media only screen and (max-width: 799px) {
+			header {
+				height: 30%;
+			}
+			
+			.map {
+				height: 68%;
+			}
+			.title {
+				width: 88%;
+			}
+			
+			.subtitle {
+				width: 90%;
+				font-size: 0.7em;
+				order: 3;
+			}
+			
+			.searchIcon {
+			//width: 5%;
+				font-size: 0.9em;
+				margin: 0.2em;
+				order: 2;
+			}
+			
+			.infoIcon {
+			//width: 5%;
+				font-size: 0.9em;
+				margin: 0.2em;
+				order: 4;
+			}
+			
+			#hamburger div {
+				float: right;
+			}
 		
 			#pictureButton, #weatherButton {
 				display: inline;
@@ -294,17 +410,12 @@
 <body>
 
 	<header>
-		<div id="header">
-			<div id="hamburger" class="top-top-item">
-				<div>&#128270;</div>
-				<!--<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-					<path d="M2 6h20v3H2zm0 5h20v3H2zm0 5h20v3H2z"/>
-				</svg>-->
-			</div>
-		</div>
-		<h2>The Tall Grass of Mars</h2>
-		
+		<h2 class="title">The Tall Grass of Mars</h2>
 		<div class="subtitle">What happened when I set out to make an interesting Mars/Google Maps app and settled for placing the Curiosity rover in Papua and using defunct APIs in my mashup.</div>
+		<div class="searchIcon">&#128270;</div>
+
+		<div class="infoIcon">?</div>
+
 	</header>
 	
 	
@@ -325,16 +436,17 @@
 	<div id="map" class="map"></div>
 	<section id="SolSection" class="cover hide">
 		<div class="closer solCloser"></div>
-		<h3 class="solSectionHeader" data-bind="text:solthText"></h3>
+		<h3 class="solSectionHeader solText" data-bind="text:solthText"></h3>
 		<!--<button id="pictureButton">Pictures</button>
 		<button id="weatherButton">Weather</button>-->
 		<div class="blockHolder">
 			<input class="blockPicker picPick" type="radio" id="tab-1" name="tab-group-1" checked>
-			<label class="labelPicker" for="tab-1">Pictures</label>
+			<label class="labelPicker solText" for="tab-1">Pictures</label>
 			
 			<input class="blockPicker weatherPick" type="radio" id="tab-2" name="tab-group-1">
-			<label class="labelPicker" for="tab-2">Weather</label>
+			<label class="labelPicker solText" for="tab-2">Weather</label>
 			<div id="picBlock" class="blockContent picBlock" data-bind="with: currentPicArray()[currentPicID()]">
+				<h6>Pictures from Curiosity's various cameras</h6>
 				<div data-bind="text:$root.picText"></div>
 				<div data-bind="text:cam"></div>
 				<button data-bind="visible: !($root.currentPicID()===0), click: $root.prevPic"><</button>
@@ -346,13 +458,13 @@
 				<button  data-bind="visible: !(picLast()), click: $root.nextPic">></button>-->
 			</div>
 			<div id="weatherBlock" class="blockContent weatherBlock">
+				<h6>Weather data from Curiosity's REM sensors</h6>
 				<ul id="weatherData" data-bind="with: currentWeatherData">
-					<li data-bind="text: season"></li>
-					<li data-bind="text: atmo_opacity"></li>
-					<li data-bind="text: max_temp_fahrenheit"></li>
-					<li data-bind="text: min_temp_fahrenheit"></li>
-					<li data-bind="text: pressure"></li>
-					<li data-bind="text: pressure_string"></li>
+					<li><span>Martian season: </span><span data-bind="text: season"></span></li>
+					<li><span>Max temp (fahrenheit): </span><span  data-bind="text: max_temp_fahrenheit"></li>
+					<li><span>Min temp (fahrenheit): </span><span  data-bind="text: min_temp_fahrenheit"></li>
+					<li><span>Atmospheric pressure (Pascals): </span><span  data-bind="text: $root.currentWeatherData().pressure*100"></li>
+					<li><span>Relative atmospheric pressure: </span><span  data-bind="text: pressure_string"></li>
 				</ul>
 			</div>
 		</div>
@@ -378,16 +490,16 @@
 		</div>
 		
 	</section>
-	<footer>
-		<div id="infoLink">Here is some general informmation about the Curiosity rover</div>
-	</footer>
+	<!--<footer>
+		<div class="info infoLink">?</div><div id="infoLink infoLinkText">Here is some general information about the Curiosity rover</div>
+	</footer>-->
 	
 	<script>
 	
 		$(document).ready(function () {
 			viewModel = new MarsViewModel();
 			ko.applyBindings(viewModel);
-			$('#hamburger').click(function(){
+			$('.searchIcon').click(function(){
 				$('#MapSearchSection').toggleClass('hide');
 			});
 			$('.markerTitles').click(function(){$('#MapSearchSection').toggleClass('hide');});
@@ -479,7 +591,7 @@
 			$('.infoCloser').click(function(){
 				self.goToMap();
 			});
-			$('#infoLink').click(function(){
+			$('.infoIcon').click(function(){
 				self.goToInfo();
 			});
 			
@@ -817,14 +929,19 @@
 		//var weatherPromise= populateWeatherData(self.solNumber(),self.currentWeatherData);
 		function populateWeatherData(solNumber, weatherData) {
 			return new Promise(function(resolve, reject) {
+				var ONAME = 'Weather promise';
+				var FNAME = 'populateWeatherData';
+				//log.log(1,ONAME,FNAME,'Entering initLandmarks');
 			
 				var weatherLink = 'http://marsweather.ingenology.com/v1/archive/?format=jsonp&sol='+solNumber;
 				$.ajax({
 					type: 'GET',
 					dataType: 'jsonp',
 					url: weatherLink,
-					success: function(result) {	
-						weatherData(result.results[0]);
+					success: function(result) {
+						var data = result.results[0];
+						log.log(3,ONAME,FNAME,'Weather data: ',data);
+						weatherData(data);
 						resolve(true)
 						//self.coincidenceCallbackRegistry.memberReady('solInfoBubble','weather');
 						

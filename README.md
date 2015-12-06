@@ -16,5 +16,5 @@ The goals I failed to meet include:
 1. Use high resolution images of Mars to create a custom base map.
 1. Create a custom projection to use those images.
 1. Create a useful and appealing data mashup and analysis tool for Curiosity rover data.
-
+If you were wondering - the rover is in Papua because the GPS coordinates of Papua correspond with Curiosity's location using Nasa's coordinate system on Mars.
 
