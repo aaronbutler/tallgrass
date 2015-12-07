@@ -417,17 +417,21 @@
 			
 			<input class="blockPicker weatherPick" type="radio" id="tab-2" name="tab-group-1">
 			<label class="labelPicker solText" for="tab-2">Weather</label>
-			<div id="picBlock" class="blockContent picBlock" data-bind="with: currentPicArray()[currentPicID()]">
+			<div id="picBlock" class="blockContent picBlock">
 				<h6>Pictures from Curiosity's various cameras</h6>
-				<div data-bind="text:$root.picText"></div>
-				<div data-bind="text:cam"></div>
-				<button data-bind="visible: !($root.currentPicID()===0), click: $root.prevPic"><</button>
-				<img class="containerPic" data-bind="attr: { src:url }" />
-				<button  data-bind="visible: !($root.currentPicID() === $root.currentPicArray().length-1), click: $root.nextPic">></button>
+				<div data-bind="text:$root.solPicError"></div>
+				<div data-bind="with: currentPicArray()[currentPicID()]">
+					<div data-bind="text:$root.picText"></div>
+					<div data-bind="text:cam"></div>
+					<button data-bind="visible: !($root.currentPicID()===0), click: $root.prevPic"><</button>
+					<img class="containerPic" data-bind="attr: { src:url }" />
+					<button  data-bind="visible: !($root.currentPicID() === $root.currentPicArray().length-1), click: $root.nextPic">></button>
+				</div>
 
 			</div>
 			<div id="weatherBlock" class="blockContent weatherBlock">
 				<h6>Weather data from Curiosity's REM sensors</h6>
+				<div data-bind="text:solWeatherError"></div>
 				<ul id="weatherData" data-bind="with: currentWeatherData">
 					<li><span>Martian season: </span><span data-bind="text: season"></span></li>
 					<li><span>Max temp (fahrenheit): </span><span  data-bind="text: max_temp_fahrenheit"></li>
@@ -444,11 +448,13 @@
 		<div class="infoHeader">Curiosity</div>
 		<div class="infoCard">
 			<h4>Here is some general information about the Curiosity rover</h4>
+			<div data-bind="text:wikiCuriosityError"></div>
 			<p data-bind="text:wikiCuriosityRover"></p>
 			<a href="https://en.wikipedia.org/wiki/Curiosity_%28rover%29" target="_blank">Courtesy of Wikipedia</a>
 
 			<h2>Sols</h2>
 			<div>The basic idea behind Sols is that Mars spins at a slightly different rate than Earth, which means a Martian day does not correspond with an Earth day. To make that distinction clear, a Mars day is called a Sol. But to make it less clear, we typically start the clock each time a spacecraft lands on Mars, and the clock sometimes starts on 0, sometimes on 1. The Curiosity rover landed on Mars on August 6, 2012, and its clock started with Sol 0 - therefore the 0th Sol of Curiosity is 8/6/2012</div>
+			<div data-bind="text:wikiTimeError"></div>
 			<div data-bind="with:wikiTimeMars">
 			<a data-bind="attr: { href:link }" target="_blank"><div data-bind="text:blurb"></div></a>
 			</div>
@@ -498,7 +504,10 @@
 			//solModel
 			self.currentPicArray = ko.observableArray();
 			self.currentPicID = ko.observable();
+			self.solPicError = ko.observable();
+			
 			self.currentWeatherData = ko.observable();
+			self.solWeatherError = ko.observable();
 			
 			self.solthText = ko.computed(function() {
 				var _s = self.solendar;
@@ -516,7 +525,9 @@
 			
 			//infoModel
 			self.wikiTimeMars = ko.observable();
+			self.wikiTimeError = ko.observable();
 			self.wikiCuriosityRover = ko.observable();
+			self.wikiCuriosityError = ko.observable();
 			
 			//Behaviors//////////////////////////////
 			
@@ -535,13 +546,25 @@
 					Promise.all([fullyAnimateCircle(self.sols.sols.slice(0,self.solNumber()),self.map), 
 					  populatePicData(self.solNumber(),self.currentPicArray), 
 					  populateWeatherData(self.solNumber(),self.currentWeatherData)]).then(function(arrayOfResults){
-					
+						console.dir(arrayOfResults);
+						if(arrayOfResults[1] == false){
+							self.solPicError("Sorry, couldn't retrieve Curiosity's pictures. Try again later");
+						}
+						else {self.solPicError(null);}
+						
+						if(arrayOfResults[2] == false){
+							self.solWeatherError("Sorry, couldn't retrieve Curiosity's weather. Try again later");
+						}
+						else {self.solWeatherError(null);}
+						
 						log.log(3,ONAME,FNAME,'solPromises kept');
 						self.subLine = arrayOfResults[0];
 						self.currentPicID(0);
 						$('#SolSection').removeClass('hide');
 
 					
+					}, function(e){
+						log.log(3,ONAME,FNAME,'Something went wrong...',e)
 					});
 				});
 			};
@@ -619,8 +642,8 @@
 				});
 			});
 			
-			populateMarsTimeData(self.wikiTimeMars);
-			populateCuriosityData(self.wikiCuriosityRover);
+			populateMarsTimeData(self.wikiTimeMars, self.wikiTimeError);
+			populateCuriosityData(self.wikiCuriosityRover, self.wikiCuriosityError);
 			
 			//client-side routes
 			
@@ -792,7 +815,8 @@
 
 		function populatePicData(solNumber, picArray) {
 			var ONAME = 'picture promise';
-			var FNAME = 'populatePicData';			
+			var FNAME = 'populatePicData';
+			var picRequestTimeout = setTimeout(function(){resolve(false);},8000);
 			return new Promise(function(resolve, reject) {
 				var picLink = 'http://msl-raws.s3.amazonaws.com/images/images_sol'+solNumber+'.json';
 				
@@ -820,12 +844,13 @@
 							
 						}
 						log.log(3,ONAME,FNAME,'after populating currentpicarray');
+						clearTimeout(picRequestTimeout);
 						resolve(true);
 					  },
 					  
 					  error: function(e) {
 						log.log(3,ONAME,FNAME,'failed to populate picture data',e);
-						reject(false);
+						resolve(false);
 
 					  }
 				});
@@ -840,6 +865,7 @@
 
 			
 				var weatherLink = 'http://marsweather.ingenology.com/v1/archive/?format=jsonp&sol='+solNumber;
+				var weatherRequestTimeout = setTimeout(function(){resolve(false);},8000);
 				$.ajax({
 					type: 'GET',
 					dataType: 'jsonp',
@@ -848,6 +874,7 @@
 						var data = result.results[0];
 						log.log(3,ONAME,FNAME,'Weather data: ',data);
 						weatherData(data);
+						clearTimeout(weatherRequestTimeout);
 						resolve(true)
 
 						
@@ -855,7 +882,7 @@
 					
 					error: function(e) {
 						log.log(3,ONAME,FNAME,'failed to populate weather data',e);
-						reject(false);
+						resolve(false);
 
 					  }
 				});
@@ -971,10 +998,10 @@
 			return picObjs;
 		};
 		
-		function populateMarsTimeData(wikiMarsTime) {
+		function populateMarsTimeData(wikiMarsTime, timeError) {
 			var ONAME = 'global';
 			var FNAME = 'populateMarsTimeData';
-			
+			var timeRequestTimeout = setTimeout(function(){timeError("Sorry, couldn't reach the wikipedia API. Try again later");},8000);
 			var wikiApiLink = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=Timekeeping_on_Mars&format=json';
 			$.ajax({
 				type: 'GET',
@@ -985,6 +1012,8 @@
 
 					var link = result[3][0];
 					var blurb = result[2][0];
+					timeError(null);
+					clearTimeout(timeRequestTimeout);
 					wikiMarsTime({link: link, blurb: blurb})
 				},
 				
@@ -997,31 +1026,35 @@
 			
 		};
 		
-		function populateCuriosityData(wikiCuriosity) {
+		function populateCuriosityData(wikiCuriosity, curiosityError) {
 			var ONAME = 'global';
 			var FNAME = 'populateCuriosityData';
-			
+			var curiosityRequestTimeout = setTimeout(function(){curiosityError("Sorry, couldn't reach the wikipedia API. Try again later");},8000);
 			var wikiApiLink = 'https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=Curiosity_%28rover%29';
 			$.ajax({
 				type: 'GET',
 				dataType: 'jsonp',
 				url: wikiApiLink,
+				
+				error: function(jqxhr, textstatus, e) {
+					log.log(3,ONAME,FNAME,'failed to populate curiosity data',jqxhr);
+					
+
+				},
+				 
 				success: function(result) {	
 
 					var pages = result.query.pages;
 					var pageid = Object.keys(pages)[0];
 					var extract = pages[pageid].extract;
 					extract = extract.replace(/\^/g, '');
-
+					curiosityError(null);
+					clearTimeout(curiosityRequestTimeout);
 					wikiCuriosity(extract);
 
-				},
+				}
 				
-				error: function(e) {
-					log.log(3,ONAME,FNAME,'failed to populate curiosity data',e);
-					
-
-				  }
+				
 			});
 
 			
