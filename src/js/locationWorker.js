@@ -35,7 +35,7 @@ self.onmessage = function(e) {
 	xhttp.responseType = 'text';
 	xhttp.onreadystatechange = function() {
 
-		if (xhttp.readyState == 4 && xhttp.status == 200) {
+		if (xhttp.readyState === 4 && xhttp.status === 200) {
 		   ab = xhttp.responseText;
 
 			var obj = parseXMLLocationStr(ab);
@@ -43,13 +43,13 @@ self.onmessage = function(e) {
 			self.postMessage(obj);
 
 		}
-	}
+	};
 	//xhttp.open("GET", "../../kml/locations.xml", true);
 	//xhttp.open('GET','../kml/locations.xml',true);
 	//xhttp.open("GET","http://mars.jpl.nasa.gov/msl-raw-images/locations.xml",true);
 	xhttp.open('GET','../data/locations.xml',true);
 	xhttp.send();
-}
+};
 
 locationTag = {
 	open: '<location>',
@@ -132,7 +132,7 @@ function genericTagsToJson(xString) {
 		left: '<',
 		right: '>',
 		leftClose: '</'
-	}
+	};
 	var json = {};
 	var startIndex,endIndex,currentTag;
 	var startLeft,startRight,endLeft,endRight;
@@ -156,7 +156,7 @@ function genericTagsToJson(xString) {
 		currentSlice = currentSlice.substring(endRight);
 		i++;
 
-	} while ((currentSlice.indexOf(genericTag.left) !== -1) && (i<40))
+	} while ((currentSlice.indexOf(genericTag.left) !== -1) && (i<40));
 
 	return json;
 }

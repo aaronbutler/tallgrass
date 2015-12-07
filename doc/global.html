@@ -1,0 +1,2894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Global</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Global</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2></h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="addLandmarkTakesthearrayoflandmarksandplotsthemonthemapAlsocreatestheinfowindowandtellsitscloseclicktorecenterthemapAndanimatesthemarkeronclick"><span class="type-signature"></span>addLandmarkTakes the array of landmarks and plots them on the mapAlso creates the infowindow and tells its closeclick to recenter the mapAnd animates the marker on click<span class="signature">(the, the)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>the</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">map</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">map which will hold the markers/infowindows</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>the</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">landmark</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">landmark to be added to the map</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line519">line 519</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the marker
+</div>
+
+
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="buildMapCreatesthegooglemapwiththequadrantskmloverlay"><span class="type-signature"></span>buildMapCreates the google map with the quadrants kml overlay<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line274">line 274</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the promise which resolves to the map
+</div>
+
+
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="buildPathCreatethepolylineonthemap"><span class="type-signature"></span>buildPathCreate the polyline on the map<span class="signature">(the, the)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>the</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">map</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">google map object which will own the polyline</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>the</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">points</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">array of points which will make up the polyline</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line333">line 333</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the generated line
+</div>
+
+
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="buildSolsTakesanarrayofsolsandalocationobjectandaddsthatobjecttoanyrelevantsol,creatingsolsasneeded"><span class="type-signature"></span>buildSolsTakes an array of sols and a location object and adds that object to any relevant sol, creating sols as needed<span class="signature">(allSols, loc)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>allSols</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">modifies and/or adds entries to his array based on the start and end date in the loc object</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>loc</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">an object of a single location's data</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="locationWorker.js.html">locationWorker.js</a>, <a href="locationWorker.js.html#line84">line 84</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="cleanse"><span class="type-signature"></span>cleanse<span class="signature">(the)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>the</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">query</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">string to make lowercase and html-safe</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line238">line 238</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the cleansed string
+</div>
+
+
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="escapeHtmlEscapescharacterswhicharereservedinhtml"><span class="type-signature"></span>escapeHtmlEscapes characters which are reserved in html<span class="signature">(string)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>string</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the string whose characters should be made html-safe</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>stolen from http://stackoverflow.com/questions/24816/escaping-html-strings-with-jquery</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="util.js.html">util.js</a>, <a href="util.js.html#line31">line 31</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    html escaped string
+</div>
+
+
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="filterLandmarksSetsthevisibilityonthemapandonthelistofthelandmarksbasedonthesearchquery"><span class="type-signature"></span>filterLandmarksSets the visibility on the map and on the list of the landmarks based  on the search query<span class="signature">(the, the)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>the</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">landmarks</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">array of landmarks</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>the</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">q</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">search query</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line561">line 561</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="fullyAnimateCircleTakethearrayofsols,turnthemintoaline,andanimatethelinewiththeicon"><span class="type-signature"></span>fullyAnimateCircleTake the array of sols, turn them in to a line, and animate the line with the icon<span class="signature">(the, the)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>the</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">sols</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">array of sols which includes location information</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>the</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">map</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">google map which owns the line</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line359">line 359</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the promise which resolves to the line
+</div>
+
+
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="genericTagsToJsonTakesxmlelementsoftheform%3Ca_name%3Ea_value%3C/a_name%3E%3Cb_name%3Eb_value%3C/b_name%3Eandreturnsajavascriptobjectoftheform%7Ba_name:a_value,b_name:b_value%7D"><span class="type-signature"></span>genericTagsToJsonTakes xml elements of the form <a_name>a_value</a_name><b_name>b_value</b_name>and returns a javascript object of the form {a_name: a_value, b_name: b_value}<span class="signature">(xString)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>xString</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the xml elements in string format</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="locationWorker.js.html">locationWorker.js</a>, <a href="locationWorker.js.html#line122">line 122</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getLocationscreatesthewebworkerwhichretrievesandparsesthelocationdatathenputsthedatainthepromise"><span class="type-signature"></span>getLocationscreates the webworker which retrieves and parses the location datathen puts the data in the promise<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line251">line 251</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the promise which resolves with the sols array
+</div>
+
+
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="initLandmarksCreatesthe%7BLandmark%7Dobjectsforthequadrants"><span class="type-signature"></span>initLandmarksCreates the {Landmark} objects for the quadrants<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line485">line 485</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the array of landmarks
+</div>
+
+
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="makePointsArrayTakeeverylat/longpointonthesolsandputtheminanorderedarray"><span class="type-signature"></span>makePointsArrayTake every lat/long point on the sols and put them in an ordered array<span class="signature">(the)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>the</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">sols</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">array of sols which includes location information</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line312">line 312</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the array of point objects for the map to use
+</div>
+
+
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="MarsViewModel"><span class="type-signature"></span>MarsViewModel<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+    <h5>This:</h5>
+    <ul><li>{<a href="global.html#MarsViewModel">MarsViewModel</a>}</li></ul>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Aaron ButlerCreates an instance of a MarsViewModel, the VM in knockout's MVVM</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line16">line 16</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="onmessageawebworkerexternalfilewhichretrievesCuriosityroverlocationdataandconvertsthexmltojsonformat,organizedbysolThereturnedjsonobjectlookslike:%7Bsols:%5B%7Blocations:%5B%7BarrivalTime:%222012-08-05T13:49:59Z%22contributor:%22TeamMSLICE%22dateAdded:%222015-09-30T19:28:30Z%22drive:%2200000%22endSol:%2200000%22itemName:%220000000000%22lat:%22-4.5894669521344875%22lon:%22137.4416334989196%22mapPixelH:%2282253.03164549096%22mapPixelV:%22123500.99039381815%22rot:%220.014572,-0.034982,0.831579,0.554112%22site:%2200000%22startSol:%2200000%22x:%220.0%22y:%220.0%22z:%220.0%22%7D%5D%7D%5D%7Dwheretheinitialsolsarrayhasanentryforeverysol,whetherornottherovermovedthatsolandmostofthedataisirrelevanttome,butthereincaseIchangemymind."><span class="type-signature"></span>onmessagea webworker external file which retrieves Curiosity rover location data and converts the xml to json format, organized by solThe returned json object looks like:{sols: [{locations: [{	arrivalTime: "2012-08-05T13:49:59Z"contributor: "Team MSLICE"dateAdded: "2015-09-30T19:28:30Z"drive: "00000"endSol: "00000"itemName: "0000000000"lat: "-4.5894669521344875"lon: "137.4416334989196"mapPixelH: "82253.03164549096"mapPixelV: "123500.99039381815"rot: "0.014572, -0.034982, 0.831579, 0.554112"site: "00000"startSol: "00000"x: "0.0"y: "0.0"z: "0.0"}]}]}where the initial sols array has an entry for every sol, whether or not the rover moved that soland most of the data is irrelevant to me, but there in case I change my mind.<span class="signature">(optional)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>optional</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">param which I do not use</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Aaron Butler</li>
+        </ul>
+    </dd>
+    
+
+    
+    <dt class="tag-copyright">Copyright:</dt>
+    <dd class="tag-copyright"><ul class="dummy"><li>2015</li></ul></dd>
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="locationWorker.js.html">locationWorker.js</a>, <a href="locationWorker.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="parseXMLLocationStrTakestheentirelocations.xmldataasastringandreturnsajavascriptobject%7Bsols:%5Barrayofsolsdata%5D%7D"><span class="type-signature"></span>parseXMLLocationStrTakes the entire locations.xml data as a string and returns a javascript object {sols: [array of sols data]}<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="locationWorker.js.html">locationWorker.js</a>, <a href="locationWorker.js.html#line59">line 59</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="populateCuriosityDataRetrievesanintroparagraphfromwikipediaforinformationabouttheCuriosityrover"><span class="type-signature"></span>populateCuriosityDataRetrieves an intro paragraph from wikipedia for information about the Curiosity rover<span class="signature">(knockout, knockout)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>knockout</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">wikiCuriosity</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">observable which will hold the plain text paragraph</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>knockout</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">curiosityError</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">observable which will  hold a user readable error message on timeout</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line664">line 664</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="populateMarsTimeDataRetrievesanintroblurbandlinkfromwikipediaforinformationabouttimekeepingonMars"><span class="type-signature"></span>populateMarsTimeDataRetrieves an intro blurb and link from wikipedia for information about timekeeping on Mars<span class="signature">(knockout, knockout)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>knockout</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">wikiMarsTime</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">observable which will hold the {link:, blurb:} object</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>knockout</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">timeError</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">observable which will  hold a user readable error message on timeout</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line629">line 629</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="populatePicDataRetrievesthepicturedatafromnasa'swebserviceandpopulatesthepicarrayobject"><span class="type-signature"></span>populatePicDataRetrieves the picture data from nasa's web service and populates the picarray object<span class="signature">(the, the)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>the</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">solNumber</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">sol which requires picture data</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>the</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">picArray</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">knockout observablearray which will hold the picture data</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line391">line 391</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the promise which resolves to true unless it times out, then it resolves to false
+</div>
+
+
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="populateWeatherDataRetrievesweatherdatafromtheMAASserviceforthespecifiedsol"><span class="type-signature"></span>populateWeatherDataRetrieves weather data from the MAAS service for the specified sol<span class="signature">(the, the)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>the</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">solNumber</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">sol which requires weather data</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>the</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">weatherData</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">knockout observable which will hold the weather data</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line445">line 445</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the promise which resolves  to true unless there is a timeout, in which case it resolves to false
+</div>
+
+
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="showAllLandmarksMakesalllandmarksvisible"><span class="type-signature"></span>showAllLandmarksMakes all landmarks visible<span class="signature">(the)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>the</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">landmarks</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">array of landmarks which should be visible</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line582">line 582</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="solPicArrayConvertsthejsonobjectfromthepictureserviceintoarrayofobjectscontainingaurlandacam"><span class="type-signature"></span>solPicArrayConverts the json object from the picture service  into array of objects containing a url and a cam<span class="signature">(the)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>the</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">text</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">json object to  be converted</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line597">line 597</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+    
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Landmark.html">Landmark</a></li><li><a href="Log.html">Log</a></li><li><a href="Solendar.html">Solendar</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addLandmarkTakesthearrayoflandmarksandplotsthemonthemapAlsocreatestheinfowindowandtellsitscloseclicktorecenterthemapAndanimatesthemarkeronclick">addLandmarkTakes the array of landmarks and plots them on the mapAlso creates the infowindow and tells its closeclick to recenter the mapAnd animates the marker on click</a></li><li><a href="global.html#buildMapCreatesthegooglemapwiththequadrantskmloverlay">buildMapCreates the google map with the quadrants kml overlay</a></li><li><a href="global.html#buildPathCreatethepolylineonthemap">buildPathCreate the polyline on the map</a></li><li><a href="global.html#buildSolsTakesanarrayofsolsandalocationobjectandaddsthatobjecttoanyrelevantsol,creatingsolsasneeded">buildSolsTakes an array of sols and a location object and adds that object to any relevant sol, creating sols as needed</a></li><li><a href="global.html#cleanse">cleanse</a></li><li><a href="global.html#escapeHtmlEscapescharacterswhicharereservedinhtml">escapeHtmlEscapes characters which are reserved in html</a></li><li><a href="global.html#filterLandmarksSetsthevisibilityonthemapandonthelistofthelandmarksbasedonthesearchquery">filterLandmarksSets the visibility on the map and on the list of the landmarks based  on the search query</a></li><li><a href="global.html#fullyAnimateCircleTakethearrayofsols,turnthemintoaline,andanimatethelinewiththeicon">fullyAnimateCircleTake the array of sols, turn them in to a line, and animate the line with the icon</a></li><li><a href="global.html#genericTagsToJsonTakesxmlelementsoftheform%253Ca_name%253Ea_value%253C/a_name%253E%253Cb_name%253Eb_value%253C/b_name%253Eandreturnsajavascriptobjectoftheform%257Ba_name:a_value,b_name:b_value%257D">genericTagsToJsonTakes xml elements of the form <a_name>a_value</a_name><b_name>b_value</b_name>and returns a javascript object of the form {a_name: a_value, b_name: b_value}</a></li><li><a href="global.html#getLocationscreatesthewebworkerwhichretrievesandparsesthelocationdatathenputsthedatainthepromise">getLocationscreates the webworker which retrieves and parses the location datathen puts the data in the promise</a></li><li><a href="global.html#initLandmarksCreatesthe%257BLandmark%257Dobjectsforthequadrants">initLandmarksCreates the {Landmark} objects for the quadrants</a></li><li><a href="global.html#makePointsArrayTakeeverylat/longpointonthesolsandputtheminanorderedarray">makePointsArrayTake every lat/long point on the sols and put them in an ordered array</a></li><li><a href="global.html#MarsViewModel">MarsViewModel</a></li><li><a href="global.html#onmessageawebworkerexternalfilewhichretrievesCuriosityroverlocationdataandconvertsthexmltojsonformat,organizedbysolThereturnedjsonobjectlookslike:%257Bsols:%255B%257Blocations:%255B%257BarrivalTime:%25222012-08-05T13:49:59Z%2522contributor:%2522TeamMSLICE%2522dateAdded:%25222015-09-30T19:28:30Z%2522drive:%252200000%2522endSol:%252200000%2522itemName:%25220000000000%2522lat:%2522-4.5894669521344875%2522lon:%2522137.4416334989196%2522mapPixelH:%252282253.03164549096%2522mapPixelV:%2522123500.99039381815%2522rot:%25220.014572,-0.034982,0.831579,0.554112%2522site:%252200000%2522startSol:%252200000%2522x:%25220.0%2522y:%25220.0%2522z:%25220.0%2522%257D%255D%257D%255D%257Dwheretheinitialsolsarrayhasanentryforeverysol,whetherornottherovermovedthatsolandmostofthedataisirrelevanttome,butthereincaseIchangemymind.">onmessagea webworker external file which retrieves Curiosity rover location data and converts the xml to json format, organized by solThe returned json object looks like:{sols: [{locations: [{	arrivalTime: "2012-08-05T13:49:59Z"contributor: "Team MSLICE"dateAdded: "2015-09-30T19:28:30Z"drive: "00000"endSol: "00000"itemName: "0000000000"lat: "-4.5894669521344875"lon: "137.4416334989196"mapPixelH: "82253.03164549096"mapPixelV: "123500.99039381815"rot: "0.014572, -0.034982, 0.831579, 0.554112"site: "00000"startSol: "00000"x: "0.0"y: "0.0"z: "0.0"}]}]}where the initial sols array has an entry for every sol, whether or not the rover moved that soland most of the data is irrelevant to me, but there in case I change my mind.</a></li><li><a href="global.html#parseXMLLocationStrTakestheentirelocations.xmldataasastringandreturnsajavascriptobject%257Bsols:%255Barrayofsolsdata%255D%257D">parseXMLLocationStrTakes the entire locations.xml data as a string and returns a javascript object {sols: [array of sols data]}</a></li><li><a href="global.html#populateCuriosityDataRetrievesanintroparagraphfromwikipediaforinformationabouttheCuriosityrover">populateCuriosityDataRetrieves an intro paragraph from wikipedia for information about the Curiosity rover</a></li><li><a href="global.html#populateMarsTimeDataRetrievesanintroblurbandlinkfromwikipediaforinformationabouttimekeepingonMars">populateMarsTimeDataRetrieves an intro blurb and link from wikipedia for information about timekeeping on Mars</a></li><li><a href="global.html#populatePicDataRetrievesthepicturedatafromnasa'swebserviceandpopulatesthepicarrayobject">populatePicDataRetrieves the picture data from nasa's web service and populates the picarray object</a></li><li><a href="global.html#populateWeatherDataRetrievesweatherdatafromtheMAASserviceforthespecifiedsol">populateWeatherDataRetrieves weather data from the MAAS service for the specified sol</a></li><li><a href="global.html#showAllLandmarksMakesalllandmarksvisible">showAllLandmarksMakes all landmarks visible</a></li><li><a href="global.html#solPicArrayConvertsthejsonobjectfromthepictureserviceintoarrayofobjectscontainingaurlandacam">solPicArrayConverts the json object from the picture service  into array of objects containing a url and a cam</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon Dec 07 2015 13:35:10 GMT-0500 (Eastern Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

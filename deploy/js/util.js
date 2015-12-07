@@ -1,0 +1,1 @@
+function escapeHtml(a){var b={"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;","/":"&#x2F;"};return String(a).replace(/[&<>"'\/]/g,function(a){return b[a]})}var Log=function(a){this.level=a};Log.prototype.log=function(a,b,c,d,e){a<this.level||(console.log(b+"-"+c+":"+d),null!=e&&console.dir(e))};

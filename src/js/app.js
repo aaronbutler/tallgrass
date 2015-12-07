@@ -51,7 +51,7 @@ function MarsViewModel() {
 	},this);
 	
 	self.picText = ko.computed(function() {
-		if(self.currentPicArray() == null || self.currentPicArray().length == 0) {
+		if(self.currentPicArray() == null || self.currentPicArray().length === 0) {
 			return "No pictures available on this sol";
 		}
 		else {return 'Picture '+(self.currentPicID() + 1) + ' of '+ self.currentPicArray().length;}
@@ -65,9 +65,9 @@ function MarsViewModel() {
 	
 	//Behaviors//////////////////////////////
 	
-	self.goToMap = function() { location.hash = 'mmap/' };
-	self.goToInfo = function() { location.hash = 'info/' };
-	self.goToSol = function(sol) { location.hash = 'sol/' + sol };
+	self.goToMap = function() { location.hash = 'mmap/'; };
+	self.goToInfo = function() { location.hash = 'info/';};
+	self.goToSol = function(sol) { location.hash = 'sol/' + sol; };
 	
 	self.searchSol = function(solnum) {
 		var ONAME = 'MarsViewModel';
@@ -81,15 +81,15 @@ function MarsViewModel() {
 			  populatePicData(self.solNumber(),self.currentPicArray), 
 			  populateWeatherData(self.solNumber(),self.currentWeatherData)]).then(function(arrayOfResults){
 				console.dir(arrayOfResults);
-				if(arrayOfResults[1] == false){
+				if(arrayOfResults[1] === false){
 					self.solPicError("Sorry, couldn't retrieve Curiosity's pictures. Try again later");
 				}
 				else {self.solPicError(null);}
 				
-				if(arrayOfResults[2] == false){
+				if(arrayOfResults[2] === false){
 					self.solWeatherError("Sorry, couldn't retrieve Curiosity's weather. Try again later");
 				}
-				else if (self.currentWeatherData() == undefined) {
+				else if (self.currentWeatherData() === undefined) {
 					self.solWeatherError("No weather data available for this sol.");
 				}
 				else {self.solWeatherError(null);}
@@ -101,7 +101,7 @@ function MarsViewModel() {
 
 			
 			}, function(e){
-				log.log(3,ONAME,FNAME,'Something went wrong...',e)
+				log.log(3,ONAME,FNAME,'Something went wrong...',e);
 			});
 		});
 	};
@@ -218,7 +218,7 @@ function MarsViewModel() {
 		this.get('#sol/:sol', function() {
 			var sol = this.params.sol;
 
-			if(self.solNumber() != sol) {
+			if(self.solNumber() !== sol) {
 				self.solNumber(sol);
 				
 			}
@@ -229,7 +229,7 @@ function MarsViewModel() {
 			self.searchSol(q);
 
 		});
-		this.get('', function() { this.app.runRoute('get', '#mmap') });
+		this.get('', function() { this.app.runRoute('get', '#mmap'); });
 	}).run(); 
 	
 	
@@ -285,7 +285,7 @@ function buildMap() {
 	
 		var mq = window.matchMedia( "(max-width: 768px)" );
 		var z=mq.matches?11:13;
-		var latLng = new google.maps.LatLng(-4.63,137.395)
+		var latLng = new google.maps.LatLng(-4.63,137.395);
 		var mapOptions = { center: latLng,
 			zoom: z,
 			mapTypeControl:false
@@ -381,7 +381,7 @@ function fullyAnimateCircle(sols, map) {
 			  var icons = _l.get('icons');
 			  icons[0].offset = (count / 2) + '%';
 			  _l.set('icons', icons);
-			  if(count/2 == 100) {window.clearInterval(id);resolve(_l);}
+			  if(count/2 === 100) {window.clearInterval(id);resolve(_l);}
 			}, 20);
 		});
 
@@ -467,7 +467,7 @@ function populateWeatherData(solNumber, weatherData) {
 				log.log(3,ONAME,FNAME,'Weather data: ',data);
 				weatherData(data);
 				clearTimeout(weatherRequestTimeout);
-				resolve(true)
+				resolve(true);
 
 				
 			},
@@ -608,7 +608,7 @@ function solPicArray(text) {
 	var instruments = ['ccam_images','fcam_images','rcam_images','ncam_images','mastcam_left_images','mastcam_right_images','mahli_images','mardi_images'];
 
 	for(var i=0,l=instruments.length;i<l;i++) {
-		var cam = instruments[i]
+		var cam = instruments[i];
 		var instData = obj[instruments[i]];
 		for(var m=0,n=instData.length;m<n;m++) {
 			var instPics = instData[m]['images'];
@@ -649,7 +649,7 @@ function populateMarsTimeData(wikiMarsTime, timeError) {
 			var blurb = result[2][0];
 			timeError(null);
 			clearTimeout(timeRequestTimeout);
-			wikiMarsTime({link: link, blurb: blurb})
+			wikiMarsTime({link: link, blurb: blurb});
 		},
 		
 		error: function(e) {

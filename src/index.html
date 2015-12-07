@@ -12,7 +12,7 @@
 	<script src="js/MarsUtils.js"></script>
 	<script src="js/util.js"></script>
 	<script>
-		var log = new Log(2);
+		var log = new Log(5);
 	</script>
 	<link href="css/main.css" rel="stylesheet">
 </head>
@@ -60,9 +60,9 @@
 				<div data-bind="with: currentPicArray()[currentPicID()]">
 					
 					<div data-bind="text:cam"></div>
-					<button data-bind="visible: !($root.currentPicID()===0), click: $root.prevPic"><</button>
+					<button data-bind="visible: !($root.currentPicID()===0), click: $root.prevPic">&lt;</button>
 					<img class="containerPic" data-bind="attr: { src:url }" />
-					<button  data-bind="visible: !($root.currentPicID() === $root.currentPicArray().length-1), click: $root.nextPic">></button>
+					<button  data-bind="visible: !($root.currentPicID() === $root.currentPicArray().length-1), click: $root.nextPic">&gt;</button>
 				</div>
 
 			</div>

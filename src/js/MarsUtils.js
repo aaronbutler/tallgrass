@@ -41,7 +41,7 @@ Solendar.prototype.SolToDate = function(sol) {
 Solendar.prototype.DateToSol = function(date) {
 
 	var days = (date - this.firstDate)/86400000;
-	var sols = days * (.9732439);
+	var sols = days * (0.9732439);
 
 	return sols + this.firstSol;
 };
@@ -86,7 +86,7 @@ var Landmark = function(name, credits, description, lng, lat) {
 	this.lat = lat;
 	this.showme = ko.observable(true);
 	this.mapMarker = null;
-}
+};
 
 
 

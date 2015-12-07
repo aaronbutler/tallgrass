@@ -18,7 +18,21 @@ The goals I failed to meet include:
 1. Create a useful and appealing data mashup and analysis tool for Curiosity rover data.
 If you were wondering - the rover is in Papua because the GPS coordinates of Papua correspond with Curiosity's location using Nasa's coordinate system on Mars.
 
+### Installation
 
-Technically interesting searches include :222, :798, and :799
+#### Build - requires node/npm and grunt
+1. From inside project directory, run npm install. This should install all required grunt plugins.
+1. From inside project directory, run grunt --force. This should read the files in source/ , run a jshint task on the javascript files in the source directory, minimize them where appropriate, place the minimized files and all data files in a deploy/ directory, and create doc/ with jsdoc website.
+
+#### Run
+1. Requires a local web server - You have choices; I would recommend pointing the web server to the project directory so you have the option to point your browser to localhost/project/source as well as localhost/project/deploy as well as localhost/project/doc
+1. Or browse to [gh-pages](http://aaronbutler.github.io/tallgrass/index.html) and use that as the launch point for everything you may want to run on this app.
+1. Technically interesting searches include :222, :798, and :799
+1. I effectively disabled logging; if you wish to see log entries you can call log = new Log(1) from Chrome console.
+
+### Notes
+1. I left index2, index3, and index4 for future reference for myself; they probably don't run and should be ignored.
+1. I haven't researched telling jshint and jsdoc to ignore particular error messages (superfluous semicolons, == instead of ===) which is why the build instruction says to use --force switch.
+
 
 

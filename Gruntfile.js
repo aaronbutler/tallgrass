@@ -22,7 +22,7 @@ module.exports = function(grunt) {
       eqeqeq: true,
       eqnull: true
     },
-    all: ['source/js/*.js'],
+    all: ['src/js/*.js'],
 	deploy: ['deploy/js/*.js']
   },
     prettify: {
@@ -51,7 +51,7 @@ module.exports = function(grunt) {
         },
         files: [{
 			expand: true,     // Enable dynamic expansion.
-      cwd: 'source/',      // Src matches are relative to this path.
+      cwd: 'src/',      // Src matches are relative to this path.
       src: ['*.html','views/*.html'], // Actual pattern(s) to match.
       dest: 'deploy/',   // Destination path prefix.
       ext: '.html',   // Dest filepaths will have this extension.
@@ -64,8 +64,8 @@ module.exports = function(grunt) {
     dist: {
       files: [{
           expand: true,
-          cwd: 'source/',
-          src: ['js/*.js','views/js/*.js'],
+          cwd: 'src/',
+          src: ['js/*.js'],
           dest: 'deploy/'
       }]
     },
@@ -75,7 +75,7 @@ module.exports = function(grunt) {
 		},
 		files: [{
           expand: true,
-          cwd: 'source/js',
+          cwd: 'src/js',
           src: '*.js',
           dest: 'pretty/js'
       }]
@@ -85,7 +85,7 @@ module.exports = function(grunt) {
   dist: {
     files: [{
       expand: true,
-      cwd: 'source/',
+      cwd: 'src/',
       src: ['css/*.css','views/css/*.css', '!*.min.css'],
       dest: 'deploy/',
       ext: '.css'
@@ -95,7 +95,7 @@ module.exports = function(grunt) {
 
 	jsdoc : {
         dist : {
-            src: ['src/*.js'],
+            src: ['src/js/*.js'],
             options: {
                 destination: 'doc'
             }
@@ -106,7 +106,7 @@ module.exports = function(grunt) {
 	copy: {
   main: {
     expand: true,
-    cwd: 'source/',
+    cwd: 'src/',
     src: ['img/**','data/**'],
     dest: 'deploy/',
     flatten: false,
