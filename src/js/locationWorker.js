@@ -1,6 +1,8 @@
 /**
 *@author Aaron Butler
 *@copyright 2015
+*@function
+*@name onmessage
 *a webworker external file which retrieves Curiosity rover location data and converts the xml to json format, organized by sol
 *The returned json object looks like:
 *{sols: [{locations: [{	
@@ -55,6 +57,8 @@ locationTag = {
 };
 
 /**
+*@function
+*@name parseXMLLocationStr
 *Takes the entire locations.xml data as a string and returns a javascript object {sols: [array of sols data]}
 */
 function parseXMLLocationStr(xString) {
@@ -78,6 +82,8 @@ function parseXMLLocationStr(xString) {
 };
 
 /**
+*@function
+*@name buildSols
 *Takes an array of sols and a location object and adds that object to any relevant sol, creating sols as needed
 *@param {array} allSols modifies and/or adds entries to his array based on the start and end date in the loc object
 *@param {object} loc an object of a single location's data
@@ -114,6 +120,8 @@ function buildSols(allSols, loc) {
 }
 
 /**
+*@function
+*@name genericTagsToJson
 *Takes xml elements of the form <a_name>a_value</a_name><b_name>b_value</b_name>
 *and returns a javascript object of the form {a_name: a_value, b_name: b_value}
 *@param {string} xString the xml elements in string format

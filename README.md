@@ -18,3 +18,7 @@ The goals I failed to meet include:
 1. Create a useful and appealing data mashup and analysis tool for Curiosity rover data.
 If you were wondering - the rover is in Papua because the GPS coordinates of Papua correspond with Curiosity's location using Nasa's coordinate system on Mars.
 
+
+Technically interesting searches include :222, :798, and :799
+
+
