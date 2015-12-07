@@ -1,0 +1,363 @@
+html, body {
+			width: 100%;
+			height: 100%;
+		}
+
+		body {
+			font-family: 'Roboto', sans-serif;
+			overflow-y: hidden;
+		}
+
+		header {
+			height: 10%;
+			padding: 0 0.2em 0.1em 0;
+			display: flex;
+			flex-wrap: wrap;
+			-ms-flex-align: center;
+			-webkit-align-items: center;
+			-webkit-box-align: center;
+
+			align-items: center;
+		}
+
+		.title {
+			order: 1;
+			width: 15%;
+
+		}
+		.subtitle {
+			order: 2;
+			width: 65%;
+
+			font-size: 1em;
+
+		}
+
+		.searchIcon {
+			order: 3;
+			font-size: 2em;
+			padding: 0.3em;
+			cursor:pointer;
+			color: #fff;
+			border: 1px solid #AEAEAE;
+			border-radius: 30px;
+			background: #605F61;
+			margin: 0.5em;
+
+		}
+
+		.infoIcon {
+			order: 4;
+			font-size: 2em;
+			padding: 0.3em;
+			cursor:pointer;
+			color: #fff;
+			border: 1px solid #AEAEAE;
+			border-radius: 30px;
+			background: #605F61;
+			margin: 0.5em;
+		}
+
+		#MapSearchSection {
+			max-height: 90%;
+		}
+		
+		.searchPanel {
+			height: 20%;
+			display: flex;
+			flex-wrap: wrap;
+		}
+		
+		.searchQuery {
+			width: 100%;
+			height: 4.5em;
+		}
+		
+		.searchInstructions {
+			width: 100%;
+		}
+		
+		#MapSearchSection  {
+			-webkit-transition-duration: 600ms;
+			transition-duration: 600ms;
+			opacity: 0.8;
+			background-color: white;
+			position: absolute;
+			width: 42%;
+			z-index: 1000;
+
+		}
+		
+		#MapSearchSection.hide {
+			//opacity: 1.0;
+			transform: translateX(-110%);
+			-webkit-transform: translateX(-110%);
+		}
+		
+		#InfoSection {
+			-webkit-transition-duration: 6000ms;
+			transition-duration: 6000ms;
+			position: absolute;
+
+			top: 0%;
+			width: 100%;
+			left: 50%;
+			height: 100%;
+			margin: 0 0 0 -50%;
+			background-color: green;
+			box-shadow: -15px -15px 53px #888888;
+			opacity: 1;
+			z-index: 1001;
+			overflow-y: scroll;
+			font-size: 0.8em;
+		}
+		
+		#InfoSection.hide {
+			opacity: 0.5;
+			transform: translateY(110%);
+			-webkit-transform: translateY(110%);
+		}
+		
+		.markerList{
+			width: 100%;
+			border-style:solid;
+			border-width: 2px;
+			
+			display: flex;
+			flex-wrap: wrap;
+			flex-direction: column;
+			z-index: 10;
+		}
+		
+		.markerTitles {
+			font: bold 0.8em arial, sans-serif;
+			padding: 0.3em;
+			color: blue;
+		}
+		
+		.map {
+			width: 95%;
+			height: 88%;
+
+			-webkit-transition-duration: 6000ms;
+			transition-duration: 6000ms;
+		}
+
+		
+		.cover {
+			width: 98%;
+			height: 100%;
+		}
+		
+		.cover {
+			-webkit-transition-duration: 6000ms;
+			transition-duration: 6000ms;
+			position: absolute;
+
+			top: 0%;
+
+			left: 50%;
+			margin: 0 0 0 -49%;
+			background-color: red;
+			box-shadow: -15px -15px 53px #888888;
+			opacity: 1;
+			z-index: 1000;
+		}
+		
+		.cover.hide {
+			opacity: 0.5;
+			transform: translateY(110%);
+			-webkit-transform: translateY(110%);
+		}
+		
+		.cover::before {
+
+			opacity: 0;
+		}
+		
+		.closer{
+			float:right;
+			margin-top:5px;
+			margin-right:5px;
+			cursor:pointer;
+			color: #fff;
+			border: 1px solid #AEAEAE;
+			border-radius: 30px;
+			background: #605F61;
+			font-size: 31px;
+			font-weight: bold;
+			display: inline-block;
+			line-height: 0px;
+			padding: 11px 3px;
+
+		}
+
+		
+		.closer:before {
+			content: "X";
+		}
+		
+		.solText {
+			color: PaleGreen;
+		}
+		
+		.solSectionHeader {
+			text-align: center;
+		}
+		
+		
+		.blockHolder {
+			//height: 20%;
+			display: flex;
+			flex-wrap: wrap;
+		}
+		
+		.picBlock, .weatherBlock {
+			width: 45%;
+			padding: 2%;
+		}
+		
+		.picBlock img {
+			width: 75%;
+		}
+		
+		[type=radio] {
+			display: none;   
+		}
+		
+		.labelPicker {
+			display: none;
+		}
+		
+		.blockContent {
+			background-color: PaleGreen;
+			z-index: 3;
+			box-shadow: -15px -15px 23px #888888;
+			margin: 25px 5px 0 5px;
+		}
+		.infoHeader {
+			text-align: center;
+			font-size: 2em;
+			margin: 5px;
+			color: Pink;
+		}
+		
+		.infoCard {
+			width: 85%;
+			background-color: Pink;
+			z-index: 3;
+			box-shadow: -15px -15px 23px #888888;
+
+			position: absolute;
+			top: 12%;
+
+			left: 50%;
+			margin: 0 0 0 -42.5%;
+
+		}
+		
+
+
+
+		@media only screen and (min-width: 767px) and (max-width: 799px) {
+			header {
+				height: 15%;
+			}
+			
+			.title {
+				width: 88%;
+			}
+			.subtitle {
+				width: 90%;
+				font-size: 0.7em;
+				order: 3;
+			}
+			
+			.searchIcon {
+
+				font-size: 0.9em;
+				margin: 0.2em;
+				order: 2;
+			}
+			
+			.infoIcon {
+
+				font-size: 0.9em;
+				margin: 0.2em;
+				order: 4;
+			}
+			
+			.map {
+				height: 75%;
+			}
+		}
+		
+		@media only screen and (max-width: 766px) {
+			header {
+				height: 30%;
+			}
+			
+			.map {
+				height: 68%;
+			}
+			.title {
+				width: 88%;
+			}
+			
+			.subtitle {
+				width: 90%;
+				font-size: 0.7em;
+				order: 3;
+			}
+			
+			.searchIcon {
+
+				font-size: 0.9em;
+				margin: 0.2em;
+				order: 2;
+			}
+			
+			.infoIcon {
+
+				font-size: 0.9em;
+				margin: 0.2em;
+				order: 4;
+			}
+			
+
+		
+			#pictureButton, #weatherButton {
+				display: inline;
+			}
+			
+			.picBlock, .weatherBlock {
+				width: 90%;
+			}
+			
+
+			
+			.blockContent {
+				display: none;
+			}
+			
+			.labelPicker {
+				font-size: 1em;
+				padding: 0.3em;
+				display: inline-block;
+				cursor: pointer;
+				border: 1px solid black;
+			}
+			
+			.blockPicker:checked + label {
+				color: gray;
+				cursor: auto;
+			}
+			
+			.picPick:checked ~ .picBlock {
+				display: block;
+			}
+			
+			.weatherPick:checked ~ .weatherBlock {
+				display: block;
+			}
+		}

@@ -3,220 +3,114 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<title>Knockout Mars Map</title>
+	<title>Promise Map</title>
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="js/sammy.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
-	<script src="js/infobubble.js"></script>
 	<script src="http://maps.googleapis.com/maps/api/js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
 	<script src="js/MarsUtils.js"></script>
 	<script src="js/util.js"></script>
 	<script>
 		var log = new Log(2);
 	</script>
-	
-	<script>
-		/**
-		*A utility to manage events which depend on multiple asynchronous events
-		*@this {CoincidenceCallbackRegistry}
-		*@param {none}
-		*/
-		var CoincidenceCallbackRegistry = function () {
-			this.registry = {};
-		};
-		
-		
-		/**
-		*Register an event as dependent upon multiple asynch events
-		*@this {CoincidenceCallbackRegistry}
-		*@param {string} name the identifier for the thing which must happen after other things
-		*@param {array} reqs the array of strings identifying the asynchronous events which must happen first
-		*@param {function} callback the callback function which must be run after the reqs have completed
-		*/
-		CoincidenceCallbackRegistry.prototype.register = function(name, reqs, callback) {
-			var ONAME = 'CoincidenceCallbackRegistry';
-			var FNAME = 'register';
-			
-			this.registry[name] = {reqs: reqs,callback: callback};
-			log.log(3,ONAME,FNAME,'registering a callback',this.registry);
-		};
-		
-		/**
-		*Removes a completed event from the registry reqs list
-		*@this {CoincidenceCallbackRegistry}
-		*@param {string} name the key in the registry which identifies  the thing which must happen after other things 
-		*@param {string} member the name of the req event which has completed
-		*/
-		CoincidenceCallbackRegistry.prototype.memberReady = function(name, member) {
-			var ONAME = 'CoincidenceCallbackRegistry';
-			var FNAME = 'memberReady';
-			log.log(3,ONAME,FNAME,member+' is ready for '+name,this.registry);
-			var entry = this.registry[name];
-			if(entry != null) {
-				var index = entry.reqs.indexOf(member);
-				if(index > -1) {
-					entry.reqs.splice(index,1);
-					if (entry.reqs.length == 0) {
-						entry.callback();
-						//this.registry.splice(i,1);
-						this.registry[name] = null;
-					}
-				}
-			}
-		};
-	
-	</script>
-	
-	<style>
-		html, body {
-			height: 100%;
-		}
-		
-		body {
-			max-width: 100%;
-			height: 100%;
-			-webkit-box-sizing: border-box;
-			-moz-box-sizing: border-box;
-			-ms-box-sizing: border-box;
-			box-sizing: border-box;
-		}
-		
-		header {
-			height: 10%;
-		}
-		
-		.searchPanel {
-			display: flex;
-			flex-wrap: wrap;
-		}
-		
-		.searchQuery {
-			height: 3em;
-			font-size: 2em;
-			width: 22%;
-		}
-		
-		.searchInstructions {
-			font-size: 1.5em;
-			width: 70%;
-		}
-		.markerSection  {
-			position: absolute;
-			width: 22%;
-			//margin-top: 10%;
-		}
-		.markerList{
-			width: 100%;
-			border-style:solid;
-			border-width: 2px;
-			
-			display: flex;
-			flex-wrap: wrap;
-			flex-direction: column;
-			z-index: 10;
-		}
-		
-		.markerTitles {
-			font: bold 1.4em arial, sans-serif;
-			color: blue;
-		}
-	
-		.mapSection {
-			height: 90%;
-		}
-		.mapPanel {
-			height: 100%;
-			margin-left: 22%;
-			width: 77%;
-		}
-		
-		.map {
-			height: 80%;
-		}
-		
-		.hide {
-			display: none;
-		}
-	</style>
+	<link href="css/main.css" rel="stylesheet">
 </head>
 <body>
+
 	<header>
-		<h1 data-bind="click: $root.goToMap">The Tall Grass of Mars</h1>
-		<div class="subHeader mapScreen">What happened when I set out to make an interesting Mars/Google Maps app and settled for placing the Curiosity rover in Papua and using defunct APIs in my mashup</div>
+		<h2 class="title">The Tall Grass of Mars</h2>
+		<div class="subtitle">What happened when I set out to make an interesting Mars/Google Maps app and settled for placing the Curiosity rover in Papua and using defunct APIs in my mashup.</div>
+		<div class="searchIcon">&#128270;</div>
+
+		<div class="infoIcon">?</div>
+
 	</header>
 	
-	<div id="searchPanel" class="searchPanel mapScreen" data-bind="with:$root.appModel">
-			<input id="searchQuery" class="searchQuery" data-bind="value: searchQuery, valueUpdate: 'afterkeydown', event: {keypress: $root.searchEnter}" placeholder="Search"></input>
-			<div id="searchInstructions" class="searchInstructions">Search for Quadrants, or for Sols using sol:sol#</div>
-		</div>
-	<div id="markerSection" class="markerSection mapScreen" data-bind="with:mapModel">
-		<div id="markerList" class="markerList" data-bind="foreach: landmarkers">
-			<div class="markerTitles" data-bind="visible: showme, text: title, click: clicker"></div>
-		</div>
-	</div>
-	<div id="mapSection" class="mapSection mapScreen" data-bind="with:mapModel">
-		
-		
-		<!--<div id="markerList" data-bind="foreach: landmarkers">
-			<div class="showMe" data-bind="visible: showme"><div class="foundMarker" data-bind="click: clicker"><div class="markerTitle" data-bind="text: title"></div></div></div>
-		</div>-->
-		
-		<div id="mapPanel" class="mapPanel" >
-			<div id="map" class="map"></div>
-		</div>
-	</div>
 	
-	<div id="solPanel" class="solPanel" data-bind="with:solModel">
-		<div class="solPanelHeader" data-bind="text:solthText"></div>
-		<div id="picBlock" class="picBloc">
-			<div data-bind="text: picText"></div>
-			<button data-bind="visible: !(picZero()), click: $root.prevPic"><</button>
-			<img class="containerPic" data-bind="attr: { src:currentPicSrc }" />
-			<button  data-bind="visible: !(picLast()), click: $root.nextPic">></button>		
-		</div>
-		<div id="weatherBlock" class="weatherBlock">
-			<ul id="weatherData" data-bind="with: weatherData">
-				<li data-bind="text: season"></li>
-				<li data-bind="text: atmo_opacity"></li>
-				<li data-bind="text: max_temp_fahrenheit"></li>
-				<li data-bind="text: min_temp_fahrenheit"></li>
-				<li data-bind="text: pressure"></li>
-				<li data-bind="text: pressure_string"></li>
-			</ul>
-		</div>
-	</div>
-	<footer>
-		<div>Credits</div>
-		<div>Copyright</div>
-		<div>Information about martian data</div>
-	</footer>
 	
-	<!--invisible container for the data in the infobubble picture tab-->
-	<div id="pictureTab" style="display: none;">
-		<!--<div id="bubblePictureContent" style="width: 250px;">
-			<div data-bind="text:solthText"></div>
-			<div data-bind="text: picText"></div>
-			<button data-bind="visible: !(picZero()), click: prevPic"><</button>
-			<img class="containerPic" data-bind="attr: { src:currentPicSrc }" />
-			<button  data-bind="visible: !(picLast()), click: nextPic">></button>
+	<section id="MapSearchSection" class="hide">
+		<div id="searchPanel" class="searchPanel mapScreen">
+			<textarea autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" id="searchQuery" class="searchQuery" data-bind="textInput: searchQuery, event: {input: $root.search, keypress: $root.onEnter}" placeholder="Search for quadrants, or for Sols using :sol#"></textarea>
+
+		</div>
+		<div id="markerSection" class="markerSection mapScreen">
+			<div id="markerList" class="markerList" data-bind="foreach: landmarks">
+				<div class="markerTitles" data-bind="visible: showme, text:name, click: $root.clickLandmark"></div>
+			</div>
+		</div>
+	
+		
+	</section>
+	<div id="map" class="map"></div>
+	<section id="SolSection" class="cover hide">
+		<div class="closer solCloser"></div>
+		<h3 class="solSectionHeader solText" data-bind="text:solthText"></h3>
+
+		<div class="blockHolder">
+			<input class="blockPicker picPick" type="radio" id="tab-1" name="tab-group-1" checked>
+			<label class="labelPicker solText" for="tab-1">Pictures</label>
 			
-		</div>-->
-	</div>
+			<input class="blockPicker weatherPick" type="radio" id="tab-2" name="tab-group-1">
+			<label class="labelPicker solText" for="tab-2">Weather</label>
+			<div id="picBlock" class="blockContent picBlock">
+				<h6>Pictures from Curiosity's various cameras</h6>
+				<div data-bind="text:$root.solPicError"></div>
+				<div data-bind="text:$root.picText"></div>
+				<div data-bind="with: currentPicArray()[currentPicID()]">
+					
+					<div data-bind="text:cam"></div>
+					<button data-bind="visible: !($root.currentPicID()===0), click: $root.prevPic"><</button>
+					<img class="containerPic" data-bind="attr: { src:url }" />
+					<button  data-bind="visible: !($root.currentPicID() === $root.currentPicArray().length-1), click: $root.nextPic">></button>
+				</div>
+
+			</div>
+			<div id="weatherBlock" class="blockContent weatherBlock">
+				<h6>Weather data from Curiosity's REM sensors</h6>
+				<div data-bind="text:solWeatherError"></div>
+				<ul id="weatherData" data-bind="with: currentWeatherData">
+					<li><span>Martian season: </span><span data-bind="text: season"></span></li>
+					<li><span>Max temp (fahrenheit): </span><span  data-bind="text: max_temp_fahrenheit"></li>
+					<li><span>Min temp (fahrenheit): </span><span  data-bind="text: min_temp_fahrenheit"></li>
+					<li><span>Atmospheric pressure (Pascals): </span><span  data-bind="text: $root.currentWeatherData().pressure*100"></li>
+					<li><span>Relative atmospheric pressure: </span><span  data-bind="text: pressure_string"></li>
+				</ul>
+			</div>
+		</div>
+	</section>
 	
-	<!--invisible container for the data in the infobubble weather tab-->
-	<div id="weatherTab" style="display: none;">
-		<!--<div id="bubbleWeatherContent" style="width: 250px;">
-			<ul id="weatherData" data-bind="with: weatherData">
-				<li data-bind="text: season"></li>
-				<li data-bind="text: atmo_opacity"></li>
-				<li data-bind="text: max_temp_fahrenheit"></li>
-				<li data-bind="text: min_temp_fahrenheit"></li>
-				<li data-bind="text: pressure"></li>
-				<li data-bind="text: pressure_string"></li>
+	<section id="InfoSection" class="hide">
+		<div class="closer infoCloser"></div>
+		<div class="infoHeader">Curiosity</div>
+		<div class="infoCard">
+			<h4>Here is some general information about the Curiosity rover</h4>
+			<div data-bind="text:wikiCuriosityError"></div>
+			<p data-bind="text:wikiCuriosityRover"></p>
+			<a href="https://en.wikipedia.org/wiki/Curiosity_%28rover%29" target="_blank">Courtesy of Wikipedia</a>
+
+			<h2>Sols</h2>
+			<div>The basic idea behind Sols is that Mars spins at a slightly different rate than Earth, which means a Martian day does not correspond with an Earth day. To make that distinction clear, a Mars day is called a Sol. But to make it less clear, we typically start the clock each time a spacecraft lands on Mars, and the clock sometimes starts on 0, sometimes on 1. The Curiosity rover landed on Mars on August 6, 2012, and its clock started with Sol 0 - therefore the 0th Sol of Curiosity is 8/6/2012</div>
+			<div data-bind="text:wikiTimeError"></div>
+			<div data-bind="with:wikiTimeMars">
+			<a data-bind="attr: { href:link }" target="_blank"><div data-bind="text:blurb"></div></a>
+			</div>
+			<h2>Credits</h2>
+			<ul>
+				<li><a href = "http://marsweather.ingenology.com/" target="_blank">MAAS - Weather API</a></li>
+				<li><a href = "http://www.unmannedspaceflight.com/index.php?s=98edeb8c3d505a1f718f193458daf293&showtopic=7442" target="blank">unmannedspaceflight - maps and quadrant KML</a></li>
+				<li><a href = "http://mars.nasa.gov/msl/" target="_blank">Nasa</a></li>
+				<li><a href = "http://mars.jpl.nasa.gov/msl-raw-images/locations.xml" target="_blank">JPL location data (~5mb)</a></li>
 			</ul>
-		</div>-->
-	</div>
+		</div>
+		
+	</section>
+
+	<script src="js/app.js"></script>
+	<script>
 	
-	<script src="js/tallgrass.js"></script>	
+
+
+	</script>
 </body>
+</html>
