@@ -60,7 +60,7 @@
 					
 					<div data-bind="text:cam"></div>
 					<button data-bind="visible: !($root.currentPicID()===0), click: $root.prevPic">&lt;</button>
-					<img class="containerPic" data-bind="attr: { src:url }" />
+					<img class="containerPic" alt="image from Curiosity rover on Mars" data-bind="attr: { src:url }" />
 					<button  data-bind="visible: !($root.currentPicID() === $root.currentPicArray().length-1), click: $root.nextPic">&gt;</button>
 				</div>
 
