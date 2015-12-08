@@ -2,7 +2,8 @@
 *author Aaron Butler
 */
 $(document).ready(function () {
-	viewModel = new MarsViewModel();
+	var mapApiPromise = getMapApi();
+	viewModel = new MarsViewModel(mapApiPromise);
 	ko.applyBindings(viewModel);
 
 	$('.markerTitles').click(function(){$('#MapSearchSection').toggleClass('hide');});
@@ -12,10 +13,11 @@ $(document).ready(function () {
 *@author Aaron Butler
 *Creates an instance of a MarsViewModel, the VM in knockout's MVVM
 @this {MarsViewModel}
+@param {mapApiPromise} the promise to asynchronously load the google maps api
 */
-function MarsViewModel() {
+function MarsViewModel(mapApiPromise) {
 	var self = this;
-
+	self.mapApiPromise = mapApiPromise;
 	//appModel
 	var d = new Date();
 	d.setFullYear(2012, 7, 6);
@@ -152,7 +154,11 @@ function MarsViewModel() {
 
 	//Initializers///////////////////////////
 	var locationPromise = getLocations();
-	self.mapPromise = buildMap();
+
+	self.mapPromise = self.mapApiPromise.then(function() {
+		return new Promise(function(resolve,request){resolve(buildMap());});
+	});
+
 	self.mapSetup = Promise.all([locationPromise, self.mapPromise]).then(function(arrayOfResults){
 		return new Promise(function(resolve,reject){
 			self.sols = arrayOfResults[0];
@@ -230,6 +236,30 @@ function MarsViewModel() {
 		this.get('', function() { this.app.runRoute('get', '#mmap'); });
 	}).run(); 
 
+};
+
+/**
+*@function
+*@name getMapApi
+*load the google maps api into the global context
+*@return the promise which resolves true
+*/
+function getMapApi() {
+
+	var ONAME =  'Global';
+	var FNAME = 'getMapApi';
+	log.log(3,ONAME,FNAME,'loading google maps api',this);
+	return new Promise(function(resolve,reject) {
+		var apiLink = 'http://maps.googleapis.com/maps/api/js';
+		var apiRequestTimeout = setTimeout(function(){resolve(false);},8000);
+		$.getScript(apiLink)
+			.done(function(script,textStatus){
+				clearTimeout(apiRequestTimeout);
+				log.log(3,ONAME,FNAME,'the map script:',script);
+				log.log(3,ONAME,FNAME,'the text status',textStatus);
+				resolve(true);
+			});
+	});
 };
 
 /**
