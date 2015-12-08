@@ -237,7 +237,7 @@ function MarsViewModel(mapApiPromise) {
 			self.searchSol(q);
 
 		});
-		this.get('', function() { this.app.runRoute('get', '#mmap'); });
+		this.get('', function() {});
 	}).run(); 
 
 };
