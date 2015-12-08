@@ -130,7 +130,7 @@ function MarsViewModel(mapApiPromise) {
 			return true;
 		}
 	};
-	
+
 	self.onEnter = function(d,e) {
 		var keyCode = e.which?e.which:e.keyCode;
 
@@ -142,8 +142,6 @@ function MarsViewModel(mapApiPromise) {
 	};
 
 	self.clickLandmark = function(d,e) {
-		console.dir(d);
-		console.dir(e);
 		d.mapMarker.clicker();
 	};
 

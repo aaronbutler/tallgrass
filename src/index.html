@@ -3,15 +3,15 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<title>Promise Map</title>
-	
+	<title>Curiosity Rover Map</title>
+
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="js/sammy.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
 	<script src="js/MarsUtils.js"></script>
 	<script src="js/util.js"></script>
 	<script>
-		var log = new Log(2);
+		var log = new Log(5);
 	</script>
 	<link href="css/main.css" rel="stylesheet">
 </head>
@@ -25,9 +25,7 @@
 		<div class="infoIcon">?</div>
 
 	</header>
-	
-	
-	
+
 	<section id="MapSearchSection" class="hide">
 		<div id="searchPanel" class="searchPanel mapScreen">
 			<textarea autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" id="searchQuery" class="searchQuery" data-bind="textInput: searchQuery, event: {input: $root.search, keypress: $root.onEnter}" placeholder="Search for quadrants, or for Sols using :sol#"></textarea>
@@ -38,8 +36,7 @@
 				<div class="markerTitles" data-bind="visible: showme, text:name, click: $root.clickLandmark"></div>
 			</div>
 		</div>
-	
-		
+
 	</section>
 	<div id="map" class="map"></div>
 	<section id="SolSection" class="cover hide">
@@ -49,7 +46,7 @@
 		<div class="blockHolder">
 			<input class="blockPicker picPick" type="radio" id="tab-1" name="tab-group-1" checked>
 			<label class="labelPicker solText" for="tab-1">Pictures</label>
-			
+
 			<input class="blockPicker weatherPick" type="radio" id="tab-2" name="tab-group-1">
 			<label class="labelPicker solText" for="tab-2">Weather</label>
 			<div id="picBlock" class="blockContent picBlock">
@@ -57,7 +54,7 @@
 				<div data-bind="text:$root.solPicError"></div>
 				<div data-bind="text:$root.picText"></div>
 				<div data-bind="with: currentPicArray()[currentPicID()]">
-					
+
 					<div data-bind="text:cam"></div>
 					<button data-bind="visible: !($root.currentPicID()===0), click: $root.prevPic">&lt;</button>
 					<img class="containerPic" alt="image from Curiosity rover on Mars" data-bind="attr: { src:url }" />
@@ -102,7 +99,7 @@
 				<li><a href = "http://mars.jpl.nasa.gov/msl-raw-images/locations.xml" target="_blank">JPL location data (~5mb)</a></li>
 			</ul>
 		</div>
-		
+
 	</section>
 
 	<script src="js/app.js"></script>

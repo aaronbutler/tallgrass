@@ -61,22 +61,22 @@ html, body {
 		#MapSearchSection {
 			max-height: 90%;
 		}
-		
+
 		.searchPanel {
 			height: 20%;
 			display: flex;
 			flex-wrap: wrap;
 		}
-		
+
 		.searchQuery {
 			width: 100%;
 			height: 4.5em;
 		}
-		
+
 		.searchInstructions {
 			width: 100%;
 		}
-		
+
 		#MapSearchSection  {
 			-webkit-transition-duration: 600ms;
 			transition-duration: 600ms;
@@ -87,12 +87,12 @@ html, body {
 			z-index: 1000;
 
 		}
-		
+
 		#MapSearchSection.hide {
 			transform: translateX(-110%);
 			-webkit-transform: translateX(-110%);
 		}
-		
+
 		#InfoSection {
 			-webkit-transition-duration: 6000ms;
 			transition-duration: 6000ms;
@@ -110,31 +110,31 @@ html, body {
 			overflow-y: scroll;
 			font-size: 0.8em;
 		}
-		
+
 		#InfoSection.hide {
 			opacity: 0.5;
 			transform: translateY(110%);
 			-webkit-transform: translateY(110%);
 		}
-		
+
 		.markerList{
 			width: 100%;
 			border-style:solid;
 			border-width: 2px;
-			
+
 			display: flex;
 			flex-wrap: wrap;
 			flex-direction: column;
 			z-index: 10;
 		}
-		
+
 		.markerTitles {
 			font: bold 0.8em arial, sans-serif;
 			padding: 0.3em;
 			color: blue;
 			cursor: pointer;
 		}
-		
+
 		.map {
 			width: 95%;
 			height: 88%;
@@ -143,12 +143,11 @@ html, body {
 			transition-duration: 6000ms;
 		}
 
-		
 		.cover {
 			width: 98%;
 			height: 100%;
 		}
-		
+
 		.cover {
 			-webkit-transition-duration: 6000ms;
 			transition-duration: 6000ms;
@@ -163,18 +162,18 @@ html, body {
 			opacity: 1;
 			z-index: 1000;
 		}
-		
+
 		.cover.hide {
 			opacity: 0.5;
 			transform: translateY(110%);
 			-webkit-transform: translateY(110%);
 		}
-		
+
 		.cover::before {
 
 			opacity: 0;
 		}
-		
+
 		.closer{
 			float:right;
 			margin-top:5px;
@@ -192,43 +191,41 @@ html, body {
 
 		}
 
-		
 		.closer:before {
 			content: "X";
 		}
-		
+
 		.solText {
 			color: PaleGreen;
 		}
-		
+
 		.solSectionHeader {
 			text-align: center;
 		}
-		
-		
+
 		.blockHolder {
 			//height: 20%;
 			display: flex;
 			flex-wrap: wrap;
 		}
-		
+
 		.picBlock, .weatherBlock {
 			width: 45%;
 			padding: 2%;
 		}
-		
+
 		.picBlock img {
 			width: 75%;
 		}
-		
+
 		[type=radio] {
 			display: none;   
 		}
-		
+
 		.labelPicker {
 			display: none;
 		}
-		
+
 		.blockContent {
 			background-color: PaleGreen;
 			z-index: 3;
@@ -241,7 +238,7 @@ html, body {
 			margin: 5px;
 			color: Pink;
 		}
-		
+
 		.infoCard {
 			width: 85%;
 			background-color: Pink;
@@ -255,7 +252,7 @@ html, body {
 			margin: 0 0 0 -42.5%;
 
 		}
-		
+
 
 
 
@@ -263,7 +260,7 @@ html, body {
 			header {
 				height: 15%;
 			}
-			
+
 			.title {
 				width: 88%;
 			}
@@ -272,74 +269,71 @@ html, body {
 				font-size: 0.7em;
 				order: 3;
 			}
-			
+
 			.searchIcon {
 
 				font-size: 0.9em;
 				margin: 0.2em;
 				order: 2;
 			}
-			
+
 			.infoIcon {
 
 				font-size: 0.9em;
 				margin: 0.2em;
 				order: 4;
 			}
-			
+
 			.map {
 				height: 75%;
 			}
 		}
-		
+
 		@media only screen and (max-width: 766px) {
 			header {
 				height: 30%;
 			}
-			
+
 			.map {
 				height: 68%;
 			}
 			.title {
 				width: 88%;
 			}
-			
+
 			.subtitle {
 				width: 90%;
 				font-size: 0.7em;
 				order: 3;
 			}
-			
+
 			.searchIcon {
 
 				font-size: 0.9em;
 				margin: 0.2em;
 				order: 2;
 			}
-			
+
 			.infoIcon {
 
 				font-size: 0.9em;
 				margin: 0.2em;
 				order: 4;
 			}
-			
 
-		
 			#pictureButton, #weatherButton {
 				display: inline;
 			}
-			
+
 			.picBlock, .weatherBlock {
 				width: 90%;
 			}
-			
 
-			
+
 			.blockContent {
 				display: none;
 			}
-			
+
 			.labelPicker {
 				font-size: 1em;
 				padding: 0.3em;
@@ -347,16 +341,16 @@ html, body {
 				cursor: pointer;
 				border: 1px solid black;
 			}
-			
+
 			.blockPicker:checked + label {
 				color: gray;
 				cursor: auto;
 			}
-			
+
 			.picPick:checked ~ .picBlock {
 				display: block;
 			}
-			
+
 			.weatherPick:checked ~ .weatherBlock {
 				display: block;
 			}

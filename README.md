@@ -24,6 +24,7 @@ If you were wondering - the rover is in Papua because the GPS coordinates of Pap
 #### Build - requires node/npm and grunt
 1. From inside project directory, run npm install. This should install all required grunt plugins.
 1. From inside project directory, run grunt --force. This should read the files in source/ , run a jshint task on the javascript files in the source directory, minimize them where appropriate, place the minimized files and all data files in a deploy/ directory, and create doc/ with jsdoc website.
+1. I haven't researched telling jshint and jsdoc to ignore particular error messages which is why the build instruction says to use --force switch. Specific errors I am ignoring include: != should be !==; img requires src (it has it through knockout); unnecessary trailing semicolon (sometimes needed after minimizing, never seems to be a problem).
 
 #### Run
 1. Requires a local web server - You have choices; I would recommend pointing the web server to the project directory so you have the option to point your browser to localhost/project/source as well as localhost/project/deploy as well as localhost/project/doc
@@ -34,7 +35,7 @@ If you were wondering - the rover is in Papua because the GPS coordinates of Pap
 ### Notes
 1. Relevant code files in src/ directory are: index.html, css/main.css, js/*.js
 1. I left index2, index3, index4, and tallgrass.js_ for future reference for myself; they probably don't run and should be ignored. I should have used git branching for experiments, live and learn.
-1. I haven't researched telling jshint and jsdoc to ignore particular error messages (superfluous semicolons, == instead of ===) which is why the build instruction says to use --force switch.
+
 
 
 
