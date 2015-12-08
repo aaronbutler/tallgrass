@@ -11,11 +11,12 @@ I had many ambitious goals for this project, but ended up settling for a reasona
 1. Use jsdoc style to document code.
 1. Follow what has become my programming induction theorem - if I can do something for 2 use cases, I can probably do it for n and n+1 use cases.
 
-The goals I failed to meet include:
+Future features include:
 
 1. Use high resolution images of Mars to create a custom base map.
 1. Create a custom projection to use those images.
 1. Create a useful and appealing data mashup and analysis tool for Curiosity rover data.
+
 If you were wondering - the rover is in Papua because the GPS coordinates of Papua correspond with Curiosity's location using Nasa's coordinate system on Mars.
 
 ### Installation
@@ -31,7 +32,8 @@ If you were wondering - the rover is in Papua because the GPS coordinates of Pap
 1. I effectively disabled logging; if you wish to see log entries you can call log = new Log(1) from Chrome console.
 
 ### Notes
-1. I left index2, index3, and index4 for future reference for myself; they probably don't run and should be ignored.
+1. Relevant code files in src/ directory are: index.html, css/main.css, js/*.js
+1. I left index2, index3, index4, and tallgrass.js_ for future reference for myself; they probably don't run and should be ignored. I should have used git branching for experiments, live and learn.
 1. I haven't researched telling jshint and jsdoc to ignore particular error messages (superfluous semicolons, == instead of ===) which is why the build instruction says to use --force switch.
 
 

@@ -33,6 +33,7 @@ function MarsViewModel(mapApiPromise) {
 	self.line = '';
 	self.subPoints = [];
 	self.subLine = null;
+	self.quadInfoWindow = null;
 
 	self.landmarks = ko.observableArray();
 
@@ -141,6 +142,8 @@ function MarsViewModel(mapApiPromise) {
 	};
 
 	self.clickLandmark = function(d,e) {
+		console.dir(d);
+		console.dir(e);
 		d.mapMarker.clicker();
 	};
 
@@ -178,8 +181,9 @@ function MarsViewModel(mapApiPromise) {
 		var ONAME = 'MarsViewModel';
 		var FNAME = 'anomymous mapPromise.then';
 		log.log(3,ONAME,FNAME,'directly calling then seperate from Promise.all',this);
+		self.quadInfoWindow = new google.maps.InfoWindow();
 		self.landmarks().forEach(function(landmark,i){
-			landmark.mapMarker = addLandmark(response,landmark);
+			landmark.mapMarker = addLandmark(response,landmark,self.quadInfoWindow);
 		});
 	});
 	
@@ -547,33 +551,42 @@ function initLandmarks() {
 *And animates the marker on click
 *@param {map} the map which will hold the markers/infowindows
 *@param {landmark} the landmark to be added to the map
+*@param {infoWindow} the infowindow to be opened on clicking the marker, and referenced in marker.clicker
 *@return the marker
 */
-function addLandmark(map, landmark) {
+function addLandmark(map, landmark, infoWindow) {
 	var latlng = new google.maps.LatLng(landmark.lat,landmark.lng);
 	var marker = new google.maps.Marker({
 		position: latlng,
 		title:landmark.name,
 		showme: ko.observable(true),
-		clicker: function() {
-			this.setAnimation(google.maps.Animation.DROP);
-			this.infowindow.open(this.map, this);
-		}
+		//clicker: function() {
+			//this.setAnimation(google.maps.Animation.DROP);
+			//this.infowindow.open(this.map, this);
+		//}
 	});
+	
+	marker.infoWindow = infoWindow;
+	marker.landmark = landmark;
+	marker.contentString = '<h2>'+marker.landmark.name+'</h2><p>'+marker.landmark.description+'</p><h3>From: '+marker.landmark.credits+'</h3>';
+	//var infowindow = new google.maps.InfoWindow({content: contentString});
 
-	var contentString = '<h2>'+landmark.name+'</h2><p>'+landmark.description+'</p><h3>From: '+landmark.credits+'</h3>';
-	var infowindow = new google.maps.InfoWindow({content: contentString});
-
-	marker.infowindow = infowindow;
+	//marker.infowindow = infowindow;
 	marker.map = map;
-	google.maps.event.addListener(infowindow, 'closeclick', function() {
+	google.maps.event.addListener(infoWindow, 'closeclick', function() {
 		map.setCenter(map.cent);
-		infowindow.close();
+		marker.infoWindow.close();
 	});
-
-	marker.addListener('click', function(){
+	marker.clicker = function() {
 		marker.setAnimation(google.maps.Animation.DROP);
-		infowindow.open(map,marker);
+		marker.infoWindow.setContent(marker.contentString)
+		marker.infoWindow.open(map,marker);
+	}
+	
+	marker.addListener('click', function(){
+		//marker.setAnimation(google.maps.Animation.DROP);
+		//infowindow.open(map,marker);
+		marker.clicker();
 	});
 
 	marker.setMap(map);
