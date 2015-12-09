@@ -82,7 +82,7 @@ function MarsViewModel(mapApiPromise) {
 			Promise.all([fullyAnimateCircle(self.sols.sols.slice(0,self.solNumber()),self.map), 
 			  populatePicData(self.solNumber(),self.currentPicArray), 
 			  populateWeatherData(self.solNumber(),self.currentWeatherData)]).then(function(arrayOfResults){
-				console.dir(arrayOfResults);
+				log.log(3,ONAME,FNAME,'results from promise.all',arrayOfResults);
 				if(arrayOfResults[1] === false){
 					self.solPicError("Sorry, couldn't retrieve Curiosity's pictures. Try again later");
 				}
@@ -157,7 +157,8 @@ function MarsViewModel(mapApiPromise) {
 	var locationPromise = getLocations();
 
 	self.mapPromise = self.mapApiPromise.then(function() {
-		return new Promise(function(resolve,request){resolve(buildMap());});
+		//return new Promise(function(resolve,request){resolve(buildMap());});
+		return buildMap();
 	});
 
 	self.mapSetup = Promise.all([locationPromise, self.mapPromise]).then(function(arrayOfResults){
