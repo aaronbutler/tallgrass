@@ -6,7 +6,7 @@ $(document).ready(function () {
 	viewModel = new MarsViewModel(mapApiPromise);
 	ko.applyBindings(viewModel);
 
-	//$('.markerTitles').click(function(){$('#MapSearchSection').toggleClass('hide');});
+
 });
 
 /**
@@ -81,12 +81,12 @@ function MarsViewModel(mapApiPromise) {
 	}
 	
 	self.closeSolSection = function() {
-		console.log('in closeSolSection: '+self.hideSolSection());
+
 		self.goToMap();
 	}
 	
 	self.openInfoSection = function() {
-		console.log('in openInfoSection: '+self.hideInfoSection());
+
 		self.goToInfo();
 	}
 	
@@ -122,7 +122,7 @@ function MarsViewModel(mapApiPromise) {
 				log.log(3,ONAME,FNAME,'solPromises kept');
 				self.subLine = arrayOfResults[0];
 				self.currentPicID(0);
-				//$('#SolSection').removeClass('hide');
+
 				self.hideSolSection(false);
 
 			}, function(e){
@@ -194,7 +194,7 @@ function MarsViewModel(mapApiPromise) {
 			self.points = makePointsArray(self.sols);
 			self.line = buildPath(self.map, self.points);
 			self.line.icons = null;
-			$('#map').removeClass('hide');
+			//$('#map').removeClass('hide');
 
 			resolve(true);
 		});
@@ -216,37 +216,21 @@ function MarsViewModel(mapApiPromise) {
 
 
 
-	//client-side routes
-/*
-	$('.solCloser').click(function(){
-		self.goToMap();
-	});
-
-	$('.infoCloser').click(function(){
-		self.goToMap();
-	});
-	$('.infoIcon').click(function(){
-		self.goToInfo();
-	});
-*/
 
 	Sammy(function() {
 
 		this.get('#mmap/', function() {
 
-			//$('#SolSection').addClass('hide');
-			//$('#InfoSection').addClass('hide');
 			self.hideSolSection(true);
 			self.hideInfoSection(true);
 			self.searchQuery('');
-			console.log('in sammy mmap section: info - '+self.hideInfoSection()+ ' sol - '+self.hideSolSection());
+
 		});
 
 		this.get('#info/', function() {
 
-			//$('#InfoSection').removeClass('hide');
 			self.hideInfoSection(false);
-			console.log('in sammy info section: '+self.hideInfoSection());
+
 
 		});
 
@@ -260,7 +244,7 @@ function MarsViewModel(mapApiPromise) {
 			self.searchQuery(':'+sol);
 
 			var q = cleanse(sol);
-			//$('#MapSearchSection').addClass('hide');
+
 			self.hideMapSearch(true);
 			self.searchSol(q);
 
