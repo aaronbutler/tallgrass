@@ -11,7 +11,7 @@
 	<script src="js/MarsUtils.js"></script>
 	<script src="js/util.js"></script>
 	<script>
-		var log = new Log(5);
+		var log = new Log(3);
 	</script>
 	<link href="css/main.css" rel="stylesheet">
 </head>
@@ -26,7 +26,7 @@
 
 	</header>
 
-	<section id="MapSearchSection" class="hide">
+	<section id="MapSearchSection" class="hide" data-bind = "css: {hide: hideMapSearch}">
 		<div id="searchPanel" class="searchPanel mapScreen">
 			<textarea autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" id="searchQuery" class="searchQuery" data-bind="textInput: searchQuery, event: {input: $root.search, keypress: $root.onEnter}" placeholder="Search for quadrants, or for Sols using :sol#"></textarea>
 

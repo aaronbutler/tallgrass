@@ -6,7 +6,7 @@ $(document).ready(function () {
 	viewModel = new MarsViewModel(mapApiPromise);
 	ko.applyBindings(viewModel);
 
-	$('.markerTitles').click(function(){$('#MapSearchSection').toggleClass('hide');});
+	//$('.markerTitles').click(function(){$('#MapSearchSection').toggleClass('hide');});
 });
 
 /**
@@ -64,6 +64,9 @@ function MarsViewModel(mapApiPromise) {
 	self.wikiTimeError = ko.observable();
 	self.wikiCuriosityRover = ko.observable();
 	self.wikiCuriosityError = ko.observable();
+
+	//Style and dom variables/////////////
+	self.hideMapSearch = ko.observable(true);
 
 	//Behaviors//////////////////////////////
 
@@ -143,6 +146,7 @@ function MarsViewModel(mapApiPromise) {
 
 	self.clickLandmark = function(d,e) {
 		d.mapMarker.clicker();
+		self.hideMapSearch(true);
 	};
 
 	self.prevPic = function(d,e) {
@@ -189,6 +193,11 @@ function MarsViewModel(mapApiPromise) {
 	populateMarsTimeData(self.wikiTimeMars, self.wikiTimeError);
 	populateCuriosityData(self.wikiCuriosityRover, self.wikiCuriosityError);
 
+	//dom manipulators
+	/*self.showMarkerSection = ko.pureComputed(function() {
+		return self.showMarkers() ? '' : 'hide';
+	}, self);*/
+
 	//client-side routes
 
 	$('.solCloser').click(function(){
@@ -203,7 +212,9 @@ function MarsViewModel(mapApiPromise) {
 	});
 
 	$('.searchIcon').click(function(){
-		$('#MapSearchSection').toggleClass('hide');
+		//$('#MapSearchSection').toggleClass('hide');
+		console.log('caught search icon click');
+		self.hideMapSearch(false);
 	});
 
 	Sammy(function() {
