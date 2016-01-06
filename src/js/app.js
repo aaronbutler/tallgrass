@@ -325,9 +325,12 @@ function buildMap() {
 	var FNAME = 'buildMap';
 	log.log(3,ONAME,FNAME,'entering buildMap',this);
 	return new Promise(function(resolve,reject){
-
-		var mq = window.matchMedia( "(max-width: 768px)" );
-		var z=mq.matches?11:13;
+//766 799
+		var mqSmall = window.matchMedia( "(max-width: 766px)" );
+		var mqMedium = window.matchMedia( "(min-width: 767px) and (max-width: 799px)" );
+		var z=13;
+		if(mqSmall.matches){z=12;}
+		if(mqMedium.matches){z=13;}
 		var latLng = new google.maps.LatLng(-4.63,137.395);
 		var mapOptions = { center: latLng,
 			zoom: z,
