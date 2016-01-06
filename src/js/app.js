@@ -431,7 +431,8 @@ function populatePicData(solNumber, picArray) {
 
 	return new Promise(function(resolve, reject) {
 		var picRequestTimeout = setTimeout(function(){resolve(false);},8000);
-		var picLink = 'http://msl-raws.s3.amazonaws.com/images/images_sol'+solNumber+'.json';
+		//var picLink = 'http://msl-raws.s3.amazonaws.com/images/images_sol'+solNumber+'.json';
+		var picLink = 'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?api_key=DEMO_KEY&sol='+solNumber;
 
 		$.ajax({
 
@@ -443,8 +444,9 @@ function populatePicData(solNumber, picArray) {
 			  contentType: 'text/plain',
 			  
 			  success: function(result) {
-				var pa = solPicArray(result);
-				log.log(3,'pa','solPicArray','what came back from solPicArray',pa);
+				log.log(3,'pa','solPicArrayB','what came back from '+picLink,result);
+				var pa = solPicArrayB(result);
+				log.log(3,'pa','solPicArrayB','what came back from solPicArray',pa);
 
 				if(pa.length >= 0) {
 
@@ -633,6 +635,7 @@ function showAllLandmarks(landmarks) {
 *@function
 *@name solPicArray
 *Converts the json object from the picture service  into array of objects containing a url and a cam
+*Note: this is specific to the AWS service which stopped working in December 2015
 *@param {text} the json object to  be converted
 *@return the array of {url: ,cam:} objects
 */
@@ -656,6 +659,42 @@ function solPicArray(text) {
 				}
 			}
 		}
+	}
+
+	return picObjs;
+};
+
+/**
+*@function
+*@name solPicArrayB
+*Converts the json object from the picture service  into array of objects containing a url and a cam
+*Note: this is specific to the AWS service which stopped working in December 2015
+*@param {text} the json object to  be converted
+*@return the array of {url: ,cam:} objects
+*/
+function solPicArrayB(text) {
+	var obj = text['photos'];
+
+	var picObjs = [];
+	//var instruments = ['ccam_images','fcam_images','rcam_images','ncam_images','mastcam_left_images','mastcam_right_images','mahli_images','mardi_images'];
+
+	for(var i=0,l=obj.length;i<l;i++) {
+		var cam = obj[i].camera.full_name;
+		var url  = obj[i].img_src;
+		//var instData = obj[instruments[i]];
+		var picObj = {url: url, cam: cam};
+		picObjs.push(picObj);
+		/*for(var m=0,n=instData.length;m<n;m++) {
+			var instPics = instData[m]['images'];
+			if(instPics != undefined) {
+				for (var j=0,k=instPics.length;j<k;j++) {
+					var url = instPics[j]['url'];
+					var picObj = {url: url, cam: cam};
+
+					picObjs.push(picObj);
+				}
+			}
+		}*/
 	}
 
 	return picObjs;
