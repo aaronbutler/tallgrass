@@ -22,7 +22,7 @@
 		<div class="subtitle">What happened when I set out to make an interesting Mars/Google Maps app and settled for placing the Curiosity rover in Papua and using defunct APIs in my mashup.</div>
 		<div class="searchIcon" data-bind="click: clickSearchIcon">&#128270;</div>
 
-		<div class="infoIcon">?</div>
+		<div class="infoIcon" data-bind="click: openInfoSection">?</div>
 
 	</header>
 
@@ -39,8 +39,8 @@
 
 	</section>
 	<div id="map" class="map"></div>
-	<section id="SolSection" class="cover hide">
-		<div class="closer solCloser"></div>
+	<section id="SolSection" class="cover hide" data-bind = "css: {hide: hideSolSection}">
+		<div class="closer solCloser" data-bind="click: closeSolSection"></div>
 		<h3 class="solSectionHeader solText" data-bind="text:solthText"></h3>
 
 		<div class="blockHolder">
@@ -76,8 +76,8 @@
 		</div>
 	</section>
 	
-	<section id="InfoSection" class="hide">
-		<div class="closer infoCloser"></div>
+	<section id="InfoSection" class="dribble hide" data-bind = "css: {hide: hideInfoSection}">
+		<div class="closer infoCloser" data-bind="click: closeInfoSection"></div>
 		<div class="infoHeader">Curiosity</div>
 		<div class="infoCard">
 			<h4>Here is some general information about the Curiosity rover</h4>

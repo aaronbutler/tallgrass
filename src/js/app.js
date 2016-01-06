@@ -67,6 +67,8 @@ function MarsViewModel(mapApiPromise) {
 
 	//Style and dom variables/////////////
 	self.hideMapSearch = ko.observable(true);
+	self.hideInfoSection = ko.observable(true);
+	self.hideSolSection = ko.observable(true);
 
 	//Behaviors//////////////////////////////
 
@@ -76,6 +78,20 @@ function MarsViewModel(mapApiPromise) {
 
 	self.clickSearchIcon = function() {
 		self.hideMapSearch(false);
+	}
+	
+	self.closeSolSection = function() {
+		console.log('in closeSolSection: '+self.hideSolSection());
+		self.goToMap();
+	}
+	
+	self.openInfoSection = function() {
+		console.log('in openInfoSection: '+self.hideInfoSection());
+		self.goToInfo();
+	}
+	
+	self.closeInfoSection = function() {
+		self.goToMap();
 	}
 
 	self.searchSol = function(solnum) {
@@ -106,7 +122,8 @@ function MarsViewModel(mapApiPromise) {
 				log.log(3,ONAME,FNAME,'solPromises kept');
 				self.subLine = arrayOfResults[0];
 				self.currentPicID(0);
-				$('#SolSection').removeClass('hide');
+				//$('#SolSection').removeClass('hide');
+				self.hideSolSection(false);
 
 			}, function(e){
 				log.log(3,ONAME,FNAME,'Something went wrong...',e);
@@ -200,7 +217,7 @@ function MarsViewModel(mapApiPromise) {
 
 
 	//client-side routes
-
+/*
 	$('.solCloser').click(function(){
 		self.goToMap();
 	});
@@ -211,26 +228,25 @@ function MarsViewModel(mapApiPromise) {
 	$('.infoIcon').click(function(){
 		self.goToInfo();
 	});
-
-	/*$('.searchIcon').click(function(){
-		//$('#MapSearchSection').toggleClass('hide');
-		console.log('caught search icon click');
-		self.hideMapSearch(false);
-	});*/
+*/
 
 	Sammy(function() {
 
 		this.get('#mmap/', function() {
 
-			$('#SolSection').addClass('hide');
-			$('#InfoSection').addClass('hide');
+			//$('#SolSection').addClass('hide');
+			//$('#InfoSection').addClass('hide');
+			self.hideSolSection(true);
+			self.hideInfoSection(true);
 			self.searchQuery('');
-
+			console.log('in sammy mmap section: info - '+self.hideInfoSection()+ ' sol - '+self.hideSolSection());
 		});
 
 		this.get('#info/', function() {
 
-			$('#InfoSection').removeClass('hide');
+			//$('#InfoSection').removeClass('hide');
+			self.hideInfoSection(false);
+			console.log('in sammy info section: '+self.hideInfoSection());
 
 		});
 
@@ -244,7 +260,8 @@ function MarsViewModel(mapApiPromise) {
 			self.searchQuery(':'+sol);
 
 			var q = cleanse(sol);
-			$('#MapSearchSection').addClass('hide');
+			//$('#MapSearchSection').addClass('hide');
+			self.hideMapSearch(true);
 			self.searchSol(q);
 
 		});

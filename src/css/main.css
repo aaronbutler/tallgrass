@@ -148,7 +148,8 @@ html, body {
 			height: 100%;
 		}
 
-		.cover {
+		/*.cover {*/
+		#SolSection {
 			-webkit-transition-duration: 6000ms;
 			transition-duration: 6000ms;
 			position: absolute;
@@ -163,7 +164,8 @@ html, body {
 			z-index: 1000;
 		}
 
-		.cover.hide {
+		/*.cover.hide {*/
+		#SolSection.hide {
 			opacity: 0.5;
 			transform: translateY(110%);
 			-webkit-transform: translateY(110%);
