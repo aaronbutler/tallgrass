@@ -74,6 +74,10 @@ function MarsViewModel(mapApiPromise) {
 	self.goToInfo = function() { location.hash = 'info/';};
 	self.goToSol = function(sol) { location.hash = 'sol/' + sol; };
 
+	self.clickSearchIcon = function() {
+		self.hideMapSearch(false);
+	}
+
 	self.searchSol = function(solnum) {
 		var ONAME = 'MarsViewModel';
 		var FNAME = 'searchSol';
@@ -193,10 +197,7 @@ function MarsViewModel(mapApiPromise) {
 	populateMarsTimeData(self.wikiTimeMars, self.wikiTimeError);
 	populateCuriosityData(self.wikiCuriosityRover, self.wikiCuriosityError);
 
-	//dom manipulators
-	/*self.showMarkerSection = ko.pureComputed(function() {
-		return self.showMarkers() ? '' : 'hide';
-	}, self);*/
+
 
 	//client-side routes
 
@@ -211,11 +212,11 @@ function MarsViewModel(mapApiPromise) {
 		self.goToInfo();
 	});
 
-	$('.searchIcon').click(function(){
+	/*$('.searchIcon').click(function(){
 		//$('#MapSearchSection').toggleClass('hide');
 		console.log('caught search icon click');
 		self.hideMapSearch(false);
-	});
+	});*/
 
 	Sammy(function() {
 
