@@ -267,7 +267,7 @@ function getMapApi() {
 	var FNAME = 'getMapApi';
 	log.log(3,ONAME,FNAME,'loading google maps api',this);
 	return new Promise(function(resolve,reject) {
-		var apiLink = 'http://maps.googleapis.com/maps/api/js';
+		var apiLink = 'http://maps.googleapis.com/maps/api/js?key=AIzaSyBbzXPOYhQak4R_fB2j8fEMoxQnNgexR-w';
 		var apiRequestTimeout = setTimeout(function(){resolve(false);},8000);
 		$.getScript(apiLink)
 			.done(function(script,textStatus){
@@ -607,6 +607,9 @@ function initLandmarks() {
 *@return the marker
 */
 function addLandmark(map, landmark, infoWindow) {
+	var ONAME = 'global';
+	var FNAME = 'addLandmarks';
+	log.log(1,ONAME,FNAME,'Entering addLandmarks: '+landmark.name);
 	var latlng = new google.maps.LatLng(landmark.lat,landmark.lng);
 	var marker = new google.maps.Marker({
 		position: latlng,
